@@ -1,0 +1,57 @@
+[user]
+	name = Janick Martinez Esturo
+	email = martinez@isg.cs.uni-magdeburg.de
+	signingkey = A85C4836
+[color]
+	ui = auto
+	diff = auto
+	branch = auto
+[giggle]
+	main-window-maximized = true
+	main-window-geometry = 1250x809+1513+124
+	main-window-view = HistoryView
+	history-view-vpane-position = 350
+	file-view-vpane-position = 297
+#[color "branch"]
+#	current = yellow reverse
+#	local = yellow
+#	remote = green
+[color "diff"]
+	meta = yellow bold
+	frag = magenta bold
+	old = red bold
+	new = green bold
+[color "status"]
+	added = yellow
+	changed = green
+	untracked = cyan
+[core]
+	excludesfile = /home/martinez/.gitignore
+[github]
+	user = ph03
+	token = ade4511a4c3c7d046d6f13ff704ab27f
+[alias]
+	co = checkout
+	br = branch
+	ci = commit
+	st = status
+	unstage = reset HEAD --
+	last = log -1 HEAD
+	df = diff
+	dc = diff --cached
+	lg = log -p
+	#  lol = log --graph --decorate --pretty=oneline --abbrev-commit
+	#  lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
+	lol = log --graph --pretty=format:'%C(yellow)%h%Creset %C(bold red)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+	lola = log --graph --pretty=format:'%C(yellow)%h%Creset %C(bold red)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --all
+	ls = ls-files
+
+	# Show files ignored by git:
+	ign = ls-files -o -i --exclude-standard
+[imap]
+	folder = "mail/Drafts"
+	tunnel = "ssh -q martinez@luxator.cs.uni-magdeburg.de /usr/sbin/imapd 2>/dev/null"
+[branch]
+	autosetuprebase = always
+[push]
+	default = upstream
