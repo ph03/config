@@ -18,6 +18,7 @@ fi
 
 if [ -f /etc/profile.d/bash-completion.sh ]; then
   source /etc/profile.d/bash-completion.sh
+  complete -o default -o nospace -F _git config
 fi
 
 export LC_TIME="de_DE.utf8"
@@ -56,7 +57,7 @@ export GIT_SSL_NO_VERIFY=1
 
 #export CGAL_MAKEFILE="/usr/local/share/cgal/cgal.mk"
 
-export PATH=":/home/martinez/bin:/home/martinez/.local/bin:/usr/lib64/ccache/bin:/usr/lib/colorgcc/bin:$PATH"
+export PATH=":$HOME/bin:$HOME/.local/bin:/usr/lib64/ccache/bin:/usr/lib/colorgcc/bin:$PATH"
 
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/lib"
 
@@ -68,35 +69,35 @@ export MAPLE="/opt/maple"
    . /usr/libexec/mc/mc.sh
 #fi
 
-export PROJROOT="/home/martinez/ProjMPI"
-export PROJVC="/home/martinez/ProjVC"
+export PROJROOT="$HOME/ProjMPI"
+export PROJVC="$HOME/ProjVC"
 
 export RI="--format ansi --width 70"
 
-#export PYTHONSTARTUP="/home/martinez/.pythonrc"
+#export PYTHONSTARTUP="$HOME/.pythonrc"
 #export PYTHONPATH="/usr/local/lib64/python2.5/site-packages"
 
 #MCGL
-export PATH="/home/martinez/ProjMPI/MCGL/impexp:$PATH"
-#export MATLABPATH="/home/martinez/ProjMPI/MCGL:$MATLABPATH"
-#export MATLABPATH="/home/martinez/ProjMPI/Matlab/base"
-#export MATLABPATH="/home/martinez/ProjMPI/SG08:$MATLABPATH"
+export PATH="$HOME/ProjMPI/MCGL/impexp:$PATH"
+#export MATLABPATH="$HOME/ProjMPI/MCGL:$MATLABPATH"
+#export MATLABPATH="$HOME/ProjMPI/Matlab/base"
+#export MATLABPATH="$HOME/ProjMPI/SG08:$MATLABPATH"
 
-#export MATLABPATH="/home/martinez/ProjVC/vc-mp09-public/matlab:$MATLABPATH"
+#export MATLABPATH="$HOME/ProjVC/vc-mp09-public/matlab:$MATLABPATH"
 
 #Matlab
-export MATLABPATH="/home/martinez/.local/pkg/plot2svg:$MATLABPATH"
-export MATLABPATH="/home/martinez/ProjVC/scratch/matlab/utils:$MATLABPATH"
+export MATLABPATH="$HOME/.local/pkg/plot2svg:$MATLABPATH"
+export MATLABPATH="$HOME/ProjVC/scratch/matlab/utils:$MATLABPATH"
 
 
 #Jacket
-#export MATLABPATH="/home/martinez/local/pkg/jacket/engine:$MATLABPATH"
-#export LD_LIBRARY_PATH="/home/martinez/local/pkg/jacket/engine/lib64:$LD_LIBRARY_PATH"
+#export MATLABPATH="$HOME/local/pkg/jacket/engine:$MATLABPATH"
+#export LD_LIBRARY_PATH="$HOME/local/pkg/jacket/engine/lib64:$LD_LIBRARY_PATH"
 
-#export VTK_DATA_ROOT="/home/martinez/local/pkg/VTKData"
+#export VTK_DATA_ROOT="$HOME/local/pkg/VTKData"
 
 #CULA
-#export CULA_ROOT="/home/martinez/local/pkg/cula"
+#export CULA_ROOT="$HOME/local/pkg/cula"
 #export CULA_INC_PATH="$CULA_ROOT/include"
 #export CULA_BIN_PATH_32="$CULA_ROOT/bin"
 #export CULA_BIN_PATH_64="$CULA_ROOT/bin64"
@@ -115,21 +116,21 @@ export VTKLIBS="-L/usr/lib64 -lvtkCommon -lvtkDICOMParser -lvtkFiltering -lvtkGe
 export VTKCFLAGS="-I/usr/include/vtk-5.4"
 
 #Static CUDPPD
-#export CUDPPDLIB="/home/martinez/workspace/cuda/cudpp/lib/libcudpp64.a"
-#export CUDPPDLIBEMU="/home/martinez/workspace/cuda/cudpp/lib/libcudpp64_emu.a"
+#export CUDPPDLIB="$HOME/workspace/cuda/cudpp/lib/libcudpp64.a"
+#export CUDPPDLIBEMU="$HOME/workspace/cuda/cudpp/lib/libcudpp64_emu.a"
 
 #meshlab
-export PATH="/home/martinez/.local/pkg/meshlab_svn/meshlab/src/distrib:$PATH"
+export PATH="$HOME/.local/pkg/meshlab_svn/meshlab/src/distrib:$PATH"
 
 #VL
 export VL_VERBOSITY_LEVEL="NORMAL"
 export VL_ROOT="/opt/VL/VC"
 
 #tetgen
-export PATH="/home/martinez/local/pkg/tetgen1.4.3:$PATH"
+export PATH="$HOME/local/pkg/tetgen1.4.3:$PATH"
 
 #poclbm
-export PATH="/home/martinez/local/pkg/poclbm:$PATH"
+export PATH="$HOME/local/pkg/poclbm:$PATH"
 
 #if [[ -f "${HOME}/.gentoo/java-env-classpath" ]]; then
 #  source ${HOME}/.gentoo/java-env-classpath
@@ -141,8 +142,7 @@ export MKL_THREADING_LAYER=GNU
 set -o vi
 
 #gibo (github gitignore boilerplate)
-export PATH="/home/martinez/.local/pkg/gitignore-boilerplates:$PATH"
-source /home/martinez/.local/pkg/gitignore-boilerplates/gibo-completion.bash
+export PATH="$HOME/.local/pkg/gitignore-boilerplates:$PATH"
+source $HOME/.local/pkg/gitignore-boilerplates/gibo-completion.bash
 
-#export PATH="/home/martinez/.local/pkg/SublimeText2:$PATH"
-alias config='git --git-dir=/home/martinez/.config.git/ --work-tree=/home/martinez'
+alias config='git --git-dir=$HOME/.config.git/ --work-tree=$HOME'
