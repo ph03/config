@@ -40,8 +40,6 @@
 	df = diff
 	dc = diff --cached
 	lg = log -p
-	#  lol = log --graph --decorate --pretty=oneline --abbrev-commit
-	#  lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
 	lol = log --graph --pretty=format:'%C(yellow)%h%Creset %C(bold red)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
 	lola = log --graph --pretty=format:'%C(yellow)%h%Creset %C(bold red)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --all
 	ls = ls-files
@@ -50,7 +48,7 @@
 	ign = ls-files -o -i --exclude-standard
 [imap]
 	folder = "mail/Drafts"
-	tunnel = "ssh -q martinez@luxator.cs.uni-magdeburg.de /usr/sbin/imapd 2>/dev/null"
+	tunnel = "ssh -q martinez@radeberger.cs.uni-magdeburg.de /usr/sbin/imapd 2>/dev/null"
 [branch]
 	autosetuprebase = always
 [push]
