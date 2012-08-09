@@ -146,3 +146,6 @@ export PATH="$HOME/.local/pkg/gitignore-boilerplates:$PATH"
 source $HOME/.local/pkg/gitignore-boilerplates/gibo-completion.bash
 
 alias config='git --git-dir=$HOME/.config.git/ --work-tree=$HOME'
+
+#status string for ninja build tool
+export NINJA_STATUS="[%r/%u/%f/%t] "
