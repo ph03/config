@@ -53,3 +53,5 @@
 	autosetuprebase = always
 [push]
 	default = upstream
+[mergetool]
+	keepBackup = false
