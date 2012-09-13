@@ -149,3 +149,17 @@ alias config='git --git-dir=$HOME/.config.git/ --work-tree=$HOME'
 
 #status string for ninja build tool
 export NINJA_STATUS="[%r/%u/%f/%t] "
+
+#powerline-bash
+export POWERLINE="$HOME/.local/pkg/powerline-bash/powerline-bash.py"
+function _update_ps1()
+{
+  if [ $COLORTERM ]; then
+    if [ -f ${POWERLINE} ]; then
+      export PS1="$(${POWERLINE} $?)"
+    fi
+  fi
+}
+
+#export PROMPT_COMMAND="_update_ps1"
+#export TERM="xterm-256color"
