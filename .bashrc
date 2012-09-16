@@ -29,8 +29,8 @@ scm_ps1() {
   local s
   s=$(svn info 2>/dev/null)
   if [ $? -eq 0 ]; then
-    s=\(svn:$(echo -n "${s}" | sed -n -e '/^Revision: \([0-9]*\).*$/s//\1/p' )\)
-    s="${s} "
+    s=svn:$(echo -n "${s}" | sed -n -e '/^Revision: \([0-9]*\).*$/s//\1/p' )
+    s="(${s}) "
   else
     s=$(__git_ps1 "(git:%s) ")
   fi
@@ -46,10 +46,17 @@ scm_ps1() {
 #export PS1='\[\033[01;32m\]\u@\h\[\033[01;34m\] \w $(__git_ps1 " (%s)")\$ \[\033[00m\]'
 # = martinez@phoenix ~/ProjVC/isomdef  (master=)$
 
-export PS1='\[\033[01;32m\]\u@\h\[\033[01;34m\] \w $(scm_ps1)\$ \[\033[00m\]'
+#export PS1='\[\033[01;32m\]\u@\h\[\033[01;34m\] \w $(scm_ps1)\$ \[\033[00m\]'
+# = ph03@janick ~/ProjVC/isomdef (git:master=) $
+
+export PS1='\[\e[32;1m\](\[\e[01;32m\]\u@\h\[\e[32;1m\])-(\[\e[37;1m\]jobs:\j\[\e[32;1m\])-(\[\e[37;1m\]!\!\[\e[32;1m\])-(\[\e[01;34m\]\w\[\e[32;1m\])\n\[\e[01;34m\]$(scm_ps1) \$ \[\e[0m\]'
+# =
+# (ph03@janick)-(jobs:0)-(~/ProjVC/athene)
+# (! 553) (git:master=) $
 
 export GIT_PS1_SHOWDIRTYSTATE=1
 export GIT_PS1_SHOWSTASHSTATE=1
+export GIT_PS1_SHOWUNTRACKEDFILES=1
 export GIT_PS1_SHOWUPSTREAM="auto"
 
 export GIT_SSL_NO_VERIFY=1
