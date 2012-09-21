@@ -46,12 +46,12 @@ scm_ps1() {
 #export PS1='\[\033[01;32m\]\u@\h\[\033[01;34m\] \w $(__git_ps1 " (%s)")\$ \[\033[00m\]'
 # = martinez@phoenix ~/ProjVC/isomdef  (master=)$
 
-#export PS1='\[\033[01;32m\]\u@\h\[\033[01;34m\] \w $(scm_ps1)\$ \[\033[00m\]'
+export PS1='\[\033[01;32m\]\u@\h\[\033[01;34m\] \w $(scm_ps1)\$ \[\033[00m\]'
 # = ph03@janick ~/ProjVC/isomdef (git:master=) $
 
 #export PS1='\[\e[32;1m\](\[\e[01;32m\]\u@\h\[\e[32;1m\])-(\[\e[37;1m\]!\!\[\e[32;1m\])-(\[\e[37;1m\]jobs:\j\[\e[32;1m\])-(\[\e[01;34m\]\w\[\e[32;1m\])\n\[\e[01;34m\]$(scm_ps1) \$ \[\e[0m\]'
 #export PS1="\n\[\e[32;1m\](\[\e[01;32m\]\u@\h\[\e[32;1m\])-(\[\e[37;1m\]!\!\[\e[32;1m\])-(\[\e[37;1m\]jobs:\j\[\e[32;1m\])-(\[\e[37;1m\]\$(/bin/ls -1 | /usr/bin/wc -l | /bin/sed 's: ::g') files, \$(/bin/ls -lah | /bin/grep -m 1 total | /bin/sed 's/total //')b\[\e[32;1m\])\n(\[\e[01;34m\]\w\[\e[32;1m\])\[\e[01;34m\] \$(scm_ps1)\$ \[\e[0m\]"
-export PS1="\n\[\e[32;1m\](\[\e[01;32m\]\u@\h\[\e[32;1m\])-(\[\e[37;1m\]!\!\[\e[32;1m\])-(\[\e[37;1m\]jobs:\j\[\e[32;1m\])-(\[\e[37;1m\]\$(/bin/ls -1 | /usr/bin/wc -l | /bin/sed 's: ::g') files, \$(/bin/ls -lah | /bin/grep -m 1 total | /bin/sed 's/total //')b\[\e[32;1m\])\n\[\e[01;34m\]\w \$(scm_ps1)\$ \[\e[0m\]"
+#export PS1="\n\[\e[32;1m\](\[\e[01;32m\]\u@\h\[\e[32;1m\])-(\[\e[37;1m\]!\!\[\e[32;1m\])-(\[\e[37;1m\]jobs:\j\[\e[32;1m\])-(\[\e[37;1m\]\$(/bin/ls -1 | /usr/bin/wc -l | /bin/sed 's: ::g') files, \$(/bin/ls -lah | /bin/grep -m 1 total | /bin/sed 's/total //')b\[\e[32;1m\])\n\[\e[01;34m\]\w \$(scm_ps1)\$ \[\e[0m\]"
 # =
 # (ph03@janick)-(jobs:0)-(~/ProjVC/athene)
 # (! 553) (git:master=) $
