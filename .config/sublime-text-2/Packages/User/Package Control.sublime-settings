@@ -1,0 +1,21 @@
+{
+	"auto_upgrade_last_run": 1348570057,
+	"installed_packages":
+	[
+		"Alignment",
+		"Caret History",
+		"CMake",
+		"FileDiffs",
+		"Git",
+		"LaTeXTools",
+		"LineEndings",
+		"Package Control",
+		"ShaderLanguages",
+		"SideBarEnhancements",
+		"SideBarGit",
+		"Terminal",
+		"Theme - Soda",
+		"VintageEx",
+		"Wrap Plus"
+	]
+}

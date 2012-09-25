@@ -1,0 +1,7 @@
+[
+	// Switch files with buttons 4 and 5
+  { "button": "button8", "modifiers": ["ctrl"], "command": "prev_view" },
+  { "button": "button9", "modifiers": ["ctrl"], "command": "next_view" },
+	{ "button": "button8", "modifiers": [], "command": "caret_history", "args": { "action": "previous" } },
+	{ "button": "button9", "modifiers": [], "command": "caret_history", "args": { "action": "next" } }
+]

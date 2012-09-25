@@ -1,0 +1,44 @@
+{
+	"color_scheme": "Packages/Color Scheme - Default/Monokai.tmTheme",
+	"draw_white_space": "selection",
+	"font_face": "DejaVu Sans Mono",
+	"font_size": 11,
+	"ignored_packages":
+	[
+	],
+	"ignored_words":
+	[
+		"8cm}}{\\vspace*{0mm",
+		"Frobenius",
+		"Voronoi",
+		"advection",
+		"conformality",
+		"discretize",
+		"explorative",
+		"fig/algo",
+		"ifthenelse{\\boolean{figurespace}}{\\vspace",
+		"parallelizable",
+		"parametrizations",
+		"pdf",
+		"pointwise",
+		"refactored",
+		"remeshing",
+		"simplical",
+		"simplices",
+		"undersampled",
+		"vertices",
+		"width=1"
+	],
+	"indent_to_bracket": true,
+	"rulers":
+	[
+		80
+	],
+	"tab_size": 2,
+	"theme": "Soda Dark.sublime-theme",
+	"translate_tabs_to_spaces": true,
+	"trim_automatic_white_space": true,
+	"highlight_line": true,
+	"match_brackets_angle": true,
+	"show_panel_on_build": false
+}

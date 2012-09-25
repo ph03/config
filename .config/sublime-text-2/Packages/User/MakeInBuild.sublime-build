@@ -1,0 +1,4 @@
+{
+  "cmd": ["make"],
+  "working_dir": "${file_path}/build"
+}

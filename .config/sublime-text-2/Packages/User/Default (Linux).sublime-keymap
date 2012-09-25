@@ -1,0 +1,18 @@
+[
+  { "keys": ["alt+q"], "command": "wrap_lines_plus" },
+  { "keys": ["alt+left"], "command": "caret_history", "args": { "action": "previous" } },
+  { "keys": ["alt+right"], "command": "caret_history", "args": { "action": "next" } },
+  { "keys": ["ctrl+d"], "command": "file_diff_menu" },
+
+  { "keys": ["ctrl+space"], "command": "auto_complete" },
+  { "keys": ["ctrl+space"], "command": "replace_completion_with_auto_complete", "context":
+    [
+      { "key": "last_command", "operator": "equal", "operand": "insert_best_completion" },
+      { "key": "auto_complete_visible", "operator": "equal", "operand": false },
+      { "key": "setting.tab_completion", "operator": "equal", "operand": true }
+    ]
+  }
+  // { "keys": ["ctrl+alt+enter"], "command": "replace_all", "args": {"close_panel": true},
+  //            "context": [{"key": "panel", "operand": "replace"}, {"key": "panel_has_focus"}]
+  // }
+]
