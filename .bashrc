@@ -148,7 +148,7 @@ export PATH="$HOME/local/pkg/poclbm:$PATH"
 export MKL_THREADING_LAYER=GNU
 
 #enable vi mode
-set -o vi
+#set -o vi
 
 #gibo (github gitignore boilerplate)
 export PATH="$HOME/.local/pkg/gitignore-boilerplates:$PATH"
