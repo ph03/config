@@ -13,7 +13,7 @@
 		"python2": "",
 		// The name of the ST2 executable. On Ubuntu, both subl and sublime-text are available;
 		// adjust as needed for other platforms
-		"sublime": "subl",
+		"sublime": "sublime-text",
 		// How long to wait after evince has launched before sending a sync message
 		// in seconds, floating point; choose 2.0 or 3.0 on a slower machine, 0.5 on a fast one
 		// Note: only tweak this if sync after launching the PDF viewer does not seem to work,

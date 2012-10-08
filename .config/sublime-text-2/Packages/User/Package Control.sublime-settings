@@ -1,10 +1,11 @@
 {
-	"auto_upgrade_last_run": 1348570057,
+	"auto_upgrade_last_run": 1349695055,
 	"installed_packages":
 	[
 		"Alignment",
 		"Caret History",
 		"CMake",
+		"Dotfiles Syntax Highlighting",
 		"FileDiffs",
 		"Git",
 		"LaTeXTools",
