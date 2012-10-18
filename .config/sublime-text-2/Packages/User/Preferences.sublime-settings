@@ -18,6 +18,7 @@
 		"explorative",
 		"fig/algo",
 		"ifthenelse{\\boolean{figurespace}}{\\vspace",
+		"isometry",
 		"parallelizable",
 		"parametrizations",
 		"pdf",
@@ -26,6 +27,7 @@
 		"remeshing",
 		"simplical",
 		"simplices",
+		"tetrahedra",
 		"undersampled",
 		"vertices",
 		"width=1"
