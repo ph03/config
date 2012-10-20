@@ -3,6 +3,10 @@
 CMakeLists.txt.user
 CMake/
 CMakeRel/
+CMakeRelease/
+CMakeDbg/
+CMakeDebug/
+CMakeRelWithDebInfo/
 qt-creator-build/
 *_creator.*
 ### /home/martinez/.gitignore-boilerplates/Global/Eclipse.gitignore
