@@ -99,7 +99,9 @@ export PATH="$HOME/ProjMPI/MCGL/impexp:$PATH"
 #Matlab
 export MATLABPATH="$HOME/.local/pkg/plot2svg:$MATLABPATH"
 export MATLABPATH="$HOME/ProjVC/jmlibs/util/matlab:$MATLABPATH"
+export MATLABPATH="$HOME/ProjVC/jmlibs/util/matlab/loadmesh:$MATLABPATH"
 export MATLABPATH="$HOME/.local/pkg/mosek/6/toolbox/r2009b:$MATLABPATH"
+export LD_LIBRARY_PATH="LD_LIBRARY_PATH:$HOME/.local/pkg/mosek/6/tools/platform/linux64x86/bin"
 
 #Jacket
 #export MATLABPATH="$HOME/local/pkg/jacket/engine:$MATLABPATH"

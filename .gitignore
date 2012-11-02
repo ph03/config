@@ -1,6 +1,7 @@
 *.*~
 *.*bak
 CMakeLists.txt.user
+CMakeLists.txt.user.*
 CMake/
 CMakeRel/
 CMakeRelease/
