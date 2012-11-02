@@ -19,50 +19,52 @@ fi
 if [ -f /etc/profile.d/bash-completion.sh ]; then
   source /etc/profile.d/bash-completion.sh
   complete -o default -o nospace -F _git config
+
+  ##SVN+GIT
+
+  scm_ps1() {
+    local s
+    s=$(svn info 2>/dev/null)
+    if [ $? -eq 0 ]; then
+      s=svn:$(echo -n "${s}" | sed -n -e '/^Revision: \([0-9]*\).*$/s//\1/p' )
+      s="(${s}) "
+    else
+      s=$(__git_ps1 "(git:%s) ")
+    fi
+    echo -n "$s"
+  }
+
+  #export PS1="\[\033[01;32m\]\u@\h\[\033[01;34m\] \w \$\[\033[00m\]"
+  # = martinez@phoenix ~/ProjVC/vclibs $
+
+  #export PS1='[\u@\h \W$(__git_ps1 " (%s)")]\$ '
+  # = [martinez@phoenix vclibs (master=)]$
+
+  #export PS1='\[\033[01;32m\]\u@\h\[\033[01;34m\] \w $(__git_ps1 " (%s)")\$ \[\033[00m\]'
+  # = martinez@phoenix ~/ProjVC/isomdef  (master=)$
+
+  export PS1='\[\033[01;32m\]\u@\h\[\033[01;34m\] \w $(scm_ps1)\$ \[\033[00m\]'
+  # = ph03@janick ~/ProjVC/isomdef (git:master=) $
+
+  #export PS1='\[\e[32;1m\](\[\e[01;32m\]\u@\h\[\e[32;1m\])-(\[\e[37;1m\]!\!\[\e[32;1m\])-(\[\e[37;1m\]jobs:\j\[\e[32;1m\])-(\[\e[01;34m\]\w\[\e[32;1m\])\n\[\e[01;34m\]$(scm_ps1) \$ \[\e[0m\]'
+  #export PS1="\n\[\e[32;1m\](\[\e[01;32m\]\u@\h\[\e[32;1m\])-(\[\e[37;1m\]!\!\[\e[32;1m\])-(\[\e[37;1m\]jobs:\j\[\e[32;1m\])-(\[\e[37;1m\]\$(/bin/ls -1 | /usr/bin/wc -l | /bin/sed 's: ::g') files, \$(/bin/ls -lah | /bin/grep -m 1 total | /bin/sed 's/total //')b\[\e[32;1m\])\n(\[\e[01;34m\]\w\[\e[32;1m\])\[\e[01;34m\] \$(scm_ps1)\$ \[\e[0m\]"
+  #export PS1="\n\[\e[32;1m\](\[\e[01;32m\]\u@\h\[\e[32;1m\])-(\[\e[37;1m\]!\!\[\e[32;1m\])-(\[\e[37;1m\]jobs:\j\[\e[32;1m\])-(\[\e[37;1m\]\$(/bin/ls -1 | /usr/bin/wc -l | /bin/sed 's: ::g') files, \$(/bin/ls -lah | /bin/grep -m 1 total | /bin/sed 's/total //')b\[\e[32;1m\])\n\[\e[01;34m\]\w \$(scm_ps1)\$ \[\e[0m\]"
+  # =
+  # (ph03@janick)-(jobs:0)-(~/ProjVC/athene)
+  # (! 553) (git:master=) $
+
+  export GIT_PS1_SHOWDIRTYSTATE=1
+  export GIT_PS1_SHOWSTASHSTATE=1
+  export GIT_PS1_SHOWUNTRACKEDFILES=1
+  export GIT_PS1_SHOWUPSTREAM="git verbose"
+
+  export GIT_SSL_NO_VERIFY=1
+  ##
+else
+  export PS1="\[\033[01;32m\]\u@\h\[\033[01;34m\] \w \$\[\033[00m\] "
 fi
 
 export LC_TIME="de_DE.utf8"
-
-##SVN+GIT
-
-scm_ps1() {
-  local s
-  s=$(svn info 2>/dev/null)
-  if [ $? -eq 0 ]; then
-    s=svn:$(echo -n "${s}" | sed -n -e '/^Revision: \([0-9]*\).*$/s//\1/p' )
-    s="(${s}) "
-  else
-    s=$(__git_ps1 "(git:%s) ")
-  fi
-  echo -n "$s"
-}
-
-#export PS1="\[\033[01;32m\]\u@\h\[\033[01;34m\] \w \$\[\033[00m\]"
-# = martinez@phoenix ~/ProjVC/vclibs $
-
-#export PS1='[\u@\h \W$(__git_ps1 " (%s)")]\$ '
-# = [martinez@phoenix vclibs (master=)]$
-
-#export PS1='\[\033[01;32m\]\u@\h\[\033[01;34m\] \w $(__git_ps1 " (%s)")\$ \[\033[00m\]'
-# = martinez@phoenix ~/ProjVC/isomdef  (master=)$
-
-export PS1='\[\033[01;32m\]\u@\h\[\033[01;34m\] \w $(scm_ps1)\$ \[\033[00m\]'
-# = ph03@janick ~/ProjVC/isomdef (git:master=) $
-
-#export PS1='\[\e[32;1m\](\[\e[01;32m\]\u@\h\[\e[32;1m\])-(\[\e[37;1m\]!\!\[\e[32;1m\])-(\[\e[37;1m\]jobs:\j\[\e[32;1m\])-(\[\e[01;34m\]\w\[\e[32;1m\])\n\[\e[01;34m\]$(scm_ps1) \$ \[\e[0m\]'
-#export PS1="\n\[\e[32;1m\](\[\e[01;32m\]\u@\h\[\e[32;1m\])-(\[\e[37;1m\]!\!\[\e[32;1m\])-(\[\e[37;1m\]jobs:\j\[\e[32;1m\])-(\[\e[37;1m\]\$(/bin/ls -1 | /usr/bin/wc -l | /bin/sed 's: ::g') files, \$(/bin/ls -lah | /bin/grep -m 1 total | /bin/sed 's/total //')b\[\e[32;1m\])\n(\[\e[01;34m\]\w\[\e[32;1m\])\[\e[01;34m\] \$(scm_ps1)\$ \[\e[0m\]"
-#export PS1="\n\[\e[32;1m\](\[\e[01;32m\]\u@\h\[\e[32;1m\])-(\[\e[37;1m\]!\!\[\e[32;1m\])-(\[\e[37;1m\]jobs:\j\[\e[32;1m\])-(\[\e[37;1m\]\$(/bin/ls -1 | /usr/bin/wc -l | /bin/sed 's: ::g') files, \$(/bin/ls -lah | /bin/grep -m 1 total | /bin/sed 's/total //')b\[\e[32;1m\])\n\[\e[01;34m\]\w \$(scm_ps1)\$ \[\e[0m\]"
-# =
-# (ph03@janick)-(jobs:0)-(~/ProjVC/athene)
-# (! 553) (git:master=) $
-
-export GIT_PS1_SHOWDIRTYSTATE=1
-export GIT_PS1_SHOWSTASHSTATE=1
-export GIT_PS1_SHOWUNTRACKEDFILES=1
-export GIT_PS1_SHOWUPSTREAM="git verbose"
-
-export GIT_SSL_NO_VERIFY=1
-##
 
 #export CGAL_MAKEFILE="/usr/local/share/cgal/cgal.mk"
 
@@ -74,9 +76,9 @@ export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/lib"
 
 export MAPLE="/opt/maple"
 
-#if [ -f /usr/share/mc/mc.sh ]; then
+if [ -f /usr/libexec/mc/mc.sh ]; then
    . /usr/libexec/mc/mc.sh
-#fi
+fi
 
 export PROJROOT="$HOME/ProjMPI"
 export PROJVC="$HOME/ProjVC"
@@ -152,7 +154,10 @@ export MKL_THREADING_LAYER=GNU
 
 #gibo (github gitignore boilerplate)
 export PATH="$HOME/.local/pkg/gitignore-boilerplates:$PATH"
-source $HOME/.local/pkg/gitignore-boilerplates/gibo-completion.bash
+
+if [ -f $HOME/.local/pkg/gitignore-boilerplates/gibo-completion.bash ]; then
+  source $HOME/.local/pkg/gitignore-boilerplates/gibo-completion.bash
+fi
 
 alias config='git --git-dir=$HOME/.config.git/ --work-tree=$HOME'
 
