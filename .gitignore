@@ -9,6 +9,7 @@ CMakeDbg/
 CMakeDebug/
 CMakeRelWithDebInfo/
 qt-creator-build/
+qtcreator-build/
 *_creator.*
 ### /home/martinez/.gitignore-boilerplates/Global/Eclipse.gitignore
 
