@@ -1,8 +1,8 @@
 [
-  { "keys": ["alt+q"], "command": "wrap_lines_plus" },
-  { "keys": ["alt+left"], "command": "caret_history", "args": { "action": "previous" } },
-  { "keys": ["alt+right"], "command": "caret_history", "args": { "action": "next" } },
-  { "keys": ["ctrl+d"], "command": "file_diff_menu" },
+  { "keys": ["alt+q"],      "command": "wrap_lines_plus" },
+  { "keys": ["alt+left"],   "command": "caret_history", "args": { "action": "previous" } },
+  { "keys": ["alt+right"],  "command": "caret_history", "args": { "action": "next" } },
+  { "keys": ["ctrl+d"],     "command": "file_diff_menu" },
 
   { "keys": ["ctrl+space"], "command": "auto_complete" },
   { "keys": ["ctrl+space"], "command": "replace_completion_with_auto_complete", "context":
@@ -11,8 +11,50 @@
       { "key": "auto_complete_visible", "operator": "equal", "operand": false },
       { "key": "setting.tab_completion", "operator": "equal", "operand": true }
     ]
-  }
+  },
   // { "keys": ["ctrl+alt+enter"], "command": "replace_all", "args": {"close_panel": true},
   //            "context": [{"key": "panel", "operand": "replace"}, {"key": "panel_has_focus"}]
   // }
+  {
+    "keys": ["super+alt+left"],
+    "command": "set_layout",
+    "args":
+    {
+      "cols": [0.0, 0.33, 1.0],
+      "rows": [0.0, 1.0],
+      "cells": [[0, 0, 1, 1], [1, 0, 2, 1]]
+    }
+  },
+  {
+    "keys": ["super+alt+right"],
+    "command": "set_layout",
+    "args":
+    {
+      "cols": [0.0, 0.66, 1.0],
+      "rows": [0.0, 1.0],
+      "cells": [[0, 0, 1, 1], [1, 0, 2, 1]]
+    }
+  },
+  {
+    "keys": ["super+alt+up"],
+    "command": "set_layout",
+    "args":
+    {
+      "cols": [0.0, 0.5, 1.0],
+      "rows": [0.0, 1.0],
+      "cells": [[0, 0, 1, 1], [1, 0, 2, 1]]
+    }
+  },
+  {
+    "keys": ["super+alt+down"],
+    "command": "set_layout",
+    "args":
+    {
+      "cols": [0.0, 1.0],
+      "rows": [0.0, 1.0],
+      "cells": [[0, 0, 1, 1], [1, 0, 2, 1]]
+    }
+  },
+  { "keys": ["ctrl+shift+left"], "command": "move_to_group", "args": { "group": 0 } },
+  { "keys": ["ctrl+shift+right"], "command": "move_to_group", "args": { "group": 1 } }
 ]
