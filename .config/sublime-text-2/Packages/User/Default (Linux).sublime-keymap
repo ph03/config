@@ -1,8 +1,8 @@
 [
-  { "keys": ["alt+q"],      "command": "wrap_lines_plus" },
-  { "keys": ["alt+left"],   "command": "caret_history", "args": { "action": "previous" } },
-  { "keys": ["alt+right"],  "command": "caret_history", "args": { "action": "next" } },
-  { "keys": ["ctrl+d"],     "command": "file_diff_menu" },
+  { "keys": ["alt+q"], "command": "wrap_lines_plus" },
+  { "keys": ["alt+left"], "command": "caret_history", "args": { "action": "previous" } },
+  { "keys": ["alt+right"], "command": "caret_history", "args": { "action": "next" } },
+  { "keys": ["ctrl+d"], "command": "file_diff_menu" },
 
   { "keys": ["ctrl+space"], "command": "auto_complete" },
   { "keys": ["ctrl+space"], "command": "replace_completion_with_auto_complete", "context":
@@ -15,6 +15,10 @@
   // { "keys": ["ctrl+alt+enter"], "command": "replace_all", "args": {"close_panel": true},
   //            "context": [{"key": "panel", "operand": "replace"}, {"key": "panel_has_focus"}]
   // }
+
+  { "keys": ["ctrl+shift+t"], "command": "open_terminal" },
+  { "keys": ["ctrl+shift+alt+t"], "command": "open_terminal_project_folder" },
+
   {
     "keys": ["super+alt+left"],
     "command": "set_layout",
