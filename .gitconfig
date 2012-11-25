@@ -49,6 +49,11 @@
 	
 	# Show files ignored by git:
 	ign = ls-files -o -i --exclude-standard
+
+	# Show the history of a file, with diffs
+	filelog = log -u
+	fl = log -u
+	
 [imap]
 	folder = "mail/Drafts"
 	tunnel = "ssh -q martinez@radeberger.cs.uni-magdeburg.de /usr/sbin/imapd 2>/dev/null"
