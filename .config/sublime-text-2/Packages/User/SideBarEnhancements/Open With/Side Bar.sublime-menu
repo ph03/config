@@ -19,7 +19,7 @@
 			//separator
 			{"caption":"-"},
 
-			//application n
+			//application 2
 			{
 				"caption": "gedit",
 				"id": "side-bar-files-open-with-gedit",
@@ -29,6 +29,19 @@
 									"paths": [],
 									"application": "gedit",
 									"extensions":".*" //any file with extension
+								}
+			},
+
+			//application 3
+			{
+				"caption": "nautilus",
+				"id": "side-bar-files-open-with-nautilus",
+
+				"command": "side_bar_files_open_with",
+				"args": {
+									"paths": [],
+									"application": "nautilus",
+									"extensions":"" //any file with extension
 								}
 			},
 

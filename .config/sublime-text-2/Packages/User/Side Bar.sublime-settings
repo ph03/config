@@ -1,8 +1,7 @@
 {
-  "statusbar_modified_time" : true,
-  "statusbar_modified_time_format" : "%A %b %d %H:%M:%S %Y",
-
-  "statusbar_file_size" : true,
-
-  "confirm_before_deleting" : true
+	"confirm_before_deleting": true,
+	"statusbar_file_size": true,
+	"statusbar_modified_time": true,
+	"statusbar_modified_time_format": "%A %b %d %H:%M:%S %Y",
+	"version": "11.13.2012.1305.0"
 }

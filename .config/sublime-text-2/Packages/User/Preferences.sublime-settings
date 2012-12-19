@@ -5,7 +5,8 @@
 	"font_size": 11,
 	"highlight_line": true,
 	"ignored_packages":
-	["Vintage"
+	[
+		"Vintage"
 	],
 	"ignored_words":
 	[
@@ -13,6 +14,7 @@
 		"Frobenius",
 		"Voronoi",
 		"advection",
+		"anisotropically",
 		"conformality",
 		"discretize",
 		"explorative",
@@ -23,6 +25,7 @@
 		"parallelizable",
 		"parametrizations",
 		"pdf",
+		"perceptibility",
 		"pointwise",
 		"refactored",
 		"remeshing",
@@ -43,5 +46,6 @@
 	"tab_size": 2,
 	"theme": "Soda Dark.sublime-theme",
 	"translate_tabs_to_spaces": true,
-	"trim_automatic_white_space": true
+	"trim_automatic_white_space": true,
+	"word_separators": "./\\()\"':,.;<>~!@#$%^&*|+=[]{}`~?"
 }
