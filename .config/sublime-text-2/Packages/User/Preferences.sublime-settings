@@ -47,5 +47,7 @@
 	"theme": "Soda Dark.sublime-theme",
 	"translate_tabs_to_spaces": true,
 	"trim_automatic_white_space": true,
-	"word_separators": "./\\()\"':,.;<>~!@#$%^&*|+=[]{}`~?"
+	"word_separators": "./\\()\"':,.;<>~!@#$%^&*|+=[]{}`~?-",
+	"WrapPlus.break_long_words": true,
+	"WrapPlus.break_on_hyphens": false
 }
