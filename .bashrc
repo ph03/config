@@ -181,3 +181,7 @@ function _update_ps1()
 
 #export PROMPT_COMMAND="_update_ps1"
 #export TERM="xterm-256color"
+
+# syntax highlighting of less using dev-util/source-highlight
+export LESSOPEN="| /usr/bin/src-hilite-lesspipe.sh %s"
+export LESS=' -R '
