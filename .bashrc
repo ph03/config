@@ -185,3 +185,6 @@ function _update_ps1()
 # syntax highlighting of less using dev-util/source-highlight
 export LESSOPEN="| /usr/bin/src-hilite-lesspipe.sh %s"
 export LESS=' -R '
+
+# maya home
+export MAYA_APP_DIR="$HOME/.config/maya"
