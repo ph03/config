@@ -1,4 +1,7 @@
 {
+	"WrapPlus.break_long_words": true,
+	"WrapPlus.break_on_hyphens": false,
+	"auto_match_enabled": false,
 	"color_scheme": "Packages/Color Scheme - Default/Monokai.tmTheme",
 	"draw_white_space": "selection",
 	"font_face": "DejaVuSansMono",
@@ -16,6 +19,7 @@
 		"advection",
 		"anisotropically",
 		"conformality",
+		"discretizations",
 		"discretize",
 		"explorative",
 		"fig/algo",
@@ -28,6 +32,7 @@
 		"perceptibility",
 		"pointwise",
 		"refactored",
+		"regularizable",
 		"remeshing",
 		"simplical",
 		"simplices",
@@ -47,7 +52,5 @@
 	"theme": "Soda Dark.sublime-theme",
 	"translate_tabs_to_spaces": true,
 	"trim_automatic_white_space": true,
-	"word_separators": "./\\()\"':,.;<>~!@#$%^&*|+=[]{}`~?-",
-	"WrapPlus.break_long_words": true,
-	"WrapPlus.break_on_hyphens": false
+	"word_separators": "./\\()\"':,.;<>~!@#$%^&*|+=[]{}`~?-"
 }
