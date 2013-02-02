@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Exec=setxkbmap -layout "de(us),us(workman)" -option "grp:shifts_toggle,grp_led:scroll,caps:backspace"
+Hidden=false
+X-GNOME-Autostart-enabled=true
+Name[en_US]=setxkbmap
+Name=setxkbmap
+Comment[en_US]=
+Comment=
