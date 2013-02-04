@@ -1,1 +1,1 @@
-setxkbmap -layout "de(us),us(workman)" -option "grp:shifts_toggle,grp_led:scroll,caps:backspace"
+setxkbmap -layout "de(us),us(workman)" -option "grp:ctrls_toggle,grp_led:scroll,caps:backspace"
