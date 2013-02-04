@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Exec=~/.xprofile
+Hidden=false
+X-GNOME-Autostart-enabled=true
+Name[en_US]=Source xprofile
+Name=Source xprofile
+Comment[en_US]=
+Comment=
