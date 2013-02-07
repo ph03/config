@@ -1,0 +1,11 @@
+{
+    //Enable bracket matching on type
+    "quote_enable" : true,
+    "curly_enable" : true,
+    "round_enable" : true,
+    "square_enable": true,
+    "angle_enable" : true,
+
+    // match brackets only when the cursor is adjacent to one
+    "match_adjacent_only" : false
+}

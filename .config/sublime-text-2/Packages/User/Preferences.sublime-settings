@@ -4,6 +4,12 @@
 	"auto_match_enabled": false,
 	"color_scheme": "Packages/Color Scheme - Default/Monokai.tmTheme",
 	"draw_white_space": "selection",
+	"excluded_dir_patterns":
+	[
+		"tmp",
+		"|.git",
+		"|.svn"
+	],
 	"font_face": "DejaVuSansMono",
 	"font_size": 12,
 	"highlight_line": true,
@@ -13,16 +19,22 @@
 	],
 	"ignored_words":
 	[
+		"8cm}}{\\vspace*{0mm",
 		"Frobenius",
+		"Minka",
+		"Simplical",
+		"Simplices",
 		"Voronoi",
 		"advection",
 		"anisotropically",
+		"componentwise",
 		"conformality",
 		"discretizations",
 		"discretize",
 		"explorative",
 		"fig/algo",
 		"ifthenelse{\\boolean{figurespace}}{\\vspace",
+		"indices",
 		"isometry",
 		"nonhomogeneous",
 		"parallelizable",
@@ -35,9 +47,11 @@
 		"remeshing",
 		"simplical",
 		"simplices",
+		"tetraheda",
 		"tetrahedra",
 		"undersampled",
-		"vertices"
+		"vertices",
+		"width=1"
 	],
 	"indent_to_bracket": true,
 	"match_brackets_angle": true,
@@ -50,8 +64,5 @@
 	"theme": "Soda Dark.sublime-theme",
 	"translate_tabs_to_spaces": true,
 	"trim_automatic_white_space": true,
-	"word_separators": "./\\()\"':,.;<>~!@#$%^&*|+=[]{}`~?-",
-	"excluded_dir_patterns": [
-    "tmp", "|.git", "|.svn"
-  ]
+	"word_separators": "./\\()\"':,.;<>~!@#$%^&*|+=[]{}`~?-"
 }
