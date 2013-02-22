@@ -62,5 +62,8 @@
   { "keys": ["ctrl+super+alt+left"],  "command": "move_to_group", "args": { "group": 0 } },
   { "keys": ["ctrl+super+alt+right"], "command": "move_to_group", "args": { "group": 1 } },
 
-  { "keys": ["alt+m"], "command": "toggle_setting", "args": {"setting": "auto_match_enabled"} }
+  { "keys": ["alt+m"], "command": "toggle_setting", "args": {"setting": "auto_match_enabled"} },
+
+  { "keys": ["ctrl+t,u"], "command": "upperCase"},
+  { "keys": ["ctrl+t,l"], "command": "lowerCase"}
 ]
