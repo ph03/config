@@ -168,3 +168,5 @@ nosetests.xml
 *.brf
 *.lol
 
+*.sublime-project
+*.sublime-workspace
