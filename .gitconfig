@@ -43,9 +43,10 @@
 	df = diff
 	dc = diff --cached
 
-	ll  = log --graph --pretty=format:'%C(yellow)%h%Creset%C(bold red)%d%Creset %m %s%+b %C(bold magenta)%N%Creset%Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative 
-	lla = log --graph --pretty=format:'%C(yellow)%h%Creset%C(bold red)%d%Creset %m %s%+b %C(bold magenta)%N%Creset%Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --all
-	lls = log --graph --pretty=format:'%C(yellow)%h%Creset%C(bold red)%d%Creset %m %s%+b %C(bold magenta)%N%Creset%Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --all --stat
+	ll  = log --graph --pretty=format:'%C(yellow)%h%Creset%C(bold red)%d%Creset%  %m %C(bold white)%s%Creset%+b %C(bold magenta)%N%Creset%Cgreen(%cr) %C(bold blue)<%an>%Creset'   --abbrev-commit --date=relative 
+	lla = log --graph --pretty=format:'%C(yellow)%h%Creset%C(bold red)%d%Creset%  %m %C(bold white)%s%Creset%+b %C(bold magenta)%N%Creset%Cgreen(%cr) %C(bold blue)<%an>%Creset'   --abbrev-commit --date=relative --all
+	lls = log --graph --pretty=format:'%C(yellow)%h%Creset%C(bold red)%d%Creset%  %m %C(bold white)%s%Creset%+b %C(bold magenta)%N%Creset%Cgreen(%cr) %C(bold blue)<%an>%Creset%n' --abbrev-commit --date=relative --all --stat
+	lln = log --graph --pretty=format:'%C(yellow)%h%Creset%C(bold red)%d%Creset%  %m %C(bold white)%s%Creset%+b %C(bold magenta)%N%Creset%Cgreen(%cr) %C(bold blue)<%an>%Creset%n' --abbrev-commit --date=relative --all --name-status
 	
 	# Show files ignored by git:
 	ign = ls-files -o -i --exclude-standard
