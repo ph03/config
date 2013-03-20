@@ -38,6 +38,8 @@
 		"ifthenelse{\\boolean{figurespace}}{\\vspace",
 		"indices",
 		"isometry",
+		"isosurface",
+		"isosurfaces",
 		"nonhomogeneous",
 		"parallelizable",
 		"parallizable",
