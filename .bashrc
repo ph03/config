@@ -184,7 +184,9 @@ function _update_ps1()
 #export TERM="xterm-256color"
 
 # syntax highlighting of less using dev-util/source-highlight
-export LESSOPEN="| /usr/bin/src-hilite-lesspipe.sh %s"
+if [[ -f "/usr/bin/src-hilite-lesspipe.sh" ]]; then
+  export LESSOPEN="| /usr/bin/src-hilite-lesspipe.sh %s"
+fi
 export LESS=' -R '
 
 # maya home
