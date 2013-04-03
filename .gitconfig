@@ -33,7 +33,7 @@
 [alias]
 	co = checkout
 	br = branch
-	ci = commit
+	ci = commit -v
 	st = status
 	ls = ls-files
 
