@@ -16,7 +16,45 @@ fi
 
 # Put your fun stuff here.
 
-if [ -f /etc/profile.d/bash-completion.sh ]; then
+if [ -f $HOME/.local/pkg/bash-git-prompt/gitprompt.sh ]; then
+  export  __GIT_PROMPT_DIR=$HOME/.local/pkg/bash-git-prompt
+  source $__GIT_PROMPT_DIR/gitprompt.sh
+
+  White="\[\033[00m\]"
+  BBlue="\[\033[01;34m\]"
+  BWhite="\e[1;37m"
+
+  GIT_PROMPT_PREFIX="${BBlue}["
+  GIT_PROMPT_SUFFIX="${BBlue}]"
+  GIT_PROMPT_SEPARATOR="${BBlue}|"
+  GIT_PROMPT_BRANCH="${Magenta}"
+  GIT_PROMPT_STAGED="${Red}● "
+  GIT_PROMPT_CONFLICTS="${Red}✖ "
+  GIT_PROMPT_CHANGED="${Yellow}✚ "
+  GIT_PROMPT_REMOTE="${BWhite} "
+  GIT_PROMPT_UNTRACKED="…"
+  GIT_PROMPT_CLEAN="${BGreen}✔"
+
+  scm_svn() {
+    local s
+    s=$(svn info 2>/dev/null)
+    if [ $? -eq 0 ]; then
+      s=$(echo -n "${s}" | sed -n -e '/^Revision: \([0-9]*\).*$/s//\1/p' )
+      s=" ${BBlue}[${Magenta}svn:${s}${BBlue}]"
+    else
+      s=""
+    fi
+    echo -n "$s"
+  }
+
+  function eval_prompt() {
+    export PROMPT_START="$BGreen\u@\h$BBlue \w$ResetColor$(scm_svn)"
+    export PROMPT_END=" $BBlue\$ $White"
+    setGitPrompt
+  }
+  
+  PROMPT_COMMAND=eval_prompt
+elif [ -f /etc/profile.d/bash-completion.sh ]; then
   source /etc/profile.d/bash-completion.sh
   complete -o default -o nospace -F _git config
 
