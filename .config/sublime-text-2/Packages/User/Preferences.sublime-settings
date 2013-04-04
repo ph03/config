@@ -3,8 +3,6 @@
 	"WrapPlus.break_on_hyphens": false,
 	"auto_match_enabled": false,
 	"color_scheme": "Packages/User/Monokai Soda.tmTheme",
-	"theme": "Soda Dark.sublime-theme",
-	"soda_classic_tabs": false,
 	"draw_white_space": "selection",
 	"excluded_dir_patterns":
 	[
@@ -71,7 +69,9 @@
 		80
 	],
 	"show_panel_on_build": false,
+	"soda_classic_tabs": false,
 	"tab_size": 2,
+	"theme": "Soda Dark.sublime-theme",
 	"translate_tabs_to_spaces": true,
 	"trim_automatic_white_space": true,
 	"word_separators": "./\\()\"':,.;<>~!@#$%^&*|+=[]{}`~?-"
