@@ -229,10 +229,3 @@ export LESS=' -R '
 
 # maya home
 export MAYA_APP_DIR="$HOME/.config/maya"
-
-# git-extras (clone to ~/.local/pkg/git-extras)
-export PATH="$HOME/.local/pkg/git-extras/bin:$PATH"
-export MANPATH="$HOME/.local/pkg/git-extras/man:$MANPATH"
-if [[ -f "$HOME/.local/pkg/git-extras/etc/bash_completion.sh" ]]; then
-  source $HOME/.local/pkg/git-extras/etc/bash_completion.sh
-fi
