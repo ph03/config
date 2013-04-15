@@ -23,6 +23,7 @@ if [ -f $HOME/.local/pkg/bash-git-prompt/gitprompt.sh ]; then
   White="\[\033[00m\]"
   BBlue="\[\033[01;34m\]"
   BWhite="\e[1;37m"
+  BCyan='\e[1;36m'
 
   GIT_PROMPT_PREFIX="${BBlue}["
   GIT_PROMPT_SUFFIX="${BBlue}]"
@@ -32,7 +33,7 @@ if [ -f $HOME/.local/pkg/bash-git-prompt/gitprompt.sh ]; then
   GIT_PROMPT_CONFLICTS="${Red}✖ "
   GIT_PROMPT_CHANGED="${Yellow}✚ "
   GIT_PROMPT_REMOTE="${BWhite} "
-  GIT_PROMPT_UNTRACKED="…"
+  GIT_PROMPT_UNTRACKED="${BCyan}…"
   GIT_PROMPT_CLEAN="${BGreen}✔"
 
   scm_svn() {
