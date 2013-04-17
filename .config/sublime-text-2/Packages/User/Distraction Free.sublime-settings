@@ -3,6 +3,6 @@
 	"gutter": false,
 	"draw_centered": true,
 	"wrap_width": 81,
-	"word_wrap": true,
+	"word_wrap": false,
 	"scroll_past_end": false
 }
