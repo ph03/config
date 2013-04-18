@@ -66,4 +66,9 @@
 
   { "keys": ["ctrl+t,u"], "command": "upperCase"},
   { "keys": ["ctrl+t,l"], "command": "lowerCase"}
+
+  //,{ "keys": ["ctrl+f"], "command": "show_panel", "args": {"panel": "find"} }
+  //,{ "keys": ["ctrl+shift+f"], "command": "show_panel", "args": {"panel": "replace"} }
+  //,{ "keys": ["ctrl+shift+alt+f"], "command": "replace_next" }
+  //,{ "keys": ["ctrl+h"], "command": "show_panel", "args": {"panel": "find_in_files"} }
 ]
