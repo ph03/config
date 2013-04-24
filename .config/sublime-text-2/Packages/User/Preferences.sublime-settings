@@ -11,7 +11,7 @@
 		"|.svn"
 	],
 	"font_face": "DejaVuSansMono",
-	"font_size": 12,
+	"font_size": 13,
 	"highlight_line": true,
 	"ignored_packages":
 	[
@@ -20,6 +20,7 @@
 	"ignored_words":
 	[
 		"8cm}}{\\vspace*{0mm",
+		"Discretizations",
 		"Frobenius",
 		"Minka",
 		"Nonhomogeneous",
@@ -34,6 +35,7 @@
 		"componentwise",
 		"conformality",
 		"developable",
+		"diametral",
 		"discretizations",
 		"discretize",
 		"explorative",
@@ -55,6 +57,7 @@
 		"polyline",
 		"refactored",
 		"regularizable",
+		"regularizers",
 		"remeshing",
 		"simplical",
 		"simplices",
