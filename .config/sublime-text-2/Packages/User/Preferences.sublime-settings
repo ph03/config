@@ -74,8 +74,13 @@
 	[
 		80
 	],
+	"caret_style": "phase", //“smooth”, “phase”, “blink”, “wide”, and “solid”
+	"line_padding_bottom": 0,
+ 	"line_padding_top": 0,
 	"show_panel_on_build": false,
 	"soda_classic_tabs": false,
+	"fade_fold_buttons": false,
+	"bold_folder_labels": true,
 	"tab_size": 2,
 	"theme": "Soda Dark.sublime-theme",
 	"translate_tabs_to_spaces": true,
