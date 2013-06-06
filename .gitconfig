@@ -1,6 +1,6 @@
 [user]
 	name = Janick Martinez Esturo
-	email = martinez@isg.cs.uni-magdeburg.de
+	email = janick@mpi-inf.mpg.de
 	signingkey = A85C4836
 [color]
 	ui = auto
@@ -26,7 +26,7 @@
 	changed = green
 	untracked = cyan
 [core]
-	excludesfile = /home/martinez/.gitignore
+	excludesfile = ~/.gitignore
 [github]
 	user = ph03
 	token = ade4511a4c3c7d046d6f13ff704ab27f
