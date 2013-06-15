@@ -54,7 +54,19 @@
 	# Show the history of a file, with diffs
 	filelog = log -u
 	fl = log -u
+
+	# File-level ignore
+	assume   = update-index --assume-unchanged
+	unassume = update-index --no-assume-unchanged
+	assumed  = "!git ls-files -v | grep ^h | cut -c 3-"
 	
+	# Snapshot stash
+	snapshot = !git stash save "snapshot: $(date)" && git stash apply "stash@{0}"
+
+	# Merge file selection
+	ours   = "!f() { git checkout --ours $@ && git add $@; }; f"
+	theirs = "!f() { git checkout --theirs $@ && git add $@; }; f"
+
 [imap]
 	folder = "mail/Drafts"
 	tunnel = "ssh -q martinez@radeberger.cs.uni-magdeburg.de /usr/sbin/imapd 2>/dev/null"
