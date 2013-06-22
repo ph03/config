@@ -141,9 +141,12 @@ export MATLABPATH="$HOME/ProjVC/jmlibs/util/matlab:$MATLABPATH"
 export MATLABPATH="$HOME/ProjVC/jmlibs/util/matlab/loadmesh:$MATLABPATH"
 export MATLABPATH="$HOME/ProjVC/jmlibs/util/matlab/png2mesh:$MATLABPATH"
 export MATLABPATH="$HOME/ProjVC/jmlibs/util/matlab/ui:$MATLABPATH"
-export MATLABPATH="$HOME/.local/pkg/mosek/6/toolbox/r2009b:$MATLABPATH"
 export MATLABPATH="$HOME/ProjVC/jmlibs/util/matlab/export_fig:$MATLABPATH"
-export LD_LIBRARY_PATH="LD_LIBRARY_PATH:$HOME/.local/pkg/mosek/6/tools/platform/linux64x86/bin"
+
+#Mosek
+export MATLABPATH="$HOME/.local/pkg/mosek/7/toolbox/r2009b:$MATLABPATH"
+export LD_LIBRARY_PATH="LD_LIBRARY_PATH:$HOME/.local/pkg/mosek/7/tools/platform/linux64x86/bin"
+export MOSEKLM_LICENSE_FILE="$HOME/.local/pkg/mosek/7/license/mosek.lic"
 
 #Jacket
 #export MATLABPATH="$HOME/local/pkg/jacket/engine:$MATLABPATH"
