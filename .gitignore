@@ -161,6 +161,7 @@ nosetests.xml
 *.snm
 *.synctex.gz
 *.toc
+*.tdo
 *.vrb
 *.xdy
 *.fls
