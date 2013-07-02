@@ -2,6 +2,8 @@
 	"WrapPlus.break_long_words": true,
 	"WrapPlus.break_on_hyphens": false,
 	"auto_match_enabled": false,
+	"bold_folder_labels": true,
+	"caret_style": "phase",
 	"color_scheme": "Packages/User/Monokai Soda.tmTheme",
 	"draw_white_space": "selection",
 	"excluded_dir_patterns":
@@ -10,6 +12,7 @@
 		"|.git",
 		"|.svn"
 	],
+	"fade_fold_buttons": false,
 	"font_face": "DejaVuSansMono",
 	"font_size": 13,
 	"highlight_line": true,
@@ -71,18 +74,15 @@
 		"width=1"
 	],
 	"indent_to_bracket": true,
+	"line_padding_bottom": 0,
+	"line_padding_top": 0,
 	"match_brackets_angle": true,
 	"rulers":
 	[
 		80
 	],
-	"caret_style": "phase", //“smooth”, “phase”, “blink”, “wide”, and “solid”
-	"line_padding_bottom": 0,
- 	"line_padding_top": 0,
 	"show_panel_on_build": false,
 	"soda_classic_tabs": false,
-	"fade_fold_buttons": false,
-	"bold_folder_labels": true,
 	"tab_size": 2,
 	"theme": "Soda Dark.sublime-theme",
 	"translate_tabs_to_spaces": true,
