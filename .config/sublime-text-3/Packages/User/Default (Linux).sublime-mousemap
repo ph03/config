@@ -1,0 +1,5 @@
+[
+	// Switch files with buttons 4 and 5
+	{ "button": "button8", "command": "jump_back"},
+	{ "button": "button8", "command": "jump_forward"},
+]
