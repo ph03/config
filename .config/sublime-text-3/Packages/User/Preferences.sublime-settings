@@ -4,6 +4,7 @@
 	"always_show_minimap_viewport": true,
 	"auto_match_enabled": false,
 	"bold_folder_labels": true,
+	"draw_minimap_border": false,
 	"caret_style": "phase",
 	"color_scheme": "Packages/User/Monokai Soda.tmTheme",
 	"draw_white_space": "selection",
@@ -87,6 +88,12 @@
 	"tab_size": 2,
 	"theme": "Soda Dark 3.sublime-theme",
 	"translate_tabs_to_spaces": true,
-	"trim_automatic_white_space": true,
+	"trim_automatic_white_space_on_save": true,
+	"ensure_newline_at_eof_on_save": true,
+	"atomic_save": true,
+	"shift_tab_unindent": true,
+	"highlight_modified_tabs": true,
+	"show_panel_on_build": false,
+	"enable_telemetry": "disabled",
 	"word_separators": "./\\()\"':,.;<>~!@#$%^&*|+=[]{}`~?-"
 }
