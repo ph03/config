@@ -171,3 +171,6 @@ nosetests.xml
 
 *.sublime-project
 *.sublime-workspace
+
+*.run.xml
+*-blx.bib

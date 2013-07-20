@@ -29,6 +29,7 @@
 		"Nonhomogeneous",
 		"Simplical",
 		"Simplices",
+		"Tikhonov",
 		"Voronoi",
 		"advected",
 		"advecting",

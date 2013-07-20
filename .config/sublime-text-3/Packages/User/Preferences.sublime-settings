@@ -1,9 +1,9 @@
 {
 	"WrapPlus.break_long_words": true,
 	"WrapPlus.break_on_hyphens": false,
+	"always_show_minimap_viewport": true,
 	"auto_match_enabled": false,
 	"bold_folder_labels": true,
-  "always_show_minimap_viewport": true,
 	"caret_style": "phase",
 	"color_scheme": "Packages/User/Monokai Soda.tmTheme",
 	"draw_white_space": "selection",
