@@ -16,6 +16,11 @@ fi
 
 # Put your fun stuff here.
 
+# explicit bash completion
+[[ -f /etc/profile.d/bash_completion.sh ]] && source /etc/profile.d/bash_completion.sh 
+[[ -f /usr/share/bash-completion/completions/git ]] && source /usr/share/bash-completion/completions/git
+
+# git prompt
 if [ -f $HOME/.local/pkg/bash-git-prompt/gitprompt.sh ]; then
   export  __GIT_PROMPT_DIR=$HOME/.local/pkg/bash-git-prompt
   source $__GIT_PROMPT_DIR/gitprompt.sh
@@ -55,8 +60,8 @@ if [ -f $HOME/.local/pkg/bash-git-prompt/gitprompt.sh ]; then
   }
   
   PROMPT_COMMAND=eval_prompt
-elif [ -f /etc/profile.d/bash-completion.sh ]; then
-  source /etc/profile.d/bash-completion.sh
+elif [ -f /usr/share/bash-completion/completions/git-prompt ]; then
+  source /usr/share/bash-completion/completions/git-prompt
   complete -o default -o nospace -F _git config
 
   ##SVN+GIT
