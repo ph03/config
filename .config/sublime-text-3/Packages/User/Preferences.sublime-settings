@@ -2,12 +2,15 @@
 	"WrapPlus.break_long_words": true,
 	"WrapPlus.break_on_hyphens": false,
 	"always_show_minimap_viewport": true,
+	"atomic_save": true,
 	"auto_match_enabled": false,
 	"bold_folder_labels": true,
-	"draw_minimap_border": false,
 	"caret_style": "phase",
 	"color_scheme": "Packages/User/Monokai Soda.tmTheme",
+	"draw_minimap_border": false,
 	"draw_white_space": "selection",
+	"enable_telemetry": "disabled",
+	"ensure_newline_at_eof_on_save": true,
 	"excluded_dir_patterns":
 	[
 		"tmp",
@@ -18,6 +21,7 @@
 	"font_face": "DejaVuSansMono",
 	"font_size": 13,
 	"highlight_line": true,
+	"highlight_modified_tabs": true,
 	"ignored_packages":
 	[
 		"Vintage"
@@ -83,17 +87,12 @@
 	[
 		80
 	],
+	"shift_tab_unindent": true,
 	"show_panel_on_build": false,
 	"soda_classic_tabs": false,
 	"tab_size": 2,
 	"theme": "Soda Dark 3.sublime-theme",
 	"translate_tabs_to_spaces": true,
 	"trim_automatic_white_space_on_save": true,
-	"ensure_newline_at_eof_on_save": true,
-	"atomic_save": true,
-	"shift_tab_unindent": true,
-	"highlight_modified_tabs": true,
-	"show_panel_on_build": false,
-	"enable_telemetry": "disabled",
 	"word_separators": "./\\()\"':,.;<>~!@#$%^&*|+=[]{}`~?-"
 }

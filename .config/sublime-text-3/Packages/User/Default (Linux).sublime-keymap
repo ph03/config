@@ -1,3 +1,7 @@
 [
-  
+  { "keys": ["ctrl+g","ctrl+s"], "command": "git_status" },
+  { "keys": ["ctrl+g","ctrl+d"], "command": "git_diff" },
+  { "keys": ["ctrl+g","ctrl+l"], "command": "git_log" },
+  { "keys": ["ctrl+g","ctrl+p"], "command": "git_push" },
+  { "keys": ["ctrl+g","ctrl+b"], "command": "git_blame" }
 ]

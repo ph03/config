@@ -18,7 +18,27 @@
 	"highlight_line": true,
 	"ignored_packages":
 	[
-		"Vintage"
+		"SublimeClang",
+		"Terminal",
+		"LineEndings",
+		"Vintage",
+		"ShaderLanguages",
+		"Sublime File Navigator",
+		"SideBarGit",
+		"Wrap Plus",
+		"Github Tools",
+		"VintageEx",
+		"GitHub Flavored Markdown Preview",
+		"FindKeyConflicts",
+		"Git Config",
+		"SideBarEnhancements",
+		"Markdown Preview",
+		"SublimeGit",
+		"Solarized Color Scheme",
+		"GitGutter",
+		"WordHighlight",
+		"Dotfiles Syntax Highlighting",
+		"LaTeXTools"
 	],
 	"ignored_words":
 	[
