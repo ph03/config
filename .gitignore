@@ -11,6 +11,8 @@ CMakeRelWithDebInfo/
 qt-creator-build/
 qtcreator-build/
 *_creator.*
+build/
+build-debug/
 ### /home/martinez/.gitignore-boilerplates/Global/Eclipse.gitignore
 
 *.pydevproject
