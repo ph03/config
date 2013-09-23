@@ -1,9 +1,9 @@
 [
-  { "keys": ["ctrl+g","ctrl+s"], "command": "git_status" },
-  { "keys": ["ctrl+g","ctrl+d"], "command": "git_diff" },
-  { "keys": ["ctrl+g","ctrl+l"], "command": "git_log" },
-  { "keys": ["ctrl+g","ctrl+p"], "command": "git_push" },
-  { "keys": ["ctrl+g","ctrl+b"], "command": "git_blame" },
+  { "keys": ["ctrl+alt+a","s"], "command": "git_status" },
+  { "keys": ["ctrl+alt+a","d"], "command": "git_diff" },
+  { "keys": ["ctrl+alt+a","l"], "command": "git_log" },
+  { "keys": ["ctrl+alt+a","p"], "command": "git_push" },
+  { "keys": ["ctrl+alt+a","b"], "command": "git_blame" },
 
   { "keys": ["ctrl+alt+m"], "command": "toggle_minimap" },
   { "keys": ["ctrl+alt+t"], "command": "toggle_tabs" },
