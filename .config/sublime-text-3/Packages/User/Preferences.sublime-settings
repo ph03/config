@@ -6,7 +6,7 @@
 	"auto_match_enabled": false,
 	"bold_folder_labels": true,
 	"caret_style": "phase",
-	"color_scheme": "Packages/User/Monokai Soda.tmTheme",
+	"color_scheme": "Packages/User/Monokai Extended Soda.tmTheme",
 	"draw_minimap_border": false,
 	"draw_white_space": "selection",
 	"enable_telemetry": "disabled",
@@ -83,6 +83,8 @@
 	"line_padding_bottom": 0,
 	"line_padding_top": 0,
 	"match_brackets_angle": true,
+	"origami_auto_close_empty_panes": true,
+	"origami_auto_zoom_on_focus": false,
 	"rulers":
 	[
 		80
@@ -94,7 +96,5 @@
 	"theme": "Soda Dark 3.sublime-theme",
 	"translate_tabs_to_spaces": true,
 	"trim_automatic_white_space_on_save": true,
-	"word_separators": "./\\()\"':,.;<>~!@#$%^&*|+=[]{}`~?-",
-	"origami_auto_zoom_on_focus": false,
-	"origami_auto_close_empty_panes": true
+	"word_separators": "./\\()\"':,.;<>~!@#$%^&*|+=[]{}`~?-"
 }
