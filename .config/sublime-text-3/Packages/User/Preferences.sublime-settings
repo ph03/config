@@ -11,6 +11,7 @@
 	"caret_style": "phase",
 	"color_scheme": "Packages/User/Monokai Extended Soda.tmTheme",
 	"draw_centered": false,
+	"dictionary": "Packages/Dictionaries/German.dic",
 	"draw_minimap_border": false,
 	"draw_white_space": "selection",
 	"enable_tab_scrolling": false,
@@ -29,6 +30,7 @@
 	"highlight_modified_tabs": true,
 	"ignored_packages":
 	[
+		"SublimeClang",
 		"Vintage"
 	],
 	"ignored_words":
