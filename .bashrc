@@ -241,10 +241,14 @@ export MAYA_APP_DIR="$HOME/.config/maya"
 
 # gem path
 if which ruby >/dev/null && which gem >/dev/null; then
-  PATH="$(ruby -rubygems -e 'puts Gem.user_dir')/bin:$PATH"
+  export PATH="$(ruby -rubygems -e 'puts Gem.user_dir')/bin:$PATH"
 fi
 
 # bd https://github.com/vigneshwaranr/bd
 if [[ -f "$HOME/.local/bin/bd" ]]; then
   alias bd=". bd -s"
 fi
+
+# go path
+export GOPATH="$HOME/.local/go"
+export PATH="$GOPATH/bin:$PATH"
