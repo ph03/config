@@ -17,7 +17,7 @@ fi
 # Put your fun stuff here.
 
 # explicit bash completion
-[[ -f /etc/profile.d/bash_completion.sh ]] && source /etc/profile.d/bash_completion.sh 
+[[ -f /etc/profile.d/bash_completion.sh ]] && source /etc/profile.d/bash_completion.sh
 [[ -f /usr/share/bash-completion/completions/git ]] && source /usr/share/bash-completion/completions/git
 
 # git prompt
@@ -58,7 +58,7 @@ if [ -f $HOME/.local/pkg/bash-git-prompt/gitprompt.sh ]; then
     export PROMPT_END=" $BBlue\$ $White"
     setGitPrompt
   }
-  
+
   PROMPT_COMMAND=eval_prompt
 elif [ -f /usr/share/bash-completion/completions/git-prompt ]; then
   source /usr/share/bash-completion/completions/git-prompt
@@ -114,7 +114,7 @@ export LC_TIME="de_DE.utf8"
 
 export PATH=":$HOME/bin:$HOME/.local/bin:/usr/lib64/ccache/bin:/usr/lib/colorgcc/bin:$PATH"
 
-export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/lib"
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/lib64:/usr/local/lib:$HOME/.local/lib64:$HOME/.local/lib"
 
 #export LIBXCB_ALLOW_SLOPPY_LOCK=1
 
@@ -150,7 +150,7 @@ export MATLABPATH="$HOME/ProjVC/jmlibs/util/matlab/export_fig:$MATLABPATH"
 
 #Mosek
 export MATLABPATH="$HOME/.local/pkg/mosek/7/toolbox/r2009b:$MATLABPATH"
-export LD_LIBRARY_PATH="LD_LIBRARY_PATH:$HOME/.local/pkg/mosek/7/tools/platform/linux64x86/bin"
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$HOME/.local/pkg/mosek/7/tools/platform/linux64x86/bin"
 export MOSEKLM_LICENSE_FILE="$HOME/.local/pkg/mosek/7/license/mosek.lic"
 
 #Jacket
