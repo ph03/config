@@ -22,6 +22,7 @@ fi
 
 # git prompt
 if [ -f $HOME/.local/pkg/bash-git-prompt/gitprompt.sh ]; then
+  # working with 48eff2e of https://github.com/magicmonty/bash-git-prompt.git
   export  __GIT_PROMPT_DIR=$HOME/.local/pkg/bash-git-prompt
   source $__GIT_PROMPT_DIR/gitprompt.sh
 
