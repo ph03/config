@@ -9,5 +9,7 @@
   { "keys": ["ctrl+alt+m"], "command": "toggle_minimap" },
   { "keys": ["ctrl+alt+t"], "command": "toggle_tabs" },
   { "keys": ["ctrl+alt+s"], "command": "toggle_side_bar" },
-  { "keys": ["ctrl+alt+b"], "command": "toggle_status_bar" }
+  { "keys": ["ctrl+alt+b"], "command": "toggle_status_bar" },
+
+  { "keys": ["ctrl+shift+c"], "command": "clang_format" }
 ]
