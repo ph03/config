@@ -1,0 +1,11 @@
+[
+    {
+        "caption": "Git: lla",
+        "command": "git_lla",
+        "args": {
+            "cmd": "lla",
+            "output": "view",
+            "async": false
+        }
+    }
+]
