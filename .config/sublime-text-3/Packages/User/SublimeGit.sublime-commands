@@ -1,7 +1,7 @@
 [
     {
         "caption": "Git: lla",
-        "command": "git_lla",
+        "command": "git_custom",
         "args": {
             "cmd": "lla",
             "output": "view",
