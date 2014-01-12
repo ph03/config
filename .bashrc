@@ -253,3 +253,6 @@ fi
 # go path
 export GOPATH="$HOME/.local/go"
 export PATH="$GOPATH/bin:$PATH"
+
+# ocaml path
+export PATH="$HOME/.opam/system/bin:$PATH"
