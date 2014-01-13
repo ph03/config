@@ -1,6 +1,8 @@
 #!/usr/bin/env php
 <?php
 
+ini_set('memory_limit', '-1');
+
 $svgs = glob('*.svg');
 
 $existing = array();
