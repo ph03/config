@@ -4,8 +4,6 @@
 	signingkey = A85C4836
 [color]
 	ui = auto
-	diff = auto
-	branch = auto
 [giggle]
 	main-window-maximized = true
 	main-window-geometry = 1250x809+1513+124
