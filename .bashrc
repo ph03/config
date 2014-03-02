@@ -113,7 +113,7 @@ export LC_TIME="de_DE.utf8"
 
 #export CGAL_MAKEFILE="/usr/local/share/cgal/cgal.mk"
 
-export PATH=":$HOME/bin:$HOME/.local/bin:/usr/lib64/ccache/bin:/usr/lib/colorgcc/bin:$PATH"
+export PATH="$HOME/.local/bin:/usr/lib64/ccache/bin:/usr/lib/colorgcc/bin:$PATH"
 
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/lib64:/usr/local/lib:$HOME/.local/lib64:$HOME/.local/lib"
 
