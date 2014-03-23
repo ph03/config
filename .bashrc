@@ -30,6 +30,7 @@ fi
 
 # explicit bash completion
 [[ -f /etc/profile.d/bash_completion.sh ]] && source /etc/profile.d/bash_completion.sh
+[[ -f /etc/profile.d/bash-completion.sh ]] && source /etc/profile.d/bash-completion.sh
 [[ -f /usr/share/bash-completion/completions/git ]] && source /usr/share/bash-completion/completions/git
 
 # git prompt
