@@ -27,5 +27,11 @@
       { "key": "auto_complete_visible", "operator": "equal", "operand": false },
       { "key": "setting.tab_completion", "operator": "equal", "operand": true }
     ]
+  },
+  {
+  "keys": ["shift+enter"],
+  "command": "insert_snippet", "args": {"contents": "\n"},
+  "context": [
+    {"key": "selector", "operand": "text.tex.latex", "operator": "equal"}]
   }
 ]
