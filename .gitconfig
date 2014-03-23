@@ -71,7 +71,7 @@
 [branch]
 	autosetuprebase = always
 [push]
-	default = upstream
+	default = simple
 [mergetool]
 	keepBackup = false
 [gui]
