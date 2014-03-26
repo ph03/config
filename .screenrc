@@ -4,6 +4,12 @@
 #escape ^Oo
 # set a big scrolling buffer
 defscrollback 5000
-# Set the caption on the bottom line
+# set the caption on the bottom line
 caption always "%{= kw}%-w%{= BW}%n %t%{-}%+w %-= @%H - %LD %d %LM - %c"
 startup_message off
+
+# make screen work wish colorful fish shell
+term screen-256color
+attrcolor b ".I"
+termcapinfo xterm 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
+defbce on
