@@ -2,7 +2,7 @@
 set fish_path $HOME/.local/pkg/oh-my-fish
 
 # Theme
-set fish_theme bobthefish
+set fish_theme ph03
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-fish/plugins/*)
 # Custom plugins may be added to ~/.oh-my-fish/custom/plugins/
