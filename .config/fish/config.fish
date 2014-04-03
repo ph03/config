@@ -12,6 +12,11 @@ set SHELL /bin/fish
 set PATH $HOME/.local/bin $PATH
 alias config='git --git-dir=$HOME/.config.git/ --work-tree=$HOME'
 
+# gem path
+if which gem ruby > /dev/null;
+  set PATH (ruby -rubygems -e 'puts Gem.user_dir')/bin $PATH;
+end
+
 # Path to your custom folder (default path is $FISH/custom)
 #set fish_custom $HOME/dotfiles/oh-my-fish
 
