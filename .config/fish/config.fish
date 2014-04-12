@@ -10,6 +10,8 @@ set fish_theme ph03
 
 set SHELL /bin/fish
 set PATH $HOME/.local/bin $PATH
+set PROJVC $HOME/ProjVC
+set PROJMPI $HOME/ProjMPI
 alias config='git --git-dir=$HOME/.config.git/ --work-tree=$HOME'
 
 # gem path
