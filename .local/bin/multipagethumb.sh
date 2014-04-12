@@ -10,14 +10,20 @@ fi
 output="${2%.*}"
 n=`identify -format %n $1`
 
+# limit maximal page num
+if [ $n -gt 20 ]
+then
+  n='20'
+fi
+
 # shadow oppacity percentage and blur sigma
 sperc="80"
 ssigma="3"
 
 # shadow offsets, page width and page offsets
-sx="5"
-sy="5"
-w="230"
+sx="6"
+sy="6"
+w="240"
 x="100"
 y="2"
 
