@@ -8,10 +8,14 @@ set fish_theme ph03
 # Custom plugins may be added to ~/.oh-my-fish/custom/plugins/
 # Example format: set fish_plugins autojump bundler
 
+# env vars
 set SHELL /bin/fish
 set PATH $HOME/.local/bin $PATH
 set PROJVC $HOME/ProjVC
 set PROJMPI $HOME/ProjMPI
+set GCC_COLORS auto
+
+# aliases
 alias config='git --git-dir=$HOME/.config.git/ --work-tree=$HOME'
 
 # gem path
