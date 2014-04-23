@@ -14,6 +14,7 @@ set PATH $HOME/.local/bin $PATH
 set PROJVC $HOME/ProjVC
 set PROJMPI $HOME/ProjMPI
 set GCC_COLORS auto
+set NINJA_STATUS "[%r/%u/%f/%t] "
 
 # aliases
 alias config='git --git-dir=$HOME/.config.git/ --work-tree=$HOME'
