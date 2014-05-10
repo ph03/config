@@ -24,6 +24,10 @@ if which gem ruby > /dev/null;
   set -x PATH (ruby -rubygems -e 'puts Gem.user_dir')/bin $PATH;
 end
 
+# go path
+set -x GOPATH $HOME/.local/go
+set -x PATH $GOPATH/bin $PATH
+
 # nvm-fish github.com/Alex7Kom/nvm-fish
 test -s /home/jmartine/.nvm-fish/nvm.fish; and source /home/jmartine/.nvm-fish/nvm.fish
 
