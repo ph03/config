@@ -9,19 +9,19 @@ set fish_theme ph03
 # Example format: set fish_plugins autojump bundler
 
 # env vars
-set SHELL /bin/fish
-set PATH $HOME/.local/bin $PATH
-set PROJVC $HOME/ProjVC
-set PROJMPI $HOME/ProjMPI
-set GCC_COLORS auto
-set NINJA_STATUS "[%r/%u/%f/%t] "
+set -x SHELL /bin/fish
+set -x PATH $HOME/.local/bin $PATH
+set -x PROJVC $HOME/ProjVC
+set -x PROJMPI $HOME/ProjMPI
+set -x GCC_COLORS auto
+set -x NINJA_STATUS "[%r/%u/%f/%t] "
 
 # aliases
 alias config='git --git-dir=$HOME/.config.git/ --work-tree=$HOME'
 
 # gem path
 if which gem ruby > /dev/null;
-  set PATH (ruby -rubygems -e 'puts Gem.user_dir')/bin $PATH;
+  set -x PATH (ruby -rubygems -e 'puts Gem.user_dir')/bin $PATH;
 end
 
 # nvm-fish github.com/Alex7Kom/nvm-fish
