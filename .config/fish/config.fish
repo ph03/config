@@ -24,6 +24,9 @@ if which gem ruby > /dev/null;
   set PATH (ruby -rubygems -e 'puts Gem.user_dir')/bin $PATH;
 end
 
+# nvm-fish github.com/Alex7Kom/nvm-fish
+test -s /home/jmartine/.nvm-fish/nvm.fish; and source /home/jmartine/.nvm-fish/nvm.fish
+
 # Path to your custom folder (default path is $FISH/custom)
 #set fish_custom $HOME/dotfiles/oh-my-fish
 
