@@ -28,6 +28,9 @@ end
 set -x GOPATH $HOME/.local/go
 set -x PATH $GOPATH/bin $PATH
 
+# rmk path
+set -x PATH $HOME/ProjVC/rmk/bin $PATH
+
 # nvm-fish github.com/Alex7Kom/nvm-fish
 test -s /home/jmartine/.nvm-fish/nvm.fish; and source /home/jmartine/.nvm-fish/nvm.fish
 

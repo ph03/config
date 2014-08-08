@@ -30,8 +30,11 @@
 	"highlight_modified_tabs": true,
 	"ignored_packages":
 	[
+		"Dictionaries",
 		"Vintage",
-		"SublimeClang"
+		"SublimeClang",
+		"Syntax Highlighting for Sass",
+		"SideBarEnhancements"
 	],
 	"ignored_words":
 	[
