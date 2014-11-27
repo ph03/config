@@ -1,15 +1,9 @@
 [user]
 	name = Janick Martinez Esturo
-	email = janick@mpi-inf.mpg.de
+	email = janick.martinez.esturo@gmail.com
 	signingkey = A85C4836
 [color]
 	ui = auto
-[giggle]
-	main-window-maximized = true
-	main-window-geometry = 1250x809+1513+124
-	main-window-view = HistoryView
-	history-view-vpane-position = 350
-	file-view-vpane-position = 297
 #[color "branch"]
 #	current = yellow reverse
 #	local = yellow
@@ -64,7 +58,6 @@
 	# Merge file selection
 	ours   = "!f() { git checkout --ours $@ && git add $@; }; f"
 	theirs = "!f() { git checkout --theirs $@ && git add $@; }; f"
-
 [imap]
 	folder = "mail/Drafts"
 	tunnel = "ssh -q martinez@radeberger.cs.uni-magdeburg.de /usr/sbin/imapd 2>/dev/null"
@@ -80,6 +73,4 @@
 	algorithm = patience
 [clangFormat]
 	binary = /home/jmartine/.local/pkg/llvm-3.4/build/bin/clang-format
-  style  = file
-[cola]
-	fontdiff = DejaVu Sans Mono,10,-1,5,50,0,0,0,0,0
+        style  = file
