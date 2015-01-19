@@ -122,7 +122,7 @@ else
   export PS1="\[\033[01;32m\]\u@\h\[\033[01;34m\] \w \$\[\033[00m\] "
 fi
 
-export LC_TIME="de_DE.utf8"
+#export LC_TIME="de_DE.utf8"
 
 #export CGAL_MAKEFILE="/usr/local/share/cgal/cgal.mk"
 
