@@ -32,10 +32,13 @@ set -x PATH $GOPATH/bin $PATH
 set -x PATH $HOME/ProjVC/rmk/bin $PATH
 
 # nvm-fish github.com/Alex7Kom/nvm-fish
-test -s /home/jmartine/.nvm-fish/nvm.fish; and source /home/jmartine/.nvm-fish/nvm.fish
+test -s $HOME/.nvm-fish/nvm.fish; and source $HOME/.nvm-fish/nvm.fish
 
 # Path to your custom folder (default path is $FISH/custom)
-#set fish_custom $HOME/dotfiles/oh-my-fish
+# set fish_custom $HOME/dotfiles/oh-my-fish
 
 # Load oh-my-fish configuration.
 . $fish_path/oh-my-fish.fish
+
+# OPAM configuration
+. $HOME/.opam/opam-init/init.fish > /dev/null 2> /dev/null or true
