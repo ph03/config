@@ -78,3 +78,5 @@
 [clangFormat]
 	binary = /home/jmartine/.local/pkg/llvm-3.4/build/bin/clang-format
 	style  = file
+[fetch]
+	prune = true
