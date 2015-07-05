@@ -40,6 +40,11 @@
                  "operand": "source.rust"}]
   },
 
+  {
+    "keys" : ["shift+alt+b"], "command" : "show_panel" ,
+    "args" : {"panel": "output.exec"}
+  },
+
   { "keys": ["ctrl+space"], "command": "auto_complete" },
   { "keys": ["ctrl+space"], "command": "replace_completion_with_auto_complete", "context":
     [
