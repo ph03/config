@@ -35,6 +35,11 @@
                  "operand": "source.python"}]
   },
 
+  { "keys": ["ctrl+shift+c"], "command": "rust_code_formatter_format",
+    "context": [{"key": "selector", "operator": "equal",
+                 "operand": "source.rust"}]
+  },
+
   { "keys": ["ctrl+space"], "command": "auto_complete" },
   { "keys": ["ctrl+space"], "command": "replace_completion_with_auto_complete", "context":
     [
