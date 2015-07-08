@@ -31,6 +31,9 @@ set -x PATH $GOPATH/bin $PATH
 # rmk path
 set -x PATH $HOME/ProjVC/rmk/bin $PATH
 
+# rust path
+set -x RUST_SRC_PATH="$HOME/.local/pkg/rust/src"
+
 # nvm-fish github.com/Alex7Kom/nvm-fish
 test -s $HOME/.nvm-fish/nvm.fish; and source $HOME/.nvm-fish/nvm.fish
 
