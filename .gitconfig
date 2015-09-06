@@ -80,3 +80,5 @@
 	style  = file
 [fetch]
 	prune = true
+[credential]
+	helper = cache
