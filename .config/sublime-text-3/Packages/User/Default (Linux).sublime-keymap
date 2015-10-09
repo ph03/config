@@ -65,5 +65,7 @@
   },
 
   { "keys": ["ctrl+alt+e"], "command": "open_dir",
-    "args": {"dir": "$file_path", "file": "$file_name"} }
+    "args": {"dir": "$file_path", "file": "$file_name"} },
+
+  { "keys": ["ctrl+shift+alt+s"], "command": "reveal_in_side_bar"}
 ]
