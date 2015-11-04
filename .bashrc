@@ -254,7 +254,7 @@ export LESS=' -R '
 export MAYA_APP_DIR="$HOME/.config/maya"
 
 # gem path
-if which ruby >/dev/null && which gem >/dev/null; then
+if which ruby >/dev/null && which gem20 >/dev/null; then
   export PATH="$(ruby -rubygems -e 'puts Gem.user_dir')/bin:$PATH"
 fi
 
