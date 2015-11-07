@@ -20,7 +20,7 @@ set -x NINJA_STATUS "[%r/%u/%f/%t] "
 alias config='git --git-dir=$HOME/.config.git/ --work-tree=$HOME'
 
 # gem path
-if which gem ruby > /dev/null;
+if which gem20 ruby > /dev/null;
   set -x PATH (ruby -rubygems -e 'puts Gem.user_dir')/bin $PATH;
 end
 
@@ -44,4 +44,4 @@ test -s $HOME/.nvm-fish/nvm.fish; and source $HOME/.nvm-fish/nvm.fish
 . $fish_path/oh-my-fish.fish
 
 # OPAM configuration
-. $HOME/.opam/opam-init/init.fish > /dev/null 2> /dev/null or true
+. $HOME/.opam/opam-init/init.fish- > /dev/null 2> /dev/null or true
