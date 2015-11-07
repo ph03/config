@@ -8,7 +8,7 @@ if [ $# -lt 2 ]
 fi
 
 output="${2%.*}"
-n=`identify -format %n $1`
+n=`pdfinfo $1 | grep Pages: | awk '{print $2}'`
 
 # limit maximal page num
 if [ $n -gt 20 ]
