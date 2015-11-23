@@ -12,8 +12,8 @@
   { "keys": ["ctrl+alt+a","p"], "command": "git_push" },
   { "keys": ["ctrl+alt+a","b"], "command": "git_blame" },
 
-  { "keys": ["ctrl+shift+alt+right"], "command": "git_gutter_next_change" },
-  { "keys": ["ctrl+shift+alt+left"], "command": "git_gutter_prev_change" },
+  { "keys": ["ctrl+shift+alt+down"], "command": "git_gutter_next_change" },
+  { "keys": ["ctrl+shift+alt+up"], "command": "git_gutter_prev_change" },
 
   { "keys": ["ctrl+alt+n"], "command": "toggle_menu" },
   { "keys": ["ctrl+alt+m"], "command": "toggle_minimap" },
