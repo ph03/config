@@ -177,3 +177,5 @@ nosetests.xml
 
 *.run.xml
 *-blx.bib
+
+Desktop/
