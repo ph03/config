@@ -31,10 +31,11 @@
 	"ignored_packages":
 	[
 		"Dictionaries",
-		"Vintage",
+		"Markdown",
+		"SideBarEnhancements",
 		"SublimeClang",
 		"Syntax Highlighting for Sass",
-		"SideBarEnhancements"
+		"Vintage"
 	],
 	"ignored_words":
 	[
@@ -110,7 +111,7 @@
 	"show_panel_on_build": true,
 	"soda_classic_tabs": false,
 	"tab_size": 2,
-	"theme": "Soda Dark 3.sublime-theme",
+	"theme": "SoDaReloaded Dark.sublime-theme",
 	"translate_tabs_to_spaces": true,
 	"trim_automatic_white_space_on_save": true,
 	"trim_trailing_white_space_on_save": true,
