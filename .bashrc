@@ -15,18 +15,11 @@ if [[ $- != *i* ]] ; then
 fi
 
 if [ -f $HOME/.bashrc_private ] ; then 
-  # We seem to be at MPI
+  # We seem to be at work
   . $HOME/.bashrc_private
-  
-  AUTOPATH="$HOME/.autopath.bash."`uname -s`
-  if [ -f $AUTOPATH ] ; then
-    . $AUTOPATH
-  fi
-
-  return
 fi
 
-# Put your sabayon fun stuff here.
+# Put your fun stuff here
 
 # explicit bash completion
 [[ -f /etc/profile.d/bash_completion.sh ]] && source /etc/profile.d/bash_completion.sh

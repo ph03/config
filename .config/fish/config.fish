@@ -9,8 +9,9 @@ set fish_theme ph03
 # Example format: set fish_plugins autojump bundler
 
 # env vars
-set -x SHELL /bin/fish
+set -x SHELL /usr/bin/fish
 set -x PATH $HOME/.local/bin $PATH
+set -x LD_LIBRARY_PATH $HOME/.local/lib $LD_LIBRARY_PATH
 set -x PROJVC $HOME/ProjVC
 set -x PROJMPI $HOME/ProjMPI
 set -x GCC_COLORS auto
