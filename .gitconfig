@@ -1,80 +1,82 @@
 [user]
-	name = Janick Martinez Esturo
-	email = janick.martinez.esturo@gmail.com
-	signingkey = A85C4836
+  name = Janick Martinez Esturo
+  email = janick.martinez.esturo@gmail.com
+  signingkey = A85C4836
 [color]
-	ui = auto
+  ui = auto
 [color "diff"]
-	meta = yellow bold
-	frag = magenta bold
-	old = red bold
-	new = green bold
+  meta = yellow bold
+  frag = magenta bold
+  old = red bold
+  new = green bold
 [color "status"]
-	added = yellow
-	changed = green
-	untracked = cyan
+  added = yellow
+  changed = green
+  untracked = cyan
 [core]
-	excludesfile = ~/.gitignore
+  excludesfile = ~/.gitignore
 [github]
-	user = ph03
-	token = ade4511a4c3c7d046d6f13ff704ab27f
+  user = ph03
+  token = ade4511a4c3c7d046d6f13ff704ab27f
 [alias]
-	co = checkout
-	br = branch
-	ci = commit -v
-	st = status
-	ls = ls-files
+  # shortcuts
+  co = checkout
+  br = branch
+  ci = commit -v
+  st = status
+  ls = ls-files
+  df = diff
+  dc = diff --cached
 
-	unstage = reset HEAD --
-	last = log -1 HEAD
+  # (graph) logs
+  ll  = log --graph --pretty=format:'%C(yellow)%h%Creset%C(auto)%d%Creset%  %m %C(bold white)%s%Creset%+b %C(bold magenta)%N%Creset%Cgreen(%cr) %C(bold blue)<%an>%Creset'   --abbrev-commit --date=relative
+  lla = log --graph --pretty=format:'%C(yellow)%h%Creset%C(auto)%d%Creset%  %m %C(bold white)%s%Creset%+b %C(bold magenta)%N%Creset%Cgreen(%cr) %C(bold blue)<%an>%Creset'   --abbrev-commit --date=relative --all
+  lls = log --graph --pretty=format:'%C(yellow)%h%Creset%C(auto)%d%Creset%  %m %C(bold white)%s%Creset%+b %C(bold magenta)%N%Creset%Cgreen(%cr) %C(bold blue)<%an>%Creset%n' --abbrev-commit --date=relative --all --stat
+  lln = log --graph --pretty=format:'%C(yellow)%h%Creset%C(auto)%d%Creset%  %m %C(bold white)%s%Creset%+b %C(bold magenta)%N%Creset%Cgreen(%cr) %C(bold blue)<%an>%Creset%n' --abbrev-commit --date=relative --all --name-status
+  last = log -1 HEAD
 
-	df = diff
-	dc = diff --cached
+  # show ignored files
+  ign = ls-files -o -i --exclude-standard
 
-	ll  = log --graph --pretty=format:'%C(yellow)%h%Creset%C(auto)%d%Creset%  %m %C(bold white)%s%Creset%+b %C(bold magenta)%N%Creset%Cgreen(%cr) %C(bold blue)<%an>%Creset'   --abbrev-commit --date=relative
-	lla = log --graph --pretty=format:'%C(yellow)%h%Creset%C(auto)%d%Creset%  %m %C(bold white)%s%Creset%+b %C(bold magenta)%N%Creset%Cgreen(%cr) %C(bold blue)<%an>%Creset'   --abbrev-commit --date=relative --all
-	lls = log --graph --pretty=format:'%C(yellow)%h%Creset%C(auto)%d%Creset%  %m %C(bold white)%s%Creset%+b %C(bold magenta)%N%Creset%Cgreen(%cr) %C(bold blue)<%an>%Creset%n' --abbrev-commit --date=relative --all --stat
-	lln = log --graph --pretty=format:'%C(yellow)%h%Creset%C(auto)%d%Creset%  %m %C(bold white)%s%Creset%+b %C(bold magenta)%N%Creset%Cgreen(%cr) %C(bold blue)<%an>%Creset%n' --abbrev-commit --date=relative --all --name-status
+  # show the history of a file, with diffs
+  filelog = log -u
+  fl = log -u
 
-	# show files ignored by git:
-	ign = ls-files -o -i --exclude-standard
+  # file-level ignore
+  assume   = update-index --assume-unchanged
+  unassume = update-index --no-assume-unchanged
+  assumed  = "!git ls-files -v | grep ^h | cut -c 3-"
 
-	# show the history of a file, with diffs
-	filelog = log -u
-	fl = log -u
+  # snapshot stash
+  snapshot = !git stash save "snapshot: $(date)" && git stash apply "stash@{0}"
 
-	# file-level ignore
-	assume   = update-index --assume-unchanged
-	unassume = update-index --no-assume-unchanged
-	assumed  = "!git ls-files -v | grep ^h | cut -c 3-"
+  # revert changes
+  unstage = reset HEAD --
 
-	# snapshot stash
-	snapshot = !git stash save "snapshot: $(date)" && git stash apply "stash@{0}"
+  # merge file selection
+  ours   = "!f() { git checkout --ours $@ && git add $@; }; f"
+  theirs = "!f() { git checkout --theirs $@ && git add $@; }; f"
 
-	# merge file selection
-	ours   = "!f() { git checkout --ours $@ && git add $@; }; f"
-	theirs = "!f() { git checkout --theirs $@ && git add $@; }; f"
-
-	# stash regex show / apply
-	sshow  = "!f() { git stash show stash^{/$*} -p; }; f"
-	sapply = "!f() { git stash apply stash^{/$*}; }; f"
+  # stash regex show / apply
+  sshow  = "!f() { git stash show stash^{/$*} -p; }; f"
+  sapply = "!f() { git stash apply stash^{/$*}; }; f"
 [branch]
-	autosetuprebase = always
-[push]
-	default = simple
-[mergetool]
-	keepBackup = false
-[gui]
-	editor = gvim
+  autosetuprebase = always  # perform rebase instead of merges on 'git pull'
 [diff]
-	algorithm = patience
-[clangFormat]
-	binary = clang-format-3.7
-	style  = file
+  algorithm = patience  # semantically more meaningful diffs
+[push]
+  default = simple  # push only the current branch to the one that 'git pull' would pull from
 [fetch]
-	prune = true
+  prune = true  # prune local branches and tags that were deleted remotely
+[mergetool]
+  keepBackup = false
+[gui]
+  editor = gvim
+[clangFormat]
+  binary = clang-format-3.7
+  style  = file
 [credential]
-	helper = cache
+  helper = cache
 [include]
-		# private git configuration
-    path = ~/Code/git/.gitconfig
+  # private git configuration
+  path = ~/.gitconfig_private
