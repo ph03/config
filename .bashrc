@@ -14,7 +14,7 @@ if [[ $- != *i* ]] ; then
 	return
 fi
 
-if [ -f $HOME/.bashrc_private ] ; then 
+if [ -f $HOME/.bashrc_private ] ; then
   # We seem to be at work
   . $HOME/.bashrc_private
 fi
@@ -259,6 +259,10 @@ fi
 # go path
 export GOPATH="$HOME/.local/go"
 export PATH="$GOPATH/bin:$PATH"
+
+# rust path
+export PATH="$HOME/.cargo/bin:$PATH"
+export RUST_SRC_PATH="$HOME/.local/pkg/rust/src"
 
 # ocaml path
 export PATH="$HOME/.opam/system/bin:$PATH"
