@@ -49,3 +49,6 @@ test -s $HOME/.nvm-fish/nvm.fish; and source $HOME/.nvm-fish/nvm.fish
 
 # OPAM configuration
 . $HOME/.opam/opam-init/init.fish- > /dev/null 2> /dev/null or true
+
+# Load private configuration
+. $HOME/.config/fish/config_private.fish
