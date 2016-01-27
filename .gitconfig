@@ -76,7 +76,7 @@
   binary = clang-format-3.7
   style  = file
 [credential]
-  helper = cache
+  helper = store
 [include]
   # private git configuration
   path = ~/.gitconfig_private
