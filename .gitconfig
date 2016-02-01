@@ -24,6 +24,7 @@
   br = branch
   ci = commit -v
   st = status
+  sst = submodule status --recursive
   ls = ls-files
   df = diff
   dc = diff --cached
