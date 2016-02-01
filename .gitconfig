@@ -78,6 +78,13 @@
   style  = file
 [credential]
   helper = store
+[rebase]
+  autosquash = true
+  instructionFormat = [%an @ %ar] %s
+[merge]
+  tool = meld
+[mergetool "meld"]
+  cmd = meld --auto-merge --output $MERGED $LOCAL $BASE $REMOTE --diff $BASE $LOCAL --diff $BASE $REMOTE
 [include]
   # private git configuration
   path = ~/.gitconfig_private
