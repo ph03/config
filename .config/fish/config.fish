@@ -24,7 +24,7 @@ function mc
 end
 
 # Gem path
-if which gem20 ruby > /dev/null;
+if which gem ruby > /dev/null;
   set -x PATH (ruby -rubygems -e 'puts Gem.user_dir')/bin $PATH;
 end
 
