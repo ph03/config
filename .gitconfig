@@ -13,8 +13,11 @@
   added = yellow
   changed = green
   untracked = cyan
+[color "branch"]
+  upstream = cyan # blue on black is hard to read in git branch -vv: use cyan instead
 [core]
   excludesfile = ~/.gitignore
+  whitespace = -trailing-space # don't consider trailing space change as a cause for merge conflicts
 [github]
   user = ph03
   token = ade4511a4c3c7d046d6f13ff704ab27f
@@ -62,15 +65,29 @@
   sshow  = "!f() { git stash show stash^{/$*} -p; }; f"
   sapply = "!f() { git stash apply stash^{/$*}; }; f"
 [branch]
-  autosetuprebase = always  # perform rebase instead of merges on 'git pull'
+  autosetuprebase = always # perform rebase instead of merges on 'git pull'
 [diff]
   algorithm = patience  # semantically more meaningful diffs
+  mnemonicPrefix = true # use better, descriptive initials (c, i, w) instead of a/b
+  renames = true        # show renames/moves as such
+  wordRegex = .         # when using --word-diff, assume --word-diff-regex=.
+  submodule = log       # display submodule-related information (commit listings)
 [push]
-  default = simple  # push only the current branch to the one that 'git pull' would pull from
+  default = upstream            # default push should only push the current branch
+                                # to its push target, regardless of its remote name
+  recurseSubmodules = on-demand # also push changes of submodules
 [fetch]
-  prune = true  # prune local branches and tags that were deleted remotely
+  prune = true                  # prune local branches and tags that were deleted remotely
+  recurseSubmodules = on-demand # auto-fetch submodule changes (sadly, won't auto-update)
+[pull]
+  rebase = preserve # preserves merge commits on rebase initiated by pull
+[rebase]
+  autosquash = true
+  instructionFormat = [%an @ %ar] %s
 [mergetool]
-  keepBackup = false
+  keepBackup = false      # clean up backup files created by merge tools on tool exit
+  keepTemporaries = false # clean up temp files created by merge tools on tool exit
+  writeToTemp = true      # put the temp files in a dedicated dir anyway
 [gui]
   editor = gvim
 [clangFormat]
@@ -78,13 +95,24 @@
   style  = file
 [credential]
   helper = store
-[rebase]
-  autosquash = true
-  instructionFormat = [%an @ %ar] %s
 [merge]
   tool = meld
+  conflictStyle = diff3 # display common-ancestor blocks in conflict hunks
 [mergetool "meld"]
   cmd = meld --auto-merge --output $MERGED $LOCAL $BASE $REMOTE --diff $BASE $LOCAL --diff $BASE $REMOTE
+[tag]
+  sort = version:refname # sort tags as version numbers whenever applicable, so 1.10.2 is AFTER 1.2.0
+[log]
+  abbrevCommit = true # use abbrev SHAs whenever possible/relevant instead of full 40 chars
+  follow = true       # automatically --follow when given a single path
+[grep]
+  extendedRegexp = true # consider most regexes to be ERE
+[versionsort]
+  prereleaseSuffix = -pre
+  prereleaseSuffix = .pre
+  prereleaseSuffix = -beta
+  prereleaseSuffix = .beta
+  prereleaseSuffix = -rc
+  prereleaseSuffix = .rc
 [include]
-  # private git configuration
-  path = ~/.gitconfig_private
+  path = ~/.gitconfig_private # private git configuration
