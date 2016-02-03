@@ -30,6 +30,7 @@
   sst = submodule status --recursive
   su = submodule update --recursive
   sco = !git checkout $1 && git su && :
+  f = fetch
   ls = ls-files
   df = diff
   dc = diff --cached
