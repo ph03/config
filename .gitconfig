@@ -28,6 +28,8 @@
   ci = commit -v
   st = status
   sst = submodule status --recursive
+  su = submodule update --recursive
+  sco = !git checkout $1 && git su && :
   ls = ls-files
   df = diff
   dc = diff --cached
