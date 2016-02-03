@@ -29,11 +29,23 @@
   st = status
   sst = submodule status --recursive
   su = submodule update --recursive
+  sur = submodule update --recursive --remote
   sco = !git checkout $1 && git su && :
   f = fetch
+  p = fetch
   ls = ls-files
   df = diff
   dc = diff --cached
+
+  # place all submodules on their respective branch specified in .gitmodules
+  sm-co-trackb   = "!git submodule foreach -q --recursive 'branch="$(git config -f $toplevel/.gitmodules submodule.$name.branch)"; [ ! -z "$branch" ] && echo $branch @ $name && git co $branch || echo NONE @ $name'"
+  sm-co-trackb-p = "!git submodule foreach -q --recursive 'branch="$(git config -f $toplevel/.gitmodules submodule.$name.branch)"; [ ! -z "$branch" ] && echo $branch @ $name && git co $branch && git fetch -a -p && git pull || echo NONE @ $name'"
+
+  # git sm-diff will diff the master repo *and* its submodules
+  sm-diff = "!git diff && git submodule foreach 'git diff' "
+
+  # git sm-push will ask to push also submodules
+  sm-push = push --recurse-submodules=on-demand
 
   # (graph) logs
   ll  = log --graph --pretty=format:'%C(yellow)%h%Creset%C(auto)%d%Creset%  %m %C(bold white)%s%Creset%+b %C(bold magenta)%N%Creset%Cgreen(%cr) %C(bold blue)<%an>%Creset'   --abbrev-commit --date=relative
