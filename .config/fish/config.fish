@@ -27,6 +27,9 @@ end
 if which gem ruby > /dev/null;
   set -x PATH (ruby -rubygems -e 'puts Gem.user_dir')/bin $PATH;
 end
+if which gem2.0 ruby2.0 > /dev/null;
+  set -x PATH (ruby2.0 -rubygems -e 'puts Gem.user_dir')/bin $PATH;
+end
 
 # ccache path
 if which ccache > /dev/null;
