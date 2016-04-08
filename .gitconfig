@@ -129,3 +129,7 @@
   prereleaseSuffix = .rc
 [include]
   path = ~/.gitconfig_private # private git configuration
+[filter "lfs"]
+  clean = git-lfs clean %f
+  smudge = git-lfs smudge %f
+  required = true
