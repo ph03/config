@@ -28,6 +28,11 @@ if which gem ruby > /dev/null;
   set -x PATH (ruby -rubygems -e 'puts Gem.user_dir')/bin $PATH;
 end
 
+# ccache path
+if which ccache > /dev/null;
+  set -x PATH /usr/lib/ccache $PATH;
+end
+
 # Go path
 set -x GOPATH $HOME/.local/go
 set -x PATH $GOPATH/bin $PATH
