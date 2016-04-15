@@ -113,8 +113,6 @@
 [merge]
   tool = meld
   conflictStyle = diff3 # display common-ancestor blocks in conflict hunks
-[mergetool "meld"]
-  cmd = meld --auto-merge --output $MERGED $LOCAL $BASE $REMOTE --diff $BASE $LOCAL --diff $BASE $REMOTE
 [tag]
   sort = version:refname # sort tags as version numbers whenever applicable, so 1.10.2 is AFTER 1.2.0
 [log]
