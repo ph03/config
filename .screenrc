@@ -13,3 +13,8 @@ term screen-256color
 attrcolor b ".I"
 termcapinfo xterm 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
 defbce on
+
+# the following two lines give a two-line status, with the current window highlighted
+#hardstatus alwayslastline
+#hardstatus string '%{= kG}[%{W}@%H%? %1`%?%{g}][%= %{= kw}%-w%{+b yk} %n*%t%?(%u)%? %{-}%+w %=%{g}][%{W}%d.%m%{W}%c%{g}]'
+#hardstatus string '%{= kG}[ %{G}%H %{g}][%= %{= kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{g}][%{W} %m-%d %{W}%c %{g}]'
