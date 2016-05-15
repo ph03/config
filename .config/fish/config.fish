@@ -4,6 +4,9 @@ set fish_path $HOME/.local/pkg/oh-my-fish
 # Theme
 set fish_theme ph03
 
+# Stop yanking of deleted words
+set FISH_CLIPBOARD_CMD "cat"
+
 # Env vars
 set -x SHELL (which fish)
 set -x PATH $HOME/.local/bin $PATH
