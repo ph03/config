@@ -102,7 +102,8 @@
 	"origami_auto_zoom_on_focus": false,
 	"rulers":
 	[
-		80, 110
+		80,
+		110
 	],
 	"scroll_speed": 0.0,
 	"shift_tab_unindent": true,
