@@ -13,6 +13,9 @@ qtcreator-build/
 *_creator.*
 build/
 build-debug/
+build-Debug/
+build-release/
+build-Release/
 ### /home/martinez/.gitignore-boilerplates/Global/Eclipse.gitignore
 
 *.pydevproject
