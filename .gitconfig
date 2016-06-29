@@ -79,6 +79,21 @@
   # stash regex show / apply
   sshow  = "!f() { git stash show stash^{/$*} -p; }; f"
   sapply = "!f() { git stash apply stash^{/$*}; }; f"
+
+  # Publish the current branch by pushing it to the remote "origin", and setting the current branch to track the upstream branch
+  publish = !"git push -u origin $(git branch-name)"
+
+  # Unpublish the current branch by deleting the remote version of the current branch
+  unpublish = !"git push origin :$(git branch-name)"
+
+  # Get the current branch name
+  branch-name = !"git rev-parse --abbrev-ref HEAD"
+
+  # Get the top level directory, regardless of what subdirectory we're in
+  root = ! pwd
+
+  # Execute shell scripts. Git always runs scripts in the top directory. For example "git exec pwd" will always show you the top directory
+  exec = ! exec
 [branch]
   autosetuprebase = always # perform rebase instead of merges on 'git pull'
 [diff]
