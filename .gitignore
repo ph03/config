@@ -14,8 +14,10 @@ qtcreator-build/
 build/
 build-debug/
 build-Debug/
+build-Debug-cross/
 build-release/
 build-Release/
+build-Release-cross/
 ### /home/martinez/.gitignore-boilerplates/Global/Eclipse.gitignore
 
 *.pydevproject

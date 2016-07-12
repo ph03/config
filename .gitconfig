@@ -26,6 +26,7 @@
   co = checkout
   br = branch
   ci = commit -v
+  cif = commit -v --fixup
   st = status
   sst = submodule status --recursive
   su = submodule update --recursive
