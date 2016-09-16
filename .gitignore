@@ -15,6 +15,10 @@ build/
 build-debug/
 build-Debug/
 build-Debug-cross/
+build-profile/
+build-Profile/
+build-Profile-cross/
+build-Debug-cross/
 build-release/
 build-Release/
 build-Release-cross/

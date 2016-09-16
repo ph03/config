@@ -18,6 +18,7 @@
 [core]
   excludesfile = ~/.gitignore
   whitespace = -trailing-space # don't consider trailing space change as a cause for merge conflicts
+  editor = nano
 [github]
   user = ph03
   token = ade4511a4c3c7d046d6f13ff704ab27f
