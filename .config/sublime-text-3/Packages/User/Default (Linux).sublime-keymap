@@ -69,6 +69,9 @@
 
   { "keys": ["ctrl+shift+alt+s"], "command": "reveal_in_side_bar"},
 
+  { "keys": ["ctrl+v"], "command": "paste_and_indent" },
+  { "keys": ["ctrl+shift+v"], "command": "paste" },
+
   { "keys": ["super+x"], "command": "clipboard_manager_cut" },
   { "keys": ["super+c"], "command": "clipboard_manager_copy" },
 
