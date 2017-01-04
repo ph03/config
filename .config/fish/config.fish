@@ -43,9 +43,6 @@ end
 set -x GOPATH $HOME/.local/go
 set -x PATH $GOPATH/bin $PATH
 
-# Rmk path
-set -x PATH $HOME/ProjVC/rmk/bin $PATH
-
 # Rust path
 set -x PATH $HOME/.cargo/bin $PATH
 set -x RUST_SRC_PATH $HOME/.local/pkg/rust/src
