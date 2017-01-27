@@ -102,11 +102,12 @@
 [branch]
   autosetuprebase = always # perform rebase instead of merges on 'git pull'
 [diff]
-  algorithm = patience  # semantically more meaningful diffs
-  mnemonicPrefix = true # use better, descriptive initials (c, i, w) instead of a/b
-  renames = true        # show renames/moves as such
-  wordRegex = .         # when using --word-diff, assume --word-diff-regex=.
-  submodule = log       # display submodule-related information (commit listings)
+  algorithm = patience    # semantically more meaningful diffs
+  mnemonicPrefix = true   # use better, descriptive initials (c, i, w) instead of a/b
+  renames = true          # show renames/moves as such
+  wordRegex = .           # when using --word-diff, assume --word-diff-regex=.
+  submodule = diff        # display submodule-related information (diff listing)
+  indentHeuristic = true  # try to detect more meaningful change boundaries
 [push]
   default = upstream            # default push should only push the current branch
                                 # to its push target, regardless of its remote name
@@ -117,8 +118,9 @@
 [pull]
   rebase = preserve # preserves merge commits on rebase initiated by pull
 [rebase]
-  autosquash = true
+  autosquash = true                   # allways autosquash fixup commits
   instructionFormat = [%an @ %ar] %s
+  autostash = true                    # stash and reapply dirty worktree on rebase
 [mergetool]
   keepBackup = false      # clean up backup files created by merge tools on tool exit
   keepTemporaries = false # clean up temp files created by merge tools on tool exit
@@ -126,20 +128,20 @@
 [gui]
   editor = gvim
 [clangFormat]
-  binary = clang-format-3.7
+  binary = clang-format-3.9
   style  = file
 [credential]
   helper = store
 [merge]
   tool = meld
-  conflictStyle = diff3 # display common-ancestor blocks in conflict hunks
+  conflictStyle = diff3  # display common-ancestor blocks in conflict hunks
 [tag]
   sort = version:refname # sort tags as version numbers whenever applicable, so 1.10.2 is AFTER 1.2.0
 [log]
-  abbrevCommit = true # use abbrev SHAs whenever possible/relevant instead of full 40 chars
-  follow = true       # automatically --follow when given a single path
+  abbrevCommit = true    # use abbrev SHAs whenever possible/relevant instead of full 40 chars
+  follow = true          # automatically --follow when given a single path
 [grep]
-  extendedRegexp = true # consider most regexes to be ERE
+  extendedRegexp = true  # consider most regexes to be ERE
 [versionsort]
   prereleaseSuffix = -pre
   prereleaseSuffix = .pre
@@ -153,3 +155,7 @@
   smudge = git-lfs smudge -- %f
   required = true
   clean = git-lfs clean -- %f
+[submodule]
+  fetchJobs = 4    # fetch submodules in parallel jobs
+[stash]
+  showPatch = true # show diff on `git stash show`
