@@ -102,12 +102,13 @@
 [branch]
   autosetuprebase = always # perform rebase instead of merges on 'git pull'
 [diff]
-  algorithm = patience    # semantically more meaningful diffs
-  mnemonicPrefix = true   # use better, descriptive initials (c, i, w) instead of a/b
-  renames = true          # show renames/moves as such
-  wordRegex = .           # when using --word-diff, assume --word-diff-regex=.
-  submodule = diff        # display submodule-related information (diff listing)
-  indentHeuristic = true  # try to detect more meaningful change boundaries
+  algorithm = patience        # semantically more meaningful diffs
+  mnemonicPrefix = true       # use better, descriptive initials (c, i, w) instead of a/b
+  renames = true              # show renames/moves as such
+  wordRegex = .               # when using --word-diff, assume --word-diff-regex=.
+  submodule = diff            # display submodule-related information (diff listing)
+  indentHeuristic = true      # try to detect more meaningful change boundaries
+  compactionHeuristic = true  # try to compact changes to more meaningful blocks
 [push]
   default = upstream            # default push should only push the current branch
                                 # to its push target, regardless of its remote name
