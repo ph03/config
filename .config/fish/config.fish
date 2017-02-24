@@ -61,3 +61,8 @@ test -s $HOME/.nvm-fish/nvm.fish; and source $HOME/.nvm-fish/nvm.fish
 
 # Load private configuration
 . $HOME/.config/fish/config_private.fish
+
+# fuck
+if which thefuck > /dev/null;
+  eval (thefuck --alias | tr '\n' ';')
+end
