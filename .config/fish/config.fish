@@ -1,8 +1,8 @@
 # Path to oh-my-fish repo
-set fish_path $HOME/.local/pkg/oh-my-fish
+# set fish_path $HOME/.local/pkg/oh-my-fish
 
 # Theme
-set fish_theme ph03
+# set fish_theme ph03
 
 # Stop yanking of deleted words
 set FISH_CLIPBOARD_CMD "cat"
@@ -54,7 +54,7 @@ test -s $HOME/.nvm-fish/nvm.fish; and source $HOME/.nvm-fish/nvm.fish
 # set fish_custom $HOME/dotfiles/oh-my-fish
 
 # Load oh-my-fish configuration
-. $fish_path/oh-my-fish.fish
+# . $fish_path/oh-my-fish.fish
 
 # OPAM configuration
 . $HOME/.opam/opam-init/init.fish- > /dev/null 2> /dev/null or true
