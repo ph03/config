@@ -1,9 +1,3 @@
-# Path to oh-my-fish repo
-# set fish_path $HOME/.local/pkg/oh-my-fish
-
-# Theme
-# set fish_theme ph03
-
 # Stop yanking of deleted words
 set FISH_CLIPBOARD_CMD "cat"
 
@@ -47,22 +41,13 @@ set -x PATH $GOPATH/bin $PATH
 set -x PATH $HOME/.cargo/bin $PATH
 set -x RUST_SRC_PATH $HOME/.local/pkg/rust/src
 
-# nvm-fish github.com/Alex7Kom/nvm-fish
-test -s $HOME/.nvm-fish/nvm.fish; and source $HOME/.nvm-fish/nvm.fish
-
-# Path to your custom folder (default path is $FISH/custom)
-# set fish_custom $HOME/dotfiles/oh-my-fish
-
-# Load oh-my-fish configuration
-# . $fish_path/oh-my-fish.fish
-
 # OPAM configuration
 . $HOME/.opam/opam-init/init.fish- > /dev/null 2> /dev/null or true
 
+# fuck
+#if which thefuck > /dev/null;
+#  eval (thefuck --alias | tr '\n' ';')
+#end
+
 # Load private configuration
 . $HOME/.config/fish/config_private.fish
-
-# fuck
-if which thefuck > /dev/null;
-  eval (thefuck --alias | tr '\n' ';')
-end
