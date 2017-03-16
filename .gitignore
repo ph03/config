@@ -190,3 +190,5 @@ nosetests.xml
 Desktop/
 Code/
 Downloads/
+
+*.blend*
