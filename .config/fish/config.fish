@@ -45,9 +45,9 @@ set -x RUST_SRC_PATH $HOME/.local/pkg/rust/src
 . $HOME/.opam/opam-init/init.fish- > /dev/null 2> /dev/null or true
 
 # fuck
-#if which thefuck > /dev/null;
-#  eval (thefuck --alias | tr '\n' ';')
-#end
+if which thefuck > /dev/null;
+  eval (thefuck --alias | tr '\n' ';')
+end
 
 # Load private configuration
 . $HOME/.config/fish/config_private.fish
