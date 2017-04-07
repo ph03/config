@@ -99,6 +99,10 @@
 
   # Get recent stuff for standup meetings
   scrum = "!f() { git log --since=\"$1 days ago\" --author='Janick Martinez Esturo' --pretty=format:'%C(yellow)%h%Creset%C(auto)%d%Creset%  %m %C(bold white)%s%Creset%+b %C(bold magenta)%N%Creset%Cgreen(%cr) %C(bold blue)<%an>%Creset' --branches; }; f"
+
+  # Difftool
+  showtool = "!f() { git difftool $1^ $1; }; f" # show a commit using difftool
+  added = difftool --cached # show staged changes using difftool
 [branch]
   autosetuprebase = always # perform rebase instead of merges on 'git pull'
 [diff]
@@ -109,6 +113,13 @@
   submodule = diff            # display submodule-related information (diff listing)
   indentHeuristic = true      # try to detect more meaningful change boundaries
   compactionHeuristic = true  # try to compact changes to more meaningful blocks
+  tool = icdiff               # install via `pip3 install --user icdiff`
+[difftool]
+    prompt = false
+[difftool "icdiff"]
+  cmd = icdiff --line-numbers $LOCAL $REMOTE
+[pager]
+  difftool = true
 [push]
   default = upstream            # default push should only push the current branch
                                 # to its push target, regardless of its remote name
