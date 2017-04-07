@@ -47,10 +47,14 @@
   sm-push = push --recurse-submodules=on-demand
 
   # (graph) logs
-  ll  = log --graph --pretty=format:'%C(yellow)%h%Creset%C(auto)%d%Creset%  %m %C(bold white)%s%Creset%+b %C(bold magenta)%N%Creset%Cgreen(%cr) %C(bold blue)<%an>%Creset'   --abbrev-commit --date=relative
-  lla = log --graph --pretty=format:'%C(yellow)%h%Creset%C(auto)%d%Creset%  %m %C(bold white)%s%Creset%+b %C(bold magenta)%N%Creset%Cgreen(%cr) %C(bold blue)<%an>%Creset'   --abbrev-commit --date=relative --all
-  lls = log --graph --pretty=format:'%C(yellow)%h%Creset%C(auto)%d%Creset%  %m %C(bold white)%s%Creset%+b %C(bold magenta)%N%Creset%Cgreen(%cr) %C(bold blue)<%an>%Creset%n' --abbrev-commit --date=relative --all --stat
-  lln = log --graph --pretty=format:'%C(yellow)%h%Creset%C(auto)%d%Creset%  %m %C(bold white)%s%Creset%+b %C(bold magenta)%N%Creset%Cgreen(%cr) %C(bold blue)<%an>%Creset%n' --abbrev-commit --date=relative --all --name-status
+  l    = log --graph --pretty=format:'%C(yellow)%h%Creset%C(auto)%d%Creset%  %m %C(bold white)%s%Creset% %C(bold magenta)%N%Creset%Cgreen(%cr) %C(bold blue)<%an>%Creset'     --date=relative
+  la   = log --graph --pretty=format:'%C(yellow)%h%Creset%C(auto)%d%Creset%  %m %C(bold white)%s%Creset% %C(bold magenta)%N%Creset%Cgreen(%cr) %C(bold blue)<%an>%Creset'     --date=relative --all
+  las  = log --graph --pretty=format:'%C(yellow)%h%Creset%C(auto)%d%Creset%  %m %C(bold white)%s%Creset% %C(bold magenta)%N%Creset%Cgreen(%cr) %C(bold blue)<%an>%Creset'     --date=relative --all --stat
+  lan  = log --graph --pretty=format:'%C(yellow)%h%Creset%C(auto)%d%Creset%  %m %C(bold white)%s%Creset% %C(bold magenta)%N%Creset%Cgreen(%cr) %C(bold blue)<%an>%Creset'     --date=relative --all --name-status
+  ll   = log --graph --pretty=format:'%C(yellow)%h%Creset%C(auto)%d%Creset%  %m %C(bold white)%s%Creset%+b %C(bold magenta)%N%Creset%Cgreen(%cr) %C(bold blue)<%an>%Creset'   --date=relative
+  lla  = log --graph --pretty=format:'%C(yellow)%h%Creset%C(auto)%d%Creset%  %m %C(bold white)%s%Creset%+b %C(bold magenta)%N%Creset%Cgreen(%cr) %C(bold blue)<%an>%Creset'   --date=relative --all
+  llas = log --graph --pretty=format:'%C(yellow)%h%Creset%C(auto)%d%Creset%  %m %C(bold white)%s%Creset%+b %C(bold magenta)%N%Creset%Cgreen(%cr) %C(bold blue)<%an>%Creset%n' --date=relative --all --stat
+  llan = log --graph --pretty=format:'%C(yellow)%h%Creset%C(auto)%d%Creset%  %m %C(bold white)%s%Creset%+b %C(bold magenta)%N%Creset%Cgreen(%cr) %C(bold blue)<%an>%Creset%n' --date=relative --all --name-status
   last = log -1 HEAD
 
   # show ignored files
@@ -103,6 +107,15 @@
   # Difftool
   showtool = "!f() { git difftool $1^ $1; }; f" # show a commit using difftool
   added = difftool --cached # show staged changes using difftool
+
+  # Prune - delete local branches that were deleted from the remote
+  prune = fetch --prune
+
+  # Undo - reset before last commit
+  undo = reset --soft HEAD^
+
+  # Stash-all - stash also untracked files
+  stash-all = stash save --include-untracked
 [branch]
   autosetuprebase = always # perform rebase instead of merges on 'git pull'
 [diff]
@@ -124,6 +137,7 @@
   default = upstream            # default push should only push the current branch
                                 # to its push target, regardless of its remote name
   recurseSubmodules = on-demand # also push changes of submodules
+  followTags = true             # also push tags
 [fetch]
   prune = true                  # prune local branches and tags that were deleted remotely
   recurseSubmodules = on-demand # auto-fetch submodule changes (sadly, won't auto-update)
@@ -147,11 +161,14 @@
 [merge]
   tool = meld
   conflictStyle = diff3  # display common-ancestor blocks in conflict hunks
+  ff = only              # only allow ff merges by default, use git merge --ff to force a merge commit
 [tag]
   sort = version:refname # sort tags as version numbers whenever applicable, so 1.10.2 is AFTER 1.2.0
 [log]
   abbrevCommit = true    # use abbrev SHAs whenever possible/relevant instead of full 40 chars
   follow = true          # automatically --follow when given a single path
+[commit]
+  gpgSign = true
 [grep]
   extendedRegexp = true  # consider most regexes to be ERE
 [versionsort]
