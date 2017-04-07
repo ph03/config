@@ -163,11 +163,12 @@
   prereleaseSuffix = .rc
 [include]
   path = ~/.gitconfig_private # private git configuration
-[filter "lfs"]
-  smudge = git-lfs smudge -- %f
-  required = true
-  clean = git-lfs clean -- %f
 [submodule]
   fetchJobs = 4    # fetch submodules in parallel jobs
 [stash]
   showPatch = true # show diff on `git stash show`
+[filter "lfs"]
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
