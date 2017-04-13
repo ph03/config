@@ -47,14 +47,14 @@
   sm-push = push --recurse-submodules=on-demand
 
   # (graph) logs
-  l    = log --graph --pretty=format:'%C(yellow)%h%Creset%C(auto)%d%Creset%  %m %C(bold white)%s%Creset% %C(bold magenta)%N%Creset%Cgreen(%cr) %C(bold blue)<%an>%Creset'     --date=relative
-  la   = log --graph --pretty=format:'%C(yellow)%h%Creset%C(auto)%d%Creset%  %m %C(bold white)%s%Creset% %C(bold magenta)%N%Creset%Cgreen(%cr) %C(bold blue)<%an>%Creset'     --date=relative --all
-  las  = log --graph --pretty=format:'%C(yellow)%h%Creset%C(auto)%d%Creset%  %m %C(bold white)%s%Creset% %C(bold magenta)%N%Creset%Cgreen(%cr) %C(bold blue)<%an>%Creset'     --date=relative --all --stat
-  lan  = log --graph --pretty=format:'%C(yellow)%h%Creset%C(auto)%d%Creset%  %m %C(bold white)%s%Creset% %C(bold magenta)%N%Creset%Cgreen(%cr) %C(bold blue)<%an>%Creset'     --date=relative --all --name-status
-  ll   = log --graph --pretty=format:'%C(yellow)%h%Creset%C(auto)%d%Creset%  %m %C(bold white)%s%Creset%+b %C(bold magenta)%N%Creset%Cgreen(%cr) %C(bold blue)<%an>%Creset'   --date=relative
-  lla  = log --graph --pretty=format:'%C(yellow)%h%Creset%C(auto)%d%Creset%  %m %C(bold white)%s%Creset%+b %C(bold magenta)%N%Creset%Cgreen(%cr) %C(bold blue)<%an>%Creset'   --date=relative --all
-  llas = log --graph --pretty=format:'%C(yellow)%h%Creset%C(auto)%d%Creset%  %m %C(bold white)%s%Creset%+b %C(bold magenta)%N%Creset%Cgreen(%cr) %C(bold blue)<%an>%Creset%n' --date=relative --all --stat
-  llan = log --graph --pretty=format:'%C(yellow)%h%Creset%C(auto)%d%Creset%  %m %C(bold white)%s%Creset%+b %C(bold magenta)%N%Creset%Cgreen(%cr) %C(bold blue)<%an>%Creset%n' --date=relative --all --name-status
+  l    = log --graph --pretty=format:'%C(yellow)%h%Creset%C(auto)%d%Creset%  %m %C(bold white)%s%Creset% %C(bold magenta)%N%Creset %Cgreen(%cr)%Creset %C(bold blue)<%an>%Creset'     --date=relative
+  la   = log --graph --pretty=format:'%C(yellow)%h%Creset%C(auto)%d%Creset%  %m %C(bold white)%s%Creset% %C(bold magenta)%N%Creset %Cgreen(%cr)%Creset %C(bold blue)<%an>%Creset'     --date=relative --all
+  las  = log --graph --pretty=format:'%C(yellow)%h%Creset%C(auto)%d%Creset%  %m %C(bold white)%s%Creset% %C(bold magenta)%N%Creset %Cgreen(%cr)%Creset %C(bold blue)<%an>%Creset'     --date=relative --all --stat
+  lan  = log --graph --pretty=format:'%C(yellow)%h%Creset%C(auto)%d%Creset%  %m %C(bold white)%s%Creset% %C(bold magenta)%N%Creset %Cgreen(%cr)%Creset %C(bold blue)<%an>%Creset'     --date=relative --all --name-status
+  ll   = log --graph --pretty=format:'%C(yellow)%h%Creset%C(auto)%d%Creset%  %m %C(bold white)%s%Creset%+b %C(bold magenta)%N%Creset %Cgreen(%cr)%Creset %C(bold blue)<%an>%Creset'   --date=relative
+  lla  = log --graph --pretty=format:'%C(yellow)%h%Creset%C(auto)%d%Creset%  %m %C(bold white)%s%Creset%+b %C(bold magenta)%N%Creset %Cgreen(%cr)%Creset %C(bold blue)<%an>%Creset'   --date=relative --all
+  llas = log --graph --pretty=format:'%C(yellow)%h%Creset%C(auto)%d%Creset%  %m %C(bold white)%s%Creset%+b %C(bold magenta)%N%Creset %Cgreen(%cr)%Creset %C(bold blue)<%an>%Creset%n' --date=relative --all --stat
+  llan = log --graph --pretty=format:'%C(yellow)%h%Creset%C(auto)%d%Creset%  %m %C(bold white)%s%Creset%+b %C(bold magenta)%N%Creset %Cgreen(%cr)%Creset %C(bold blue)<%an>%Creset%n' --date=relative --all --name-status
   last = log -1 HEAD
 
   # show ignored files
@@ -157,7 +157,8 @@
   binary = clang-format-3.9
   style  = file
 [credential]
-  helper = store
+  # Compile instructions: http://stackoverflow.com/a/13390889/481320
+  helper = /usr/share/doc/git/contrib/credential/libsecret/git-credential-libsecret
 [merge]
   tool = meld
   conflictStyle = diff3  # display common-ancestor blocks in conflict hunks
