@@ -36,6 +36,8 @@
   df = diff
   dc = diff --cached
 
+  lfsco = !git lfs fetch origin origin/$1 && git co $1 && :
+
   # place all submodules on their respective branch specified in .gitmodules
   sm-co-trackb   = "!git submodule foreach -q --recursive 'branch="$(git config -f $toplevel/.gitmodules submodule.$name.branch)"; [ ! -z "$branch" ] && echo $branch @ $name && git co $branch || echo NONE @ $name'"
   sm-co-trackb-p = "!git submodule foreach -q --recursive 'branch="$(git config -f $toplevel/.gitmodules submodule.$name.branch)"; [ ! -z "$branch" ] && echo $branch @ $name && git co $branch && git fetch -a -p && git pull || echo NONE @ $name'"
@@ -185,8 +187,5 @@
   fetchJobs = 4    # fetch submodules in parallel jobs
 [stash]
   showPatch = true # show diff on `git stash show`
-[filter "lfs"]
-  clean = git-lfs clean -- %f
-  smudge = git-lfs smudge -- %f
-  process = git-lfs filter-process
-  required = true
+[rerere]
+	enabled = true

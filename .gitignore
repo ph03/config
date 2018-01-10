@@ -12,16 +12,14 @@ qt-creator-build/
 qtcreator-build/
 *_creator.*
 build/
-build-debug/
-build-Debug/
-build-Debug-cross/
-build-profile/
-build-Profile/
-build-Profile-cross/
-build-Debug-cross/
-build-release/
-build-Release/
-build-Release-cross/
+build-*/
+artifact-build/
+cmake-build-*/
+out/
+
+# temporary
+apps
+share
 ### /home/martinez/.gitignore-boilerplates/Global/Eclipse.gitignore
 
 *.pydevproject

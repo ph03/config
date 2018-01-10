@@ -38,7 +38,7 @@
                  "operand": "source.python"}]
   },
 
-  { "keys": ["ctrl+shift+c"], "command": "rust_code_formatter_format",
+  { "keys": ["ctrl+shift+c"], "command": "beautify_rust",
     "context": [{"key": "selector", "operator": "equal",
                  "operand": "source.rust"}]
   },
