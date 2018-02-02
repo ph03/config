@@ -189,3 +189,5 @@
   showPatch = true # show diff on `git stash show`
 [rerere]
 	enabled = true
+[http]
+	cookiefile = /home/janickm/.gitcookies
