@@ -96,6 +96,8 @@
     // Own modifications
     "CtrlW": "DeleteWordLeft",
     //"CtrlTab" : "NextSplit",
+    "CtrlH": "ToggleHelp",
+    "CtrlG": "JumpLine",
 
     "CtrlLeft": "WordLeft",
     "CtrlRight" : "WordRight",
