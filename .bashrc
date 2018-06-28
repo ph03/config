@@ -269,3 +269,7 @@ export RUST_SRC_PATH="$HOME/.local/pkg/rust/src"
 
 # ocaml path
 export PATH="$HOME/.opam/system/bin:$PATH"
+export http_proxy=''
+export https_proxy=''
+export ftp_proxy=''
+export socks_proxy=''
