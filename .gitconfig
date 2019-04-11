@@ -133,10 +133,13 @@
   indentHeuristic = true      # try to detect more meaningful change boundaries
   compactionHeuristic = true  # try to compact changes to more meaningful blocks
   tool = icdiff               # install via `pip3 install --user icdiff`
+  guitool = meld              # gui-based difftool if requested
 [difftool]
-    prompt = false
+  prompt = false
 [difftool "icdiff"]
   cmd = icdiff --line-numbers $LOCAL $REMOTE
+[difftool "meld"]
+  cmd = meld $LOCAL $REMOTE
 [pager]
   difftool = true
 [push]
@@ -192,6 +195,6 @@
 [stash]
   showPatch = true # show diff on `git stash show`
 [rerere]
-	enabled = true
+	enabled = false
 [http]
 	cookiefile = /home/janickm/.gitcookies

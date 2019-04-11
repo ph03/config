@@ -26,6 +26,11 @@
                  "operand": "source.c++"}]
   },
 
+  { "keys": ["ctrl+shift+c"], "command": "clang_format",
+    "context": [{"key": "selector", "operator": "equal",
+                 "operand": "source.cuda-c++"}]
+  },
+
   {
     "keys": ["ctrl+shift+c"], "command": "js_format",
     "context": [{"key": "selector", "operator": "equal",
@@ -38,7 +43,7 @@
                  "operand": "source.python"}]
   },
 
-  { "keys": ["ctrl+shift+c"], "command": "beautify_rust",
+  { "keys": ["ctrl+shift+c"], "command": "lsp_format_document",
     "context": [{"key": "selector", "operator": "equal",
                  "operand": "source.rust"}]
   },
