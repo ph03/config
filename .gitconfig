@@ -23,6 +23,7 @@
   # shortcuts
   co = checkout
   br = branch
+  brDlast = branch -D @{-1} # deletes last checked out branch
   ci = commit -v
   cif = commit -v --fixup
   st = status
