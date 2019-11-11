@@ -1,6 +1,14 @@
 {
 	"WrapPlus.break_long_words": true,
 	"WrapPlus.break_on_hyphens": false,
+	"added_words":
+	[
+		"templated",
+		"struct",
+		"Nlsolver",
+		"extrinsics",
+		"robustified"
+	],
 	"always_show_minimap_viewport": true,
 	"atomic_save": true,
 	"auto_match_enabled": false,
