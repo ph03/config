@@ -248,10 +248,7 @@ export MAYA_APP_DIR="$HOME/.config/maya"
 
 # gem path
 if which ruby >/dev/null && which gem >/dev/null; then
-  export PATH="$(ruby -rubygems -e 'puts Gem.user_dir')/bin:$PATH"
-fi
-if which ruby2.0 >/dev/null && which gem2.0 >/dev/null; then
-  export PATH="$(ruby2.0 -rubygems -e 'puts Gem.user_dir')/bin:$PATH"
+  export PATH="$(ruby -rrubygems -e 'puts Gem.user_dir')/bin:$PATH"
 fi
 
 # bd https://github.com/vigneshwaranr/bd
