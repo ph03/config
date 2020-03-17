@@ -18,7 +18,6 @@
 [core]
   excludesfile = ~/.gitignore
   whitespace = -trailing-space # don't consider trailing space change as a cause for merge conflicts
-  editor = nano
 [alias]
   # shortcuts
   co = checkout
