@@ -151,7 +151,7 @@
   prune = true                  # prune local branches and tags that were deleted remotely
   recurseSubmodules = on-demand # auto-fetch submodule changes (sadly, won't auto-update)
 [pull]
-  rebase = preserve # preserves merge commits on rebase initiated by pull
+  rebase = merges # preserves merge commits on rebase initiated by pull
 [rebase]
   autosquash = true                   # allways autosquash fixup commits
   instructionFormat = [%an @ %ar] %s
