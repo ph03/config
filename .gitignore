@@ -190,3 +190,9 @@ Code/
 Downloads/
 
 *.blend*
+
+# DW-specific
+
+data/resources/nvmedia_SIL_nit/nvmedia_SIL_01_14/IMX390_RCCB.nito
+data/resources/nvmedia_SIL_nit/nvmedia_SIL_01_14/IMX390_RGGB.nito
+data/resources/nvmedia_SIL_nit/nvmedia_SIL_01_14/IMX390RGGBE3_200FOV_RGGB.nito
