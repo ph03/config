@@ -82,5 +82,24 @@
     "ShiftRight": "SelectRight",
     "ShiftUp": "SelectUp",
     "Tab": "IndentSelection,InsertTab",
-    "Up": "CursorUp"
+    "Up": "CursorUp",
+
+    "\u001b[1;2A": "SelectUp",
+    "\u001b[1;2B": "SelectDown",
+    "\u001b[1;2C": "SelectRight",
+    "\u001b[1;2D": "SelectLeft",
+    "\u001b[1;5D": "WordLeft",
+    "\u001b[1;5C": "WordRight",
+    "\u001b[1;3A": "MoveLinesUp",
+    "\u001b[1;3B": "MoveLinesDown",
+    "\u001b[1;6C": "SelectWordRight",
+    "\u001b[1;6D": "SelectWordLeft",
+    "\u001b[1;3D": "StartOfLine",
+    "\u001b[1;3C": "EndOfLine",
+    "\u001b[1;4D": "SelectToStartOfLine",
+    "\u001b[1;4C": "SelectToEndOfLine",
+    "\u001b[1;5A": "ParagraphPrevious",
+    "\u001b[1;5B": "ParagraphNext",
+    "\u001b[1;6A": "SelectToStart",
+    "\u001b[1;6B": "SelectToEnd"
 }
