@@ -9,7 +9,8 @@
 		"extrinsics",
 		"robustified",
 		"reprojection",
-		"analyzation"
+		"analyzation",
+		"odometry"
 	],
 	"always_show_minimap_viewport": true,
 	"atomic_save": true,
