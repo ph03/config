@@ -10,7 +10,8 @@
 		"robustified",
 		"reprojection",
 		"analyzation",
-		"odometry"
+		"odometry",
+		"Online"
 	],
 	"always_show_minimap_viewport": true,
 	"atomic_save": true,
@@ -36,7 +37,7 @@
 	],
 	"fade_fold_buttons": false,
 	"font_face": "DejaVuSansMono",
-	"font_size": 13,
+	"font_size": 10,
 	"highlight_line": true,
 	"highlight_modified_tabs": true,
 	"ignored_packages":
@@ -114,6 +115,7 @@
 	"origami_auto_zoom_on_focus": false,
 	"rulers":
 	[
+		72,
 		80,
 		110
 	],

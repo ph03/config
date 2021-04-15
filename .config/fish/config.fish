@@ -39,7 +39,6 @@ set -x PATH $GOPATH/bin $PATH
 
 # Rust path
 set -x PATH $HOME/.cargo/bin $PATH
-set -x RUST_SRC_PATH $HOME/.local/pkg/rust/src
 
 # OPAM configuration
 . $HOME/.opam/opam-init/init.fish- > /dev/null 2> /dev/null or true

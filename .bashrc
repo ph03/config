@@ -262,7 +262,6 @@ export PATH="$GOPATH/bin:$PATH"
 
 # rust path
 export PATH="$HOME/.cargo/bin:$PATH"
-export RUST_SRC_PATH="$HOME/.local/pkg/rust/src"
 
 # ocaml path
 export PATH="$HOME/.opam/system/bin:$PATH"

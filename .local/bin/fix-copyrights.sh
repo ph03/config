@@ -5,7 +5,7 @@
 # A modified version of 
 # http://damien.lespiau.name/2013/01/a-git-pre-commit-hook-to-check-year-of.html
 
-mergebase=`git merge-base HEAD origin/master`
+mergebase=`git merge-base HEAD origin/main`
 files=`git diff $mergebase --name-only`
 year=`date +"%Y"`
 
