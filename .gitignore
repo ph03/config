@@ -198,3 +198,5 @@ data/resources/nvmedia_SIL_nit/nvmedia_SIL_01_14/IMX390_RGGB.nito
 data/resources/nvmedia_SIL_nit/nvmedia_SIL_01_14/IMX390RGGBE3_200FOV_RGGB.nito
 
 .clang-tidy
+
+pyrightconfig.json
