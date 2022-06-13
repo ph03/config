@@ -11,7 +11,11 @@
 		"reprojection",
 		"analyzation",
 		"odometry",
-		"Online"
+		"Online",
+		"observerability",
+		"handeye",
+		"omnidirectional",
+		"Gaussians",
 	],
 	"always_show_minimap_viewport": true,
 	"atomic_save": true,
