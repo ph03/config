@@ -261,7 +261,9 @@ export GOPATH="$HOME/.local/go"
 export PATH="$GOPATH/bin:$PATH"
 
 # rust path
-export PATH="$HOME/.cargo/bin:$PATH"
+if [ -f $HOME/.cargo/env ] ; then
+  . $HOME/.cargo/env
+fi
 
 # ocaml path
 export PATH="$HOME/.opam/system/bin:$PATH"
