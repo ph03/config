@@ -48,5 +48,8 @@ if which thefuck > /dev/null;
   eval (thefuck --alias | tr '\n' ';')
 end
 
+# bindings
+bind \ew backward-kill-line # alt+w delete to start of line
+
 # Load private configuration
 . $HOME/.config/fish/config_private.fish
