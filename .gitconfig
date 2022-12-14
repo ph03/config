@@ -160,8 +160,6 @@
   keepBackup = false      # clean up backup files created by merge tools on tool exit
   keepTemporaries = false # clean up temp files created by merge tools on tool exit
   writeToTemp = true      # put the temp files in a dedicated dir anyway
-[gui]
-  editor = gvim
 [clangFormat]
   binary = clang-format-3.9
   style  = file
