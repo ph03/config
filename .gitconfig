@@ -23,6 +23,8 @@
   co = checkout
   br = branch
   brDlast = branch -D @{-1} # deletes last checked out branch
+  # show additional branch-specific information
+  bb = !git for-each-ref --color --sort=-committerdate --format='%(color:green)%(upstream:trackshort)\t%(color:red)%(ahead-behind:HEAD)\t%(color:blue)%(refname:short)\t%(color:yellow)%(committerdate:relative)\t%(color:default)\t%(describe)' refs/heads | sed 's/ /\t/' | column --separator='\t' --output-separator=' ' --table --table-columns='State,Ahead,Behind,Branch,Last Commit,Description'
   ci = commit -v
   cif = commit -v --fixup
   st = status
@@ -37,6 +39,9 @@
   dc = diff --cached
 
   lfsco = !git lfs fetch origin origin/$1 && git co $1 && :
+
+  # force push with lease (check commits that are overwritten to not differ asynchronously from local ones)
+  lease = push --force-with-lease
 
   # place all submodules on their respective branch specified in .gitmodules
   sm-co-trackb   = "!git submodule foreach -q --recursive 'branch="$(git config -f $toplevel/.gitmodules submodule.$name.branch)"; [ ! -z "$branch" ] && echo $branch @ $name && git co $branch || echo NONE @ $name'"
