@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -x
+
 if [ $# -lt 2 ]
   then
   echo "Usage:"
@@ -42,20 +44,14 @@ y="2"
 for p in $(seq 1 $n)
 do
   p=`echo "$p-1"|bc`
-  echo "convert $1[$p] -thumbnail ${w}x -bordercolor none -border 0 \( +clone
-        -background none -shadow ${sperc}x${ssigma}+${sx}+${sy} \) +swap -background none -layers \
-        merge +repage  $output-$p.png"
   convert $1[$p] -thumbnail ${w}x -flatten -bordercolor none -border 0 \( +clone \
-    -background none -shadow ${sperc}x${ssigma}+${sx}+${sy} \) +swap -background none -layers \
+    -background black -shadow ${sperc}x${ssigma}+${sx}+${sy} \) +swap -background none -layers \
     merge +repage $output-$p.png
   if [[ $p == "0" ]]
   then
-    echo "convert $output-$p.png $2"
     convert $output-$p.png $2
   else
-    echo "convert $output.png -gravity SouthEast -background none -splice ${x}x${y} $output.png"
     convert $output.png -gravity SouthEast -background none -splice ${x}x${y} $output.png
-    echo "composite -compose dst-over $output-$p.png $output.png -gravity SouthEast $output.png"
     composite -compose dst-over $output-$p.png $output.png -gravity SouthEast $output.png
   fi
   rm $output-$p.png
