@@ -14,10 +14,12 @@
   changed = green
   untracked = cyan
 [color "branch"]
-  upstream = cyan # blue on black is hard to read in git branch -vv: use cyan instead
+  upstream = cyan              # blue on black is hard to read in git branch -vv: use cyan instead
 [core]
   excludesfile = ~/.gitignore
   whitespace = -trailing-space # don't consider trailing space change as a cause for merge conflicts
+  fsmonitor = true             # use fsmonitor to speed up git status and similar commands
+  untrackedCache = true        # cache untracked files to speed up git status
 [alias]
   # shortcuts
   co = checkout
@@ -131,9 +133,10 @@
   find-merge = "!sh -c 'commit=$0 && branch=${1:-HEAD} && (git rev-list $commit..$branch --ancestry-path | cat -n; git rev-list $commit..$branch --first-parent | cat -n) | sort -k2 -s | uniq -f1 -d | sort -n | tail -1 | cut -f2'"
   show-merge = "!sh -c 'merge=$(git find-merge $0 $1) && [ -n \"$merge\" ] && git show $merge'"
 [branch]
-  autosetuprebase = always # perform rebase instead of merges on 'git pull'
+  autosetuprebase = always    # perform rebase instead of merges on 'git pull'
 [diff]
-  algorithm = patience        # semantically more meaningful diffs
+  algorithm = histogram       # semantically more meaningful diffs
+  colorMoved = plain          # color moved code blocks
   mnemonicPrefix = true       # use better, descriptive initials (c, i, w) instead of a/b
   renames = true              # show renames/moves as such
   wordRegex = .               # when using --word-diff, assume --word-diff-regex=.
@@ -152,42 +155,56 @@
   difftool = true
   branch = false
 [push]
-  default = upstream            # default push should only push the current branch
-                                # to its push target, regardless of its remote name
+  default = simple              # consider single "centralized" remote by default
+  autoSetupRemote = true        # when pushing a branch without upstream, set it up to track the remote branch
   recurseSubmodules = on-demand # also push changes of submodules
   followTags = true             # also push tags
 [fetch]
   prune = true                  # prune local branches and tags that were deleted remotely
+  pruneTags = true              # prune local tags that were deleted remotely
+  all = true                    # fetch all remotes by default
   recurseSubmodules = on-demand # auto-fetch submodule changes (sadly, won't auto-update)
 [pull]
-  rebase = merges # preserves merge commits on rebase initiated by pull
+  rebase = merges               # preserves merge commits on rebase initiated by pull
 [rebase]
   autosquash = true                   # allways autosquash fixup commits
   instructionFormat = [%an @ %ar] %s
   autostash = true                    # stash and reapply dirty worktree on rebase
+  updateRefs = true                   # update derived branches when rebasing their upstream
 [mergetool]
   keepBackup = false      # clean up backup files created by merge tools on tool exit
   keepTemporaries = false # clean up temp files created by merge tools on tool exit
   writeToTemp = true      # put the temp files in a dedicated dir anyway
+[help]
+  autocorrect = prompt    # provide hints on mistyped commands
 [clangFormat]
   binary = clang-format-3.9
   style  = file
+[column]
+  ui = auto               # list, e.g., branches in columns, not one per line
+[branch]
+  sort = -committerdate   # sort branches by last commit date descending (row-wise in ui-column mode)
+[tag]
+  sort = version:refname  # sort tags as version numbers whenever applicable, so 1.10.2 is AFTER 1.2.0
+[init]
+  defaultBranch = main    # politically correct default branch name
 [credential]
   # Compile instructions: http://stackoverflow.com/a/13390889/481320
   helper = /usr/share/doc/git/contrib/credential/libsecret/git-credential-libsecret
 [merge]
   tool = meld
-  conflictStyle = diff3  # display common-ancestor blocks in conflict hunks
-  ff = only              # only allow ff merges by default, use git merge --ff to force a merge commit
+  conflictStyle = zdiff3  # display common-ancestor blocks in conflict hunks, removing mutually non-conflicting parts of both changes
+  ff = only               # only allow ff merges by default, use git merge --ff to force a merge commit
 [tag]
-  sort = version:refname # sort tags as version numbers whenever applicable, so 1.10.2 is AFTER 1.2.0
+  sort = version:refname  # sort tags as version numbers whenever applicable, so 1.10.2 is AFTER 1.2.0
 [log]
-  abbrevCommit = true    # use abbrev SHAs whenever possible/relevant instead of full 40 chars
-  follow = true          # automatically --follow when given a single path
+  abbrevCommit = true     # use abbrev SHAs whenever possible/relevant instead of full 40 chars
+  follow = true           # automatically --follow when given a single path
 [commit]
-  gpgSign = true
+  gpgSign = true          # sign commits by default
+  verbose = true          # show full diff in commit message editor
 [grep]
-  extendedRegexp = true  # consider most regexes to be ERE
+  extendedRegexp = true   # consider most regexes to be ERE
 [versionsort]
   prereleaseSuffix = -pre
   prereleaseSuffix = .pre
@@ -198,11 +215,12 @@
 [include]
   path = ~/.gitconfig_private # private git configuration
 [submodule]
-  fetchJobs = 4    # fetch submodules in parallel jobs
+  fetchJobs = 4           # fetch submodules in parallel jobs
 [stash]
-  showPatch = true # show diff on `git stash show`
+  showPatch = true        # show diff on `git stash show`
 [rerere]
-	enabled = false
+  enabled = true          # make use of rerere (reuse recorded resolution of identical conflicts) - clear previous records with `git rerere clear`
+  autoupdate = true       # automatically update index with recorded resolutions
 [http]
 	cookiefile = /home/janickm/.gitcookies
 [merge "bazel-lockfile-merge"]
