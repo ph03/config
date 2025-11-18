@@ -1,0 +1,14 @@
+[Default]
+save_dir=/tmp
+save_filename_format=swappy-%Y%m%d-%H%M%S.png
+show_panel=false
+line_size=4
+text_size=20
+text_font=sans-serif
+paint_mode=rectangle
+early_exit=true
+fill_shape=false
+auto_save=false
+custom_color=rgba(193,125,17,1)
+transparent=true
+transparency=60
