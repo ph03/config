@@ -1,0 +1,35 @@
+#:schema https://jj-vcs.github.io/jj/latest/config-schema.json
+
+[user]
+name = "Janick Martinez Esturo"
+email = "janick.martinez.esturo@gmail.com"
+
+[ui]
+default-command = "log"
+diff-editor = ":builtin"
+merge-editor = ":builtin"
+
+[aliases]
+tug = ["bookmark", "move", "--from", "heads(::@- & bookmarks())", "--to", "@"]
+tug- = ["bookmark", "move", "--from", "heads(::@- & bookmarks())", "--to", "@-"]
+rebase-all = ["rebase", "-s", "roots(trunk()..mutable())", "-d", "trunk()"]
+l = ["log", "-r", "ancestors(reachable(@, mutable()), 2)"]
+n = ["new"]
+
+[colors]
+"diff removed token" = { fg = "bright red", bg = "#400000", underline = false }
+"diff added token" = { fg = "bright green", bg = "#003000", underline = false }
+
+[templates]
+draft_commit_description = '''
+concat(
+  builtin_draft_commit_description,
+  "\nJJ: ignore-rest\n",
+  diff.git(),
+)
+'''
+
+[signing]
+backend = "gpg"
+key = "A85C4836"
+behavior = "own"
