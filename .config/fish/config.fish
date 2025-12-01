@@ -48,6 +48,18 @@ if which thefuck > /dev/null;
   eval (thefuck --alias | tr '\n' ';')
 end
 
+# yazi PWD
+if which yazi > /dev/null;
+  function y
+	  set tmp (mktemp -t "yazi-cwd.XXXXXX")
+	  yazi $argv --cwd-file="$tmp"
+	  if read -z cwd < "$tmp"; and [ -n "$cwd" ]; and [ "$cwd" != "$PWD" ]
+		  builtin cd -- "$cwd"
+	  end
+	  rm -f -- "$tmp"
+  end
+end
+
 # bindings
 bind \ew backward-kill-line # alt+w delete to start of line
 
