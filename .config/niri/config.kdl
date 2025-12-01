@@ -242,7 +242,6 @@ overview {
 spawn-at-startup "bash" "-c" "wl-paste --watch cliphist store &"
 spawn-at-startup "dms" "run"
 spawn-at-startup "/usr/lib/mate-polkit/polkit-mate-authentication-agent-1"
-spawn-at-startup "niriswitcher"
 spawn-at-startup "lan-mouse -d"
 environment {
   XDG_CURRENT_DESKTOP "niri"
@@ -352,7 +351,7 @@ binds {
 
     // === Application Launchers ===
     Mod+Return hotkey-overlay-title="Open Terminal" { spawn "ghostty"; }
-    Mod+Space hotkey-overlay-title="Application Launcher" {
+    Mod+E hotkey-overlay-title="Application Launcher" {
         spawn "dms" "ipc" "call" "spotlight" "toggle";
     }
     Mod+V hotkey-overlay-title="Clipboard Manager" {
@@ -403,7 +402,8 @@ binds {
 
     // === Window Management ===
     Mod+Q repeat=false { close-window; }
-    Mod+X { maximize-column; }
+    Mod+Z { maximize-column; }
+    Mod+X { maximize-window-to-edges; }
     Mod+Shift+F { fullscreen-window; }
     Mod+Shift+T { toggle-window-floating; }
     Mod+Shift+V { switch-focus-between-floating-and-tiling; }
@@ -515,10 +515,9 @@ binds {
     Mod+Period { expel-window-from-column; }
 
     // === Sizing & Layout ===
-    Mod+R { switch-preset-column-width; }
-    Mod+Shift+R { switch-preset-window-height; }
-    Mod+Ctrl+R { reset-window-height; }
-    Mod+Ctrl+F { expand-column-to-available-width; }
+    Mod+S { switch-preset-column-width; }
+    Mod+Shift+S { switch-preset-window-height; }
+    Mod+Ctrl+S { expand-column-to-available-width; }
     Mod+C { center-column; }
     Mod+Ctrl+C { center-visible-columns; }
 
@@ -541,13 +540,34 @@ binds {
     // === System Controls ===
     Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
     Mod+Shift+P { power-off-monitors; }
-
-    // == niriswitcher ==
-    Alt+Tab repeat=false { spawn "niriswitcherctl" "show" "--window"; }
-    Alt+Shift+Tab repeat=false { spawn "niriswitcherctl" "show" "--window"; }
-    Alt+Grave repeat=false { spawn "niriswitcherctl" "show" "--workspace"; }
-    Alt+Shift+Grave repeat=false { spawn "niriswitcherctl" "show" "--workspace"; }
 }
+
+recent-windows {
+    debounce-ms 750
+    open-delay-ms 150
+
+    highlight {
+        active-color "#999999ff"
+        urgent-color "#ff9999ff"
+        padding 30
+        corner-radius 12
+    }
+
+    previews {
+        max-height 800
+        max-scale 0.5
+    }
+
+    binds {
+        Alt+Tab          { next-window; }
+        Alt+Shift+Tab    { previous-window; }
+        Alt+grave        { next-window     filter="app-id"; }
+        Alt+Escape       { next-window     filter="app-id"; }
+        Alt+Shift+grave  { previous-window filter="app-id"; }
+        Alt+Shift+Escape { previous-window filter="app-id"; }
+    }
+}
+
 debug {
     honor-xdg-activation-with-invalid-serial
 }
