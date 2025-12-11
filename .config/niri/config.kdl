@@ -351,7 +351,7 @@ binds {
 
     // === Application Launchers ===
     Mod+Return hotkey-overlay-title="Open Terminal" { spawn "ghostty"; }
-    Mod+E hotkey-overlay-title="Application Launcher" {
+    Mod+Space hotkey-overlay-title="Application Launcher" {
         spawn "dms" "ipc" "call" "spotlight" "toggle";
     }
     Mod+V hotkey-overlay-title="Clipboard Manager" {
