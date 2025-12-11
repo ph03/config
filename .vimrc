@@ -19,7 +19,7 @@ set incsearch		" do incremental searching
 set number
 set cursorline
 
-colorscheme jellybeans
+"colorscheme jellybeans
 "colorscheme hickop
 
 " Don't use Ex mode, use Q for formatting
@@ -104,17 +104,17 @@ set grepprg=grep\ -nH\ $*
 let g:tex_flavor='latex'
 let g:Tex_ViewRule_pdf = 'evince'
 
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+" set rtp+=~/.vim/bundle/vundle/
+" call vundle#rc()
 
 " let Vundle manage Vundle
-" required! 
-Bundle 'gmarik/vundle'
+" required!
+" Bundle 'gmarik/vundle'
 
 " My Bundles here:
 "
 " original repos on github
-Bundle 'Valloric/YouCompleteMe'
+" Bundle 'Valloric/YouCompleteMe'
 
 "
 " " Brief help
