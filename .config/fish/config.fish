@@ -1,5 +1,5 @@
 # Stop yanking of deleted words
-set FISH_CLIPBOARD_CMD "cat"
+set FISH_CLIPBOARD_CMD cat
 
 # Env vars
 set -x SHELL (which fish)
@@ -14,23 +14,35 @@ set -x NINJA_STATUS "[%r/%u/%f/%t] "
 alias config='git --git-dir=$HOME/.config.git/ --work-tree=$HOME'
 
 function mc
-  set tmpfile /tmp/mcpwd-(random)
-  command mc -P $tmpfile
-  cd (cat $tmpfile)
-  rm $tmpfile
+    set tmpfile /tmp/mcpwd-(random)
+    command mc -P $tmpfile
+    cd (cat $tmpfile)
+    rm $tmpfile
 end
 
 # Gem path
-if which gem ruby > /dev/null;
-  set -x PATH (ruby -e 'puts Gem.user_dir')/bin $PATH;
+if which gem ruby >/dev/null
+
+    set -x PATH (ruby -e 'puts Gem.user_dir')/bin $PATH
+
 end
-if which gem2.0 ruby2.0 > /dev/null;
-  set -x PATH (ruby2.0 -e 'puts Gem.user_dir')/bin $PATH;
+if which gem2.0 ruby2.0 >/dev/null
+
+    set -x PATH (ruby2.0 -e 'puts Gem.user_dir')/bin $PATH
+
 end
 
 # ccache path
-if which ccache > /dev/null;
-  set -x PATH /usr/lib/ccache $PATH;
+if which ccache >/dev/null
+    set -x PATH /usr/lib/ccache $PATH
+end
+
+if which zoxide >/dev/null
+    zoxide init fish | source
+end
+
+if which zellij >/dev/null
+    zellij setup --generate-completion fish | source
 end
 
 # Go path
@@ -41,23 +53,25 @@ set -x PATH $GOPATH/bin $PATH
 set -x PATH $HOME/.cargo/bin $PATH
 
 # OPAM configuration
-. $HOME/.opam/opam-init/init.fish- > /dev/null 2> /dev/null or true
+. $HOME/.opam/opam-init/init.fish- >/dev/null 2>/dev/null or true
 
 # fuck
-if which thefuck > /dev/null;
-  eval (thefuck --alias | tr '\n' ';')
+if which thefuck >/dev/null
+
+    eval (thefuck --alias | tr '\n' ';')
 end
 
 # yazi PWD
-if which yazi > /dev/null;
-  function y
-	  set tmp (mktemp -t "yazi-cwd.XXXXXX")
-	  yazi $argv --cwd-file="$tmp"
-	  if read -z cwd < "$tmp"; and [ -n "$cwd" ]; and [ "$cwd" != "$PWD" ]
-		  builtin cd -- "$cwd"
-	  end
-	  rm -f -- "$tmp"
-  end
+if which yazi >/dev/null
+
+    function y
+        set tmp (mktemp -t "yazi-cwd.XXXXXX")
+        yazi $argv --cwd-file="$tmp"
+        if read -z cwd <"$tmp"; and [ -n "$cwd" ]; and [ "$cwd" != "$PWD" ]
+            builtin cd -- "$cwd"
+        end
+        rm -f -- "$tmp"
+    end
 end
 
 # bindings
