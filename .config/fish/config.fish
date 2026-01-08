@@ -79,3 +79,6 @@ bind \ew backward-kill-line # alt+w delete to start of line
 
 # Load private configuration
 . $HOME/.config/fish/config_private.fish
+
+# opencode
+fish_add_path /home/janickm/.opencode/bin
