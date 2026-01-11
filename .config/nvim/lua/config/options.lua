@@ -23,7 +23,7 @@ vim.lsp.config("ty", {
 
 -- vim.o.winborder = "double"
 
-if vim.g.neovide then
+if vim.g.neovide or vim.env.SSH_CONNECTION or vim.env.SSH_TTY then
   -- vim.o.guifont = "DejaVuSansMono Nerd Font Mono:h11"
   vim.o.guifont = "DejaVuSansMono Nerd Font:h11"
 end
