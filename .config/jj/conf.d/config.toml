@@ -8,6 +8,7 @@ email = "janick.martinez.esturo@gmail.com"
 default-command = "log"
 diff-editor = ":builtin"
 merge-editor = ":builtin"
+diff-formatter = ["difft", "--color=always", "$left", "$right"]
 
 [aliases]
 tug = ["bookmark", "move", "--from", "heads(::@- & bookmarks())", "--to", "@"]
