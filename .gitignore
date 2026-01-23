@@ -200,3 +200,9 @@ data/resources/nvmedia_SIL_nit/nvmedia_SIL_01_14/IMX390RGGBE3_200FOV_RGGB.nito
 .clang-tidy
 
 pyrightconfig.json
+
+# Prevent wiping jj
+.jj/**
+
+# Ignore opencode AGENTS.md by default
+AGENTS.md
