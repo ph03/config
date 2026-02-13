@@ -23,13 +23,17 @@ output "Dell Inc. DELL P2722H HHG5W83" {
     mode "1920x1080@60.000"
     position x=0 y=-1080
 }
+// Work tertiary
+output "Lenovo Group Limited LEN LT2452pwC VN-846415" {
+    mode "1920x1080@60.000"
+    position x=4480 y=-1080
+}
 // Home
 output "LG Electronics 27GL850 909NTUWF4718" {
   mode "2560x1440@120.000"
   position x=1920 y=-1080
   focus-at-startup
 }
-
 
 gestures {
     hot-corners {
