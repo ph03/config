@@ -14,142 +14,334 @@
         "opus-4.7": {
           "id": "azure/anthropic/claude-opus-4-7",
           "name": "Claude 4.7 Opus",
-          "reasoning": true
+          "reasoning": true,
+          "tool_call": true,
+          "attachment": true,
+          "limit": {
+            "context": 1000000,
+            "output": 128000
+          }
         },
         "opus-4.6": {
           "id": "azure/anthropic/claude-opus-4-6",
           "name": "Claude 4.6 Opus",
-          "reasoning": true
+          "reasoning": true,
+          "tool_call": true,
+          "attachment": true,
+          "limit": {
+            "context": 1000000,
+            "output": 128000
+          }
         },
         "opus-4.6-aws": {
           "id": "aws/anthropic/bedrock-claude-opus-4-6",
           "name": "Claude 4.6 Opus (AWS)",
           "reasoning": true,
+          "tool_call": true,
+          "attachment": true,
+          "limit": {
+            "context": 1000000,
+            "output": 128000
+          }
         },
         "opus-4-5": {
           "id": "azure/anthropic/claude-opus-4-5",
           "name": "Claude 4.5 Opus",
-          "reasoning": true
+          "reasoning": true,
+          "tool_call": true,
+          "attachment": true,
+          "limit": {
+            "context": 1000000,
+            "output": 128000
+          }
         },
         "sonnet-4-6": {
           "id": "azure/anthropic/claude-sonnet-4-6",
-          "name": "Claude 4.6 Sonnet"
+          "name": "Claude 4.6 Sonnet",
+          "tool_call": true,
+          "attachment": true,
+          "limit": {
+            "context": 1000000,
+            "output": 64000
+          }
         },
         "sonnet-4-5": {
           "id": "azure/anthropic/claude-sonnet-4-5",
-          "name": "Claude 4.5 Sonnet"
+          "name": "Claude 4.5 Sonnet",
+          "tool_call": true,
+          "attachment": true,
+          "limit": {
+            "context": 200000,
+            "output": 64000
+          }
         },
         "haiku-4-5": {
           "id": "azure/anthropic/claude-haiku-4-5",
-          "name": "Claude 4.5 Haiku"
+          "name": "Claude 4.5 Haiku",
+          "tool_call": true,
+          "attachment": true,
+          "limit": {
+            "context": 200000,
+            "output": 64000
+          }
         },
         "gpt-5.4": {
           "id": "azure/openai/gpt-5.4",
-          "name": "GPT-5.4"
+          "name": "GPT-5.4",
+          "tool_call": true,
+          "attachment": true,
+          "limit": {
+            "context": 1000000,
+            "output": 128000
+          }
         },
         "gpt-5.3-codex": {
           "id": "azure/openai/gpt-5.3-codex",
-          "name": "GPT-5.3 Codex"
+          "name": "GPT-5.3 Codex",
+          "tool_call": true,
+          "attachment": false,
+          "limit": {
+            "context": 200000,
+            "output": 32000
+          }
         },
         "gpt-5.2-codex": {
           "id": "azure/openai/gpt-5.2-codex",
-          "name": "GPT-5.2 Codex"
+          "name": "GPT-5.2 Codex",
+          "tool_call": true,
+          "attachment": false,
+          "limit": {
+            "context": 200000,
+            "output": 32000
+          }
         },
         "gpt-5.1-codex": {
           "id": "azure/openai/gpt-5.1-codex",
-          "name": "GPT-5.1 Codex"
+          "name": "GPT-5.1 Codex",
+          "tool_call": true,
+          "attachment": false,
+          "limit": {
+            "context": 200000,
+            "output": 32000
+          }
         },
         "gpt-5.1-codex-max": {
           "id": "azure/openai/gpt-5.1-codex-max",
           "name": "GPT-5.1 Codex Max",
-          "reasoning": true
+          "reasoning": true,
+          "tool_call": true,
+          "attachment": false,
+          "limit": {
+            "context": 200000,
+            "output": 32000
+          }
         },
         "gpt-5": {
           "id": "azure/openai/gpt-5",
-          "name": "GPT-5"
+          "name": "GPT-5",
+          "tool_call": true,
+          "attachment": true,
+          "limit": {
+            "context": 200000,
+            "output": 32000
+          }
         },
         "gpt-4.1": {
           "id": "azure/openai/gpt-4.1",
-          "name": "GPT-4.1"
+          "name": "GPT-4.1",
+          "tool_call": true,
+          "attachment": true,
+          "limit": {
+            "context": 1047576,
+            "output": 32768
+          }
         },
         "gpt-4.1-mini": {
           "id": "azure/openai/gpt-4.1-mini",
-          "name": "GPT-4.1 Mini"
+          "name": "GPT-4.1 Mini",
+          "tool_call": true,
+          "attachment": true,
+          "limit": {
+            "context": 1047576,
+            "output": 32768
+          }
         },
         "o3": {
           "id": "azure/openai/o3",
           "name": "OpenAI o3",
-          "reasoning": true
+          "reasoning": true,
+          "tool_call": true,
+          "attachment": true,
+          "limit": {
+            "context": 200000,
+            "output": 100000
+          }
         },
         "o4-mini": {
           "id": "azure/openai/o4-mini",
           "name": "OpenAI o4-mini",
-          "reasoning": true
+          "reasoning": true,
+          "tool_call": true,
+          "attachment": true,
+          "limit": {
+            "context": 200000,
+            "output": 100000
+          }
         },
         "o3-mini": {
           "id": "azure/openai/o3-mini",
           "name": "OpenAI o3-mini",
-          "reasoning": true
+          "reasoning": true,
+          "tool_call": true,
+          "attachment": true,
+          "limit": {
+            "context": 200000,
+            "output": 100000
+          }
         },
         "gemini-3-pro": {
-          "id": "gcp/google/gemini-3-pro",
-          "name": "Gemini 3 Pro",
-          "reasoning": true
+          "id": "gcp/google/gemini-3.1-pro-preview",
+          "name": "Gemini 3.1 Pro",
+          "reasoning": true,
+          "tool_call": true,
+          "attachment": true,
+          "limit": {
+            "context": 1000000,
+            "output": 65536
+          }
         },
         "gemini-3-flash": {
           "id": "gcp/google/gemini-3-flash-preview",
-          "name": "Gemini 3 Flash"
+          "name": "Gemini 3 Flash",
+          "tool_call": true,
+          "attachment": true,
+          "limit": {
+            "context": 1000000,
+            "output": 65536
+          }
         },
         "gemini-2.5-pro": {
           "id": "gcp/google/gemini-2.5-pro",
           "name": "Gemini 2.5 Pro",
-          "reasoning": true
+          "reasoning": true,
+          "tool_call": true,
+          "attachment": true,
+          "limit": {
+            "context": 1000000,
+            "output": 65536
+          }
         },
         "gemini-2.5-flash": {
           "id": "gcp/google/gemini-2.5-flash",
-          "name": "Gemini 2.5 Flash"
+          "name": "Gemini 2.5 Flash",
+          "tool_call": true,
+          "attachment": true,
+          "limit": {
+            "context": 1000000,
+            "output": 65536
+          }
         },
         "sonar-pro": {
           "id": "perplexity/perplexity/sonar-pro",
-          "name": "Perplexity Sonar Pro"
+          "name": "Perplexity Sonar Pro",
+          "tool_call": true,
+          "attachment": true,
+          "limit": {
+            "context": 200000,
+            "output": 8192
+          }
         },
         "sonar-reasoning-pro": {
           "id": "perplexity/perplexity/sonar-reasoning-pro",
           "name": "Sonar Reasoning Pro",
-          "reasoning": true
+          "reasoning": true,
+          "tool_call": true,
+          "attachment": true,
+          "limit": {
+            "context": 200000,
+            "output": 8192
+          }
         },
         "nemotron-ultra-253b": {
           "id": "nvidia/nvidia/llama-3.1-nemotron-ultra-253b-v1",
           "name": "Nemotron Ultra 253B",
-          "reasoning": true
+          "reasoning": true,
+          "tool_call": true,
+          "attachment": false,
+          "limit": {
+            "context": 131072,
+            "output": 32000
+          }
         },
         "nemotron-super-49b": {
           "id": "nvidia/nvidia/llama-3.3-nemotron-super-49b-v1.5",
-          "name": "Nemotron Super 49B"
+          "name": "Nemotron Super 49B",
+          "tool_call": true,
+          "attachment": false,
+          "limit": {
+            "context": 131072,
+            "output": 32000
+          }
         },
         "nemotron-3-super": {
           "id": "nvidia/nvidia/nemotron-3-super-v3",
-          "name": "Nemotron 3 Super"
+          "name": "Nemotron 3 Super",
+          "tool_call": true,
+          "attachment": false,
+          "limit": {
+            "context": 131072,
+            "output": 32000
+          }
         },
         "qwen3-next-80b": {
           "id": "nvidia/qwen/qwen3-next-80b-a3b-instruct",
-          "name": "Qwen3 Next 80B"
+          "name": "Qwen3 Next 80B",
+          "tool_call": true,
+          "attachment": true,
+          "limit": {
+            "context": 131072,
+            "output": 32000
+          }
         },
         "qwen-235b": {
           "id": "nvidia/qwen/qwen-235b",
-          "name": "Qwen 235B"
+          "name": "Qwen 235B",
+          "tool_call": true,
+          "attachment": false,
+          "limit": {
+            "context": 131072,
+            "output": 32000
+          }
         },
         "llama-3.3-70b": {
           "id": "nvidia/meta/llama-3.3-70b-instruct",
-          "name": "Llama 3.3 70B"
+          "name": "Llama 3.3 70B",
+          "tool_call": true,
+          "attachment": false,
+          "limit": {
+            "context": 131072,
+            "output": 32000
+          }
         },
         "gpt-oss-120b": {
           "id": "nvidia/openai/gpt-oss-120b",
-          "name": "GPT-OSS 120B"
+          "name": "GPT-OSS 120B",
+          "tool_call": true,
+          "attachment": false,
+          "limit": {
+            "context": 131072,
+            "output": 32000
+          }
         },
         "gpt-oss-20b": {
           "id": "nvidia/openai/gpt-oss-20b",
-          "name": "GPT-OSS 20B"
+          "name": "GPT-OSS 20B",
+          "tool_call": true,
+          "attachment": true,
+          "limit": {
+            "context": 131072,
+            "output": 32000
+          }
         }
       }
     }
