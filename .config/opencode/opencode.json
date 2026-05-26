@@ -351,5 +351,12 @@
     "paths": [
       "~/.agents/skills"
     ]
+  },
+  "permission": {
+    "skill": {
+      "*": "allow",
+      // Redundant with writing-skills (superpowers). From kimaki npm package.
+      "new-skill": "deny"
+    }
   }
 }

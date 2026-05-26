@@ -215,6 +215,9 @@ CLAUDE.md
 .worktrees/**
 .workspaces/**
 
+# Session memory (session-memory skill)
+.sessions/**
+
 # Nix dev shell (local-only, not committed to shared repo)
 shell.nix
 .envrc
