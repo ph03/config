@@ -11,9 +11,54 @@
         "baseURL": "https://inference-api.nvidia.com/v1"
       },
       "models": {
-        "opus-4.7": {
+        "opus-4-8-azure": {
+          "id": "azure/anthropic/claude-opus-4-8",
+          "name": "Claude Opus 4.8 (Azure)",
+          "reasoning": true,
+          "tool_call": true,
+          "attachment": true,
+          "limit": {
+            "context": 1000000,
+            "output": 128000
+          },
+          "variants": {
+            "medium": { "reasoningEffort": "medium" },
+            "low":    { "reasoningEffort": "low" },
+            "high":   { "reasoningEffort": "high" },
+            "max":    { "reasoningEffort": "max" }
+          }
+        },
+        "opus-4-8-aws": {
+          "id": "aws/anthropic/bedrock-claude-opus-4-8",
+          "name": "Claude Opus 4.8 (AWS)",
+          "reasoning": true,
+          "tool_call": true,
+          "attachment": true,
+          "limit": {
+            "context": 1000000,
+            "output": 128000
+          }
+        },
+        "opus-4-7-azure": {
           "id": "azure/anthropic/claude-opus-4-7",
-          "name": "Claude 4.7 Opus",
+          "name": "Claude Opus 4.7 (Azure)",
+          "reasoning": true,
+          "tool_call": true,
+          "attachment": true,
+          "limit": {
+            "context": 1000000,
+            "output": 128000
+          },
+          "variants": {
+            "medium": { "reasoningEffort": "medium" },
+            "low":    { "reasoningEffort": "low" },
+            "high":   { "reasoningEffort": "high" },
+            "max":    { "reasoningEffort": "max" }
+          }
+        },
+        "opus-4-7-aws": {
+          "id": "aws/anthropic/bedrock-claude-opus-4-7",
+          "name": "Claude Opus 4.7 (AWS)",
           "reasoning": true,
           "tool_call": true,
           "attachment": true,
@@ -22,20 +67,26 @@
             "output": 128000
           }
         },
-        "opus-4.6": {
+        "opus-4-6-azure": {
           "id": "azure/anthropic/claude-opus-4-6",
-          "name": "Claude 4.6 Opus",
+          "name": "Claude Opus 4.6 (Azure)",
           "reasoning": true,
           "tool_call": true,
           "attachment": true,
           "limit": {
             "context": 1000000,
             "output": 128000
+          },
+          "variants": {
+            "medium": { "reasoningEffort": "medium" },
+            "low":    { "reasoningEffort": "low" },
+            "high":   { "reasoningEffort": "high" },
+            "max":    { "reasoningEffort": "max" }
           }
         },
-        "opus-4.6-aws": {
+        "opus-4-6-aws": {
           "id": "aws/anthropic/bedrock-claude-opus-4-6",
-          "name": "Claude 4.6 Opus (AWS)",
+          "name": "Claude Opus 4.6 (AWS)",
           "reasoning": true,
           "tool_call": true,
           "attachment": true,
@@ -44,20 +95,27 @@
             "output": 128000
           }
         },
-        "opus-4-5": {
-          "id": "azure/anthropic/claude-opus-4-5",
-          "name": "Claude 4.5 Opus",
-          "reasoning": true,
-          "tool_call": true,
-          "attachment": true,
-          "limit": {
-            "context": 1000000,
-            "output": 128000
-          }
-        },
-        "sonnet-4-6": {
+        "sonnet-4-6-azure": {
           "id": "azure/anthropic/claude-sonnet-4-6",
-          "name": "Claude 4.6 Sonnet",
+          "name": "Claude Sonnet 4.6 (Azure)",
+          "reasoning": true,
+          "tool_call": true,
+          "attachment": true,
+          "limit": {
+            "context": 1000000,
+            "output": 64000
+          },
+          "variants": {
+            "medium": { "reasoningEffort": "medium" },
+            "low":    { "reasoningEffort": "low" },
+            "high":   { "reasoningEffort": "high" },
+            "max":    { "reasoningEffort": "max" }
+          }
+        },
+        "sonnet-4-6-aws": {
+          "id": "aws/anthropic/bedrock-claude-sonnet-4-6",
+          "name": "Claude Sonnet 4.6 (AWS)",
+          "reasoning": true,
           "tool_call": true,
           "attachment": true,
           "limit": {
@@ -65,19 +123,10 @@
             "output": 64000
           }
         },
-        "sonnet-4-5": {
-          "id": "azure/anthropic/claude-sonnet-4-5",
-          "name": "Claude 4.5 Sonnet",
-          "tool_call": true,
-          "attachment": true,
-          "limit": {
-            "context": 200000,
-            "output": 64000
-          }
-        },
-        "haiku-4-5": {
+        "haiku-4-5-azure": {
           "id": "azure/anthropic/claude-haiku-4-5",
-          "name": "Claude 4.5 Haiku",
+          "name": "Claude Haiku 4.5 (Azure)",
+          "reasoning": true,
           "tool_call": true,
           "attachment": true,
           "limit": {
@@ -346,7 +395,7 @@
       }
     }
   },
-  "model": "nvidia-inference/opus-4.6-aws",
+  "model": "nvidia-inference/opus-4-8-aws",
   "skills": {
     "paths": [
       "~/.agents/skills"
