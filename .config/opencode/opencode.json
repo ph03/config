@@ -436,6 +436,7 @@
     }
   },
   "model": "nvidia-inference/opus-4-8-aws",
+  "small_model": "nvidia-inference/haiku-4-5-azure",
   "skills": {
     "paths": [
       "~/.agents/skills"
