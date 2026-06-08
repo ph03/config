@@ -134,65 +134,79 @@
             "output": 64000
           }
         },
+        "gpt-5.5": {
+          "id": "azure/openai/gpt-5.5",
+          "name": "GPT-5.5",
+          "reasoning": true,
+          "tool_call": true,
+          "attachment": true,
+          "limit": {
+            "context": 1050000,
+            "output": 128000
+          },
+          "variants": {
+            "medium": { "reasoningEffort": "medium" },
+            "none":   { "reasoningEffort": "none" },
+            "low":    { "reasoningEffort": "low" },
+            "high":   { "reasoningEffort": "high" },
+            "xhigh":  { "reasoningEffort": "xhigh" }
+          }
+        },
         "gpt-5.4": {
           "id": "azure/openai/gpt-5.4",
           "name": "GPT-5.4",
+          "reasoning": true,
           "tool_call": true,
           "attachment": true,
           "limit": {
             "context": 1000000,
             "output": 128000
+          },
+          "variants": {
+            "medium": { "reasoningEffort": "medium" },
+            "none":   { "reasoningEffort": "none" },
+            "low":    { "reasoningEffort": "low" },
+            "high":   { "reasoningEffort": "high" },
+            "xhigh":  { "reasoningEffort": "xhigh" }
+          }
+        },
+        "gpt-5.2": {
+          "id": "azure/openai/gpt-5.2",
+          "name": "GPT-5.2",
+          "reasoning": true,
+          "tool_call": true,
+          "attachment": true,
+          "limit": {
+            "context": 400000,
+            "output": 128000
+          },
+          "variants": {
+            "medium": { "reasoningEffort": "medium" },
+            "low":    { "reasoningEffort": "low" },
+            "high":   { "reasoningEffort": "high" },
+            "xhigh":  { "reasoningEffort": "xhigh" }
           }
         },
         "gpt-5.3-codex": {
           "id": "azure/openai/gpt-5.3-codex",
           "name": "GPT-5.3 Codex",
+          "reasoning": true,
           "tool_call": true,
           "attachment": false,
           "limit": {
-            "context": 200000,
-            "output": 32000
+            "context": 400000,
+            "output": 128000
           }
         },
         "gpt-5.2-codex": {
           "id": "azure/openai/gpt-5.2-codex",
           "name": "GPT-5.2 Codex",
-          "tool_call": true,
-          "attachment": false,
-          "limit": {
-            "context": 200000,
-            "output": 32000
-          }
-        },
-        "gpt-5.1-codex": {
-          "id": "azure/openai/gpt-5.1-codex",
-          "name": "GPT-5.1 Codex",
-          "tool_call": true,
-          "attachment": false,
-          "limit": {
-            "context": 200000,
-            "output": 32000
-          }
-        },
-        "gpt-5.1-codex-max": {
-          "id": "azure/openai/gpt-5.1-codex-max",
-          "name": "GPT-5.1 Codex Max",
           "reasoning": true,
           "tool_call": true,
           "attachment": false,
           "limit": {
-            "context": 200000,
-            "output": 32000
-          }
-        },
-        "gpt-5": {
-          "id": "azure/openai/gpt-5",
-          "name": "GPT-5",
-          "tool_call": true,
-          "attachment": true,
-          "limit": {
-            "context": 200000,
-            "output": 32000
+            "context": 400000,
+            "output": 128000
           }
         },
         "gpt-4.1": {
@@ -311,35 +325,81 @@
             "output": 8192
           }
         },
-        "nemotron-ultra-253b": {
-          "id": "nvidia/nvidia/llama-3.1-nemotron-ultra-253b-v1",
-          "name": "Nemotron Ultra 253B",
+        "deepseek-v4-pro": {
+          "id": "nvidia/deepseek-ai/deepseek-v4-pro",
+          "name": "DeepSeek V4 Pro",
           "reasoning": true,
           "tool_call": true,
           "attachment": false,
           "limit": {
-            "context": 131072,
-            "output": 32000
+            "context": 1000000,
+            "output": 128000
           }
         },
-        "nemotron-super-49b": {
-          "id": "nvidia/nvidia/llama-3.3-nemotron-super-49b-v1.5",
-          "name": "Nemotron Super 49B",
+        "deepseek-v4-flash": {
+          "id": "nvidia/deepseek-ai/deepseek-v4-flash",
+          "name": "DeepSeek V4 Flash",
+          "reasoning": true,
           "tool_call": true,
           "attachment": false,
           "limit": {
-            "context": 131072,
-            "output": 32000
+            "context": 1000000,
+            "output": 128000
           }
         },
-        "nemotron-3-super": {
-          "id": "nvidia/nvidia/nemotron-3-super-v3",
-          "name": "Nemotron 3 Super",
+        "kimi-k2.6": {
+          "id": "nvidia/moonshotai/kimi-k2.6",
+          "name": "Kimi K2.6",
+          "reasoning": true,
           "tool_call": true,
           "attachment": false,
           "limit": {
-            "context": 131072,
-            "output": 32000
+            "context": 262144,
+            "output": 32768
+          }
+        },
+        "glm-5.1": {
+          "id": "nvidia/zai-org/glm-5.1",
+          "name": "GLM 5.1",
+          "reasoning": true,
+          "tool_call": true,
+          "attachment": false,
+          "limit": {
+            "context": 200000,
+            "output": 128000
+          }
+        },
+        "minimax-m2.7": {
+          "id": "nvidia/minimaxai/minimax-m2.7",
+          "name": "MiniMax M2.7",
+          "reasoning": true,
+          "tool_call": true,
+          "attachment": false,
+          "limit": {
+            "context": 200000,
+            "output": 128000
+          }
+        },
+        "nemotron-3-ultra": {
+          "id": "nvidia/nvidia/nemotron-3-ultra",
+          "name": "Nemotron 3 Ultra",
+          "reasoning": true,
+          "tool_call": true,
+          "attachment": false,
+          "limit": {
+            "context": 1000000,
+            "output": 128000
+          }
+        },
+        "nemotron-3-super-120b": {
+          "id": "nvidia/nvidia/nemotron-3-super-120b-long-ctx",
+          "name": "Nemotron 3 Super 120B",
+          "reasoning": true,
+          "tool_call": true,
+          "attachment": false,
+          "limit": {
+            "context": 262144,
+            "output": 128000
           }
         },
         "qwen3-next-80b": {
@@ -347,26 +407,6 @@
           "name": "Qwen3 Next 80B",
           "tool_call": true,
           "attachment": true,
-          "limit": {
-            "context": 131072,
-            "output": 32000
-          }
-        },
-        "qwen-235b": {
-          "id": "nvidia/qwen/qwen-235b",
-          "name": "Qwen 235B",
-          "tool_call": true,
-          "attachment": false,
-          "limit": {
-            "context": 131072,
-            "output": 32000
-          }
-        },
-        "llama-3.3-70b": {
-          "id": "nvidia/meta/llama-3.3-70b-instruct",
-          "name": "Llama 3.3 70B",
-          "tool_call": true,
-          "attachment": false,
           "limit": {
             "context": 131072,
             "output": 32000
