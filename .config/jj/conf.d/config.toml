@@ -19,6 +19,18 @@ n = ["new"]
 [colors]
 "diff removed token" = { fg = "bright red", bg = "#400000", underline = false }
 "diff added token" = { fg = "bright green", bg = "#003000", underline = false }
+# Bookmark coloring by tracking state. These labels are emitted by the
+# template-aliases overrides further down (format_short_commit_header for
+# `jj log`, format_commit_ref for `jj bookmark list`). Tags are colored
+# separately below so they look distinct from bookmarks.
+"local_bookmark" = "magenta"                   # local-only bookmark, synced
+"changed_bookmark" = "ansi-color-201"          # local bookmark not synced (shown with *)
+"tracked_remote_bookmark" = "bright magenta"   # tracked remote bookmark
+"untracked_remote_bookmark" = "ansi-color-208" # untracked remote (name@remote), orange
+# Tags (read-only refs) -- distinct from bookmark magentas, the cyan
+# timestamps, yellow authors, blue commit ids, and green markers.
+"tag" = "ansi-color-36"
+"tags" = "ansi-color-36"
 
 [revsets]
 bookmark-advance-to = "@-"
@@ -29,6 +41,70 @@ concat(
   builtin_draft_commit_description,
   "\nJJ: ignore-rest\n",
   diff.git(),
+)
+'''
+
+# Color bookmarks by tracking state. There are four bookmark states:
+#   - local-only bookmark, synced     -> "local_bookmark"
+#   - local-only bookmark, not synced -> "changed_bookmark" (shown with *)
+#   - tracked remote bookmark         -> "tracked_remote_bookmark"
+#   - untracked remote bookmark       -> "untracked_remote_bookmark"
+# (colors defined in [colors] above). Tags use the "tag" color and stay
+# untouched by these aliases.
+#
+# Both aliases below are verbatim copies of the jj builtin template aliases
+# (jj 0.42), with ONLY the bookmark-labeling parts changed. On major jj
+# upgrades, re-diff against the current builtins to pick up upstream changes:
+#   jj config get 'template-aliases."format_short_commit_header(commit)"'
+#   jj config get 'template-aliases."format_commit_ref(ref, type)"'
+[template-aliases]
+# `jj log`: copy of builtin format_short_commit_header with the
+# `commit.bookmarks(),` line replaced by a tracking-state-aware mapping.
+'format_short_commit_header(commit)' = '''
+separate(" ",
+  format_short_change_id_with_change_offset(commit),
+  format_short_signature(commit.author()),
+  format_timestamp(commit_timestamp(commit)),
+  commit.bookmarks().map(|b|
+    if(b.remote(),
+      if(b.tracked(),
+        label("tracked_remote_bookmark", b),
+        label("untracked_remote_bookmark", b)),
+      if(b.synced(),
+        label("local_bookmark", b),
+        label("changed_bookmark", b)))),
+  commit.tags(),
+  commit.working_copies(),
+  format_short_commit_id(commit.commit_id()),
+  format_commit_labels(commit),
+  if(config("ui.show-cryptographic-signatures").as_boolean(),
+    format_short_cryptographic_signature(commit.signature())
+  ),
+)
+'''
+# `jj bookmark list` (and `jj tag list`): copy of builtin format_commit_ref
+# with the three `label(type, ...)` calls made tracking-state-aware. The
+# `if(type == "bookmark", ...)` guard keeps tags on their normal "tag" color.
+'format_commit_ref(ref, type)' = '''
+if(ref.remote(),
+  if(ref.tracked(),
+    concat(
+      "  ",
+      separate(" ",
+        label(if(type == "bookmark", "tracked_remote_bookmark", type), "@" ++ ref.remote()),
+        if(ref.present(), format_tracked_remote_ref_distances(ref)),
+      ),
+      if(ref.present(), format_ref_targets(ref), " (not created yet)"),
+    ),
+    concat(
+      label(if(type == "bookmark", "untracked_remote_bookmark", type), ref.name() ++ "@" ++ ref.remote()),
+      format_ref_targets(ref),
+    ),
+  ),
+  concat(
+    label(if(type == "bookmark", if(ref.synced(), "local_bookmark", "changed_bookmark"), type), ref.name()),
+    if(ref.present(), format_ref_targets(ref), " (deleted)"),
+  ),
 )
 '''
 
