@@ -1,0 +1,467 @@
+{
+  "providers": {
+    "nvidia-inference": {
+      "baseUrl": "https://inference-api.nvidia.com/v1",
+      "api": "openai-completions",
+      "apiKey": "$NVIDIA_INFERENCE_API_KEY",
+      "compat": {
+        "supportsStore": false,
+        "supportsDeveloperRole": false,
+        "supportsReasoningEffort": false,
+        "maxTokensField": "max_tokens",
+        "supportsStrictMode": false,
+        "supportsLongCacheRetention": false
+      },
+      "models": [
+        {
+          "id": "azure/anthropic/claude-opus-4-8",
+          "name": "Claude Opus 4.8 (Azure) [opus-4-8-azure]",
+          "reasoning": true,
+          "input": [
+            "text",
+            "image"
+          ],
+          "contextWindow": 1000000,
+          "maxTokens": 128000,
+          "thinkingLevelMap": {
+            "medium": "medium",
+            "low": "low",
+            "high": "high",
+            "xhigh": "max",
+            "minimal": null
+          },
+          "compat": {
+            "supportsReasoningEffort": true
+          }
+        },
+        {
+          "id": "aws/anthropic/bedrock-claude-opus-4-8",
+          "name": "Claude Opus 4.8 (AWS) [opus-4-8-aws]",
+          "reasoning": true,
+          "input": [
+            "text",
+            "image"
+          ],
+          "contextWindow": 1000000,
+          "maxTokens": 128000
+        },
+        {
+          "id": "azure/anthropic/claude-opus-4-7",
+          "name": "Claude Opus 4.7 (Azure) [opus-4-7-azure]",
+          "reasoning": true,
+          "input": [
+            "text",
+            "image"
+          ],
+          "contextWindow": 1000000,
+          "maxTokens": 128000,
+          "thinkingLevelMap": {
+            "medium": "medium",
+            "low": "low",
+            "high": "high",
+            "xhigh": "max",
+            "minimal": null
+          },
+          "compat": {
+            "supportsReasoningEffort": true
+          }
+        },
+        {
+          "id": "aws/anthropic/bedrock-claude-opus-4-7",
+          "name": "Claude Opus 4.7 (AWS) [opus-4-7-aws]",
+          "reasoning": true,
+          "input": [
+            "text",
+            "image"
+          ],
+          "contextWindow": 1000000,
+          "maxTokens": 128000
+        },
+        {
+          "id": "azure/anthropic/claude-opus-4-6",
+          "name": "Claude Opus 4.6 (Azure) [opus-4-6-azure]",
+          "reasoning": true,
+          "input": [
+            "text",
+            "image"
+          ],
+          "contextWindow": 1000000,
+          "maxTokens": 128000,
+          "thinkingLevelMap": {
+            "medium": "medium",
+            "low": "low",
+            "high": "high",
+            "xhigh": "max",
+            "minimal": null
+          },
+          "compat": {
+            "supportsReasoningEffort": true
+          }
+        },
+        {
+          "id": "aws/anthropic/bedrock-claude-opus-4-6",
+          "name": "Claude Opus 4.6 (AWS) [opus-4-6-aws]",
+          "reasoning": true,
+          "input": [
+            "text",
+            "image"
+          ],
+          "contextWindow": 1000000,
+          "maxTokens": 128000
+        },
+        {
+          "id": "azure/anthropic/claude-sonnet-4-6",
+          "name": "Claude Sonnet 4.6 (Azure) [sonnet-4-6-azure]",
+          "reasoning": true,
+          "input": [
+            "text",
+            "image"
+          ],
+          "contextWindow": 1000000,
+          "maxTokens": 64000,
+          "thinkingLevelMap": {
+            "medium": "medium",
+            "low": "low",
+            "high": "high",
+            "xhigh": "max",
+            "minimal": null
+          },
+          "compat": {
+            "supportsReasoningEffort": true
+          }
+        },
+        {
+          "id": "aws/anthropic/bedrock-claude-sonnet-4-6",
+          "name": "Claude Sonnet 4.6 (AWS) [sonnet-4-6-aws]",
+          "reasoning": true,
+          "input": [
+            "text",
+            "image"
+          ],
+          "contextWindow": 1000000,
+          "maxTokens": 64000
+        },
+        {
+          "id": "azure/anthropic/claude-haiku-4-5",
+          "name": "Claude Haiku 4.5 (Azure) [haiku-4-5-azure]",
+          "reasoning": true,
+          "input": [
+            "text",
+            "image"
+          ],
+          "contextWindow": 200000,
+          "maxTokens": 64000
+        },
+        {
+          "id": "azure/openai/gpt-5.5",
+          "name": "GPT-5.5 [gpt-5.5]",
+          "reasoning": true,
+          "input": [
+            "text",
+            "image"
+          ],
+          "contextWindow": 1050000,
+          "maxTokens": 128000,
+          "thinkingLevelMap": {
+            "medium": "medium",
+            "off": "none",
+            "low": "low",
+            "high": "high",
+            "xhigh": "xhigh",
+            "minimal": null
+          },
+          "compat": {
+            "supportsReasoningEffort": true
+          }
+        },
+        {
+          "id": "azure/openai/gpt-5.4",
+          "name": "GPT-5.4 [gpt-5.4]",
+          "reasoning": true,
+          "input": [
+            "text",
+            "image"
+          ],
+          "contextWindow": 1000000,
+          "maxTokens": 128000,
+          "thinkingLevelMap": {
+            "medium": "medium",
+            "off": "none",
+            "low": "low",
+            "high": "high",
+            "xhigh": "xhigh",
+            "minimal": null
+          },
+          "compat": {
+            "supportsReasoningEffort": true
+          }
+        },
+        {
+          "id": "azure/openai/gpt-5.2",
+          "name": "GPT-5.2 [gpt-5.2]",
+          "reasoning": true,
+          "input": [
+            "text",
+            "image"
+          ],
+          "contextWindow": 400000,
+          "maxTokens": 128000,
+          "thinkingLevelMap": {
+            "medium": "medium",
+            "low": "low",
+            "high": "high",
+            "xhigh": "xhigh",
+            "minimal": null
+          },
+          "compat": {
+            "supportsReasoningEffort": true
+          }
+        },
+        {
+          "id": "azure/openai/gpt-5.3-codex",
+          "name": "GPT-5.3 Codex [gpt-5.3-codex]",
+          "reasoning": true,
+          "input": [
+            "text"
+          ],
+          "contextWindow": 400000,
+          "maxTokens": 128000
+        },
+        {
+          "id": "azure/openai/gpt-5.2-codex",
+          "name": "GPT-5.2 Codex [gpt-5.2-codex]",
+          "reasoning": true,
+          "input": [
+            "text"
+          ],
+          "contextWindow": 400000,
+          "maxTokens": 128000
+        },
+        {
+          "id": "azure/openai/gpt-4.1",
+          "name": "GPT-4.1 [gpt-4.1]",
+          "reasoning": false,
+          "input": [
+            "text",
+            "image"
+          ],
+          "contextWindow": 1047576,
+          "maxTokens": 32768
+        },
+        {
+          "id": "azure/openai/gpt-4.1-mini",
+          "name": "GPT-4.1 Mini [gpt-4.1-mini]",
+          "reasoning": false,
+          "input": [
+            "text",
+            "image"
+          ],
+          "contextWindow": 1047576,
+          "maxTokens": 32768
+        },
+        {
+          "id": "azure/openai/o3",
+          "name": "OpenAI o3 [o3]",
+          "reasoning": true,
+          "input": [
+            "text",
+            "image"
+          ],
+          "contextWindow": 200000,
+          "maxTokens": 100000
+        },
+        {
+          "id": "azure/openai/o4-mini",
+          "name": "OpenAI o4-mini [o4-mini]",
+          "reasoning": true,
+          "input": [
+            "text",
+            "image"
+          ],
+          "contextWindow": 200000,
+          "maxTokens": 100000
+        },
+        {
+          "id": "azure/openai/o3-mini",
+          "name": "OpenAI o3-mini [o3-mini]",
+          "reasoning": true,
+          "input": [
+            "text",
+            "image"
+          ],
+          "contextWindow": 200000,
+          "maxTokens": 100000
+        },
+        {
+          "id": "gcp/google/gemini-3.1-pro-preview",
+          "name": "Gemini 3.1 Pro [gemini-3-pro]",
+          "reasoning": true,
+          "input": [
+            "text",
+            "image"
+          ],
+          "contextWindow": 1000000,
+          "maxTokens": 65536
+        },
+        {
+          "id": "gcp/google/gemini-3-flash-preview",
+          "name": "Gemini 3 Flash [gemini-3-flash]",
+          "reasoning": false,
+          "input": [
+            "text",
+            "image"
+          ],
+          "contextWindow": 1000000,
+          "maxTokens": 65536
+        },
+        {
+          "id": "gcp/google/gemini-2.5-pro",
+          "name": "Gemini 2.5 Pro [gemini-2.5-pro]",
+          "reasoning": true,
+          "input": [
+            "text",
+            "image"
+          ],
+          "contextWindow": 1000000,
+          "maxTokens": 65536
+        },
+        {
+          "id": "gcp/google/gemini-2.5-flash",
+          "name": "Gemini 2.5 Flash [gemini-2.5-flash]",
+          "reasoning": false,
+          "input": [
+            "text",
+            "image"
+          ],
+          "contextWindow": 1000000,
+          "maxTokens": 65536
+        },
+        {
+          "id": "perplexity/perplexity/sonar-pro",
+          "name": "Perplexity Sonar Pro [sonar-pro]",
+          "reasoning": false,
+          "input": [
+            "text",
+            "image"
+          ],
+          "contextWindow": 200000,
+          "maxTokens": 8192
+        },
+        {
+          "id": "perplexity/perplexity/sonar-reasoning-pro",
+          "name": "Sonar Reasoning Pro [sonar-reasoning-pro]",
+          "reasoning": true,
+          "input": [
+            "text",
+            "image"
+          ],
+          "contextWindow": 200000,
+          "maxTokens": 8192
+        },
+        {
+          "id": "nvidia/deepseek-ai/deepseek-v4-pro",
+          "name": "DeepSeek V4 Pro [deepseek-v4-pro]",
+          "reasoning": true,
+          "input": [
+            "text"
+          ],
+          "contextWindow": 1000000,
+          "maxTokens": 128000
+        },
+        {
+          "id": "nvidia/deepseek-ai/deepseek-v4-flash",
+          "name": "DeepSeek V4 Flash [deepseek-v4-flash]",
+          "reasoning": true,
+          "input": [
+            "text"
+          ],
+          "contextWindow": 1000000,
+          "maxTokens": 128000
+        },
+        {
+          "id": "nvidia/moonshotai/kimi-k2.6",
+          "name": "Kimi K2.6 [kimi-k2.6]",
+          "reasoning": true,
+          "input": [
+            "text"
+          ],
+          "contextWindow": 262144,
+          "maxTokens": 32768
+        },
+        {
+          "id": "nvidia/zai-org/glm-5.1",
+          "name": "GLM 5.1 [glm-5.1]",
+          "reasoning": true,
+          "input": [
+            "text"
+          ],
+          "contextWindow": 200000,
+          "maxTokens": 128000
+        },
+        {
+          "id": "nvidia/minimaxai/minimax-m2.7",
+          "name": "MiniMax M2.7 [minimax-m2.7]",
+          "reasoning": true,
+          "input": [
+            "text"
+          ],
+          "contextWindow": 200000,
+          "maxTokens": 128000
+        },
+        {
+          "id": "nvidia/nvidia/nemotron-3-ultra",
+          "name": "Nemotron 3 Ultra [nemotron-3-ultra]",
+          "reasoning": true,
+          "input": [
+            "text"
+          ],
+          "contextWindow": 1000000,
+          "maxTokens": 128000
+        },
+        {
+          "id": "nvidia/nvidia/nemotron-3-super-120b-long-ctx",
+          "name": "Nemotron 3 Super 120B [nemotron-3-super-120b]",
+          "reasoning": true,
+          "input": [
+            "text"
+          ],
+          "contextWindow": 262144,
+          "maxTokens": 128000
+        },
+        {
+          "id": "nvidia/qwen/qwen3-next-80b-a3b-instruct",
+          "name": "Qwen3 Next 80B [qwen3-next-80b]",
+          "reasoning": false,
+          "input": [
+            "text",
+            "image"
+          ],
+          "contextWindow": 131072,
+          "maxTokens": 32000
+        },
+        {
+          "id": "nvidia/openai/gpt-oss-120b",
+          "name": "GPT-OSS 120B [gpt-oss-120b]",
+          "reasoning": false,
+          "input": [
+            "text"
+          ],
+          "contextWindow": 131072,
+          "maxTokens": 32000
+        },
+        {
+          "id": "nvidia/openai/gpt-oss-20b",
+          "name": "GPT-OSS 20B [gpt-oss-20b]",
+          "reasoning": false,
+          "input": [
+            "text",
+            "image"
+          ],
+          "contextWindow": 131072,
+          "maxTokens": 32000
+        }
+      ],
+      "name": "NVIDIA"
+    }
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "lastChangelogVersion": "0.78.1",
+  "defaultProvider": "nvidia-inference",
+  "defaultModel": "azure/anthropic/claude-opus-4-8",
+  "theme": "dark",
+  "defaultThinkingLevel": "medium"
+}
