@@ -437,6 +437,19 @@
   },
   "model": "nvidia-inference/opus-4-8-aws",
   "small_model": "nvidia-inference/haiku-4-5-azure",
+  // The hidden system agents (compaction, summary) send a toolless request over
+  // history that contains tool-call/tool-result blocks. Anthropic-on-Bedrock and
+  // Anthropic-on-Azure reject this ("doesn't support tool calling without tools="),
+  // which broke auto-compaction on near-max-context Opus-4.8 sessions. Pin these
+  // agents to a non-Anthropic model on the proxy (GPT-5.5, 1.05M ctx) which tolerates it.
+  "agent": {
+    "compaction": {
+      "model": "nvidia-inference/gpt-5.5"
+    },
+    "summary": {
+      "model": "nvidia-inference/gpt-5.5"
+    }
+  },
   "skills": {
     "paths": [
       "~/.agents/skills"
