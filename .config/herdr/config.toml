@@ -53,6 +53,9 @@ focus_agent = "prefix+alt+1..9"
 # Copy mode moved off prefix+[ (now used by previous_agent).
 copy_mode = "prefix+y"
 
+# Detach from the session with prefix+d.
+detach = "prefix+d"
+
 # Examples: "ctrl+b", "f12", "esc", "-"
 # Action bindings use explicit syntax: "prefix+n" requires the prefix;
 # "ctrl+alt+n" is a direct terminal-mode shortcut.
