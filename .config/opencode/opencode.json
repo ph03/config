@@ -11,6 +11,34 @@
         "baseURL": "https://inference-api.nvidia.com/v1"
       },
       "models": {
+        "opus-5-azure": {
+          "id": "azure/anthropic/claude-opus-5",
+          "name": "Claude Opus 5 (Azure)",
+          "reasoning": true,
+          "tool_call": true,
+          "attachment": true,
+          "limit": {
+            "context": 1000000,
+            "output": 128000
+          },
+          "variants": {
+            "medium": { "reasoningEffort": "medium" },
+            "low":    { "reasoningEffort": "low" },
+            "high":   { "reasoningEffort": "high" },
+            "max":    { "reasoningEffort": "max" }
+          }
+        },
+        "opus-5-aws": {
+          "id": "aws/anthropic/bedrock-claude-opus-5",
+          "name": "Claude Opus 5 (AWS)",
+          "reasoning": true,
+          "tool_call": true,
+          "attachment": true,
+          "limit": {
+            "context": 1000000,
+            "output": 128000
+          }
+        },
         "opus-4-8-azure": {
           "id": "azure/anthropic/claude-opus-4-8",
           "name": "Claude Opus 4.8 (Azure)",
@@ -435,7 +463,7 @@
       }
     }
   },
-  "model": "nvidia-inference/opus-4-8-aws",
+  "model": "nvidia-inference/opus-5-aws",
   "small_model": "nvidia-inference/haiku-4-5-azure",
   // The hidden system agents (compaction, summary) send a toolless request over
   // history that contains tool-call/tool-result blocks. Anthropic-on-Bedrock and
