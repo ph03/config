@@ -182,8 +182,7 @@ detach = "prefix+d"
 # Accepts: hex (#89b4fa), named colors (cyan, blue, magenta), or rgb(r,g,b)
 # accent = "cyan"
 
-# Background notification popup delivery
-agent_panel_scope = "all"
+agent_panel_sort = "spaces"
 
 [ui.toast]
 # off = disable pop-up notifications
