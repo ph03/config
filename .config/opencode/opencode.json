@@ -484,6 +484,15 @@
     ]
   },
   "permission": {
+    // gpg-agent SIGHUP (gpgconf --reload/--kill) flushes ALL cached passphrases,
+    // forcing a re-unlock of the GPG signing key. Agent sessions were doing this
+    // while debugging commit signing, which is what made the key "lock up" every
+    // few minutes. Require explicit confirmation instead of silently allowing it.
+    "bash": {
+      "gpgconf --reload*": "ask",
+      "gpgconf --kill*": "ask",
+      "*": "allow"
+    },
     "skill": {
       "*": "allow",
       // Redundant with writing-skills (superpowers). From kimaki npm package.
