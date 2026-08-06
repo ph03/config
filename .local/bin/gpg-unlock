@@ -1,0 +1,169 @@
+#!/bin/bash
+# gpg-unlock -- re-prime the gpg-agent passphrase cache for the signing key.
+#
+# Uses gpg-preset-passphrase so no interactive pinentry/TTY is needed, which
+# makes it safe to run from a non-interactive context (agent session, script).
+#
+# PASSPHRASE SOURCE, in order of preference:
+#   1. $GPG_PASSPHRASE environment variable
+#   2. the kernel keyring   (see: gpg-unlock --store)
+#   Nothing is ever written to disk.
+#
+# USAGE
+#   gpg-unlock            re-prime the cache now
+#   gpg-unlock --store    prompt once, cache in kernel keyring for this boot
+#   gpg-unlock --status   show whether the key is currently cached
+#   gpg-unlock --which    show which keygrip was resolved, and how
+#
+# WHICH KEY
+#   The signing keygrip is derived at runtime (no hardcoded key), so this script
+#   is portable across machines and users. Override with $GPG_SIGNING_KEYGRIP.
+#
+# REQUIRED SETUP -- ~/.gnupg/gpg-agent.conf
+#   This script cannot work unless the agent is configured to accept preset
+#   passphrases. Add these lines, then restart the agent ONCE to pick them up
+#   (see the SIGHUP warning below):
+#
+#     allow-preset-passphrase     # REQUIRED: lets gpg-preset-passphrase populate
+#                                 # the cache. Without it --store fails.
+#     default-cache-ttl 43200     # keep the passphrase cached for 12h, not 10min
+#     max-cache-ttl 43200         # hard ceiling; must be >= default-cache-ttl
+#     disable-scdaemon            # optional: skip smartcard probing if you have
+#                                 # no YubiKey and scdaemon is not installed
+#
+#   Verify they are live with:
+#     gpgconf --list-options gpg-agent \
+#       | awk -F: '$1 ~ /allow-preset-passphrase|cache-ttl/ {print $1" = "$10}'
+#
+# DO NOT RELOAD THE AGENT TO "FIX" A LOCKED KEY
+#   `gpgconf --reload gpg-agent` (and --kill) sends SIGHUP, which FLUSHES every
+#   cached passphrase and relocks the key for all shells and agent sessions.
+#   It causes the lockout it appears to fix. Run this script instead.
+#
+# SECURITY NOTE
+#   The kernel keyring keeps the passphrase readable by processes running as you,
+#   which is weaker than typing it each time. It is however never persisted to
+#   disk and is destroyed on reboot, so re-run --store once per boot.
+
+set -u
+
+PRESET=/usr/lib/gnupg/gpg-preset-passphrase
+KEYRING_DESC="gpg-signing-passphrase"
+
+die() { echo "gpg-unlock: $*" >&2; exit 1; }
+
+# Resolve the keygrip of the signing key. Precedence:
+#   1. $GPG_SIGNING_KEYGRIP  -- explicit override
+#   2. git's user.signingkey -- whatever actually signs your commits
+#   3. first sign-capable secret key in the keyring
+# The keygrip (not the fingerprint) is what gpg-agent uses to key its cache.
+# NOTE: a keygrip is derived from the PUBLIC key, so it is not secret.
+derive_keygrip() {
+  local keyid="$1"
+  # In --with-colons output, sec/ssb field 12 lists that key's capabilities;
+  # the following "grp" record holds its keygrip. Require 's' (sign) so we
+  # never pick the encryption subkey.
+  gpg --list-secret-keys --with-colons --with-keygrip ${keyid:+"$keyid"} 2>/dev/null \
+    | awk -F: '
+        $1=="sec" || $1=="ssb" { sign = ($12 ~ /s/) ? 1 : 0; next }
+        $1=="grp" && sign      { print $10; exit }
+      '
+}
+
+GRIP="${GPG_SIGNING_KEYGRIP:-}"
+if [ -z "$GRIP" ]; then
+  GRIP=$(derive_keygrip "$(git config --get user.signingkey 2>/dev/null || true)")
+fi
+[ -n "$GRIP" ] || die "could not determine signing keygrip. Set GPG_SIGNING_KEYGRIP, or check 'gpg --list-secret-keys --with-keygrip'."
+
+cached_state() {
+  gpg-connect-agent 'keyinfo --list' /bye 2>/dev/null \
+    | awk -v g="$GRIP" '$3==g{print $7}'
+}
+
+case "${1:-}" in
+  --which)
+    if [ -n "${GPG_SIGNING_KEYGRIP:-}" ]; then
+      src="GPG_SIGNING_KEYGRIP env override"
+    elif sk=$(git config --get user.signingkey 2>/dev/null) && [ -n "$sk" ]; then
+      src="git user.signingkey=$sk"
+    else
+      src="first sign-capable secret key"
+    fi
+    echo "keygrip: $GRIP"
+    echo "source:  $src"
+    exit 0
+    ;;
+  --status)
+    s=$(cached_state)
+    case "$s" in
+      1) echo "cached   (signing key is unlocked)" ;;
+      -) echo "NOT cached (signing key is locked)" ;;
+      *) echo "unknown  (agent not reachable?)" ;;
+    esac
+    exit 0
+    ;;
+  --store)
+    read -r -s -p "GPG passphrase (kernel keyring, until reboot): " pw; echo
+    [ -n "$pw" ] || die "empty passphrase, aborted"
+    [ -x "$PRESET" ] || die "$PRESET not found"
+    # Fail loudly with an actionable message if the agent was never configured
+    # to accept preset passphrases -- otherwise --preset fails opaquely.
+    if [ -z "$(gpgconf --list-options gpg-agent 2>/dev/null \
+                 | awk -F: '$1=="allow-preset-passphrase"{print $10}')" ]; then
+      die "'allow-preset-passphrase' is not active in gpg-agent.
+  Add it to ~/.gnupg/gpg-agent.conf, then restart the agent once to load it.
+  See the REQUIRED SETUP section at the top of this script."
+    fi
+    # Verify the passphrase actually unlocks the key BEFORE storing it, so we
+    # never cache a wrong secret that fails later when it is needed.
+    printf '%s' "$pw" | "$PRESET" --preset "$GRIP" 2>/dev/null \
+      || die "passphrase rejected by gpg-preset-passphrase -- nothing stored"
+    sleep 0.3
+    [ "$(cached_state)" = "1" ] \
+      || die "passphrase did not unlock the key -- nothing stored"
+    kid=$(printf '%s' "$pw" | keyctl padd user "$KEYRING_DESC" @u) \
+      || die "failed to add to kernel keyring"
+    # By default a key in @u is only readable by a process that *possesses* it,
+    # which a freshly-spawned shell does not. Grant read/search to the owning
+    # uid so later non-interactive runs can retrieve it. We can only do this
+    # here, while this process still possesses the key it just created.
+    #   possessor=0x3f (all)  user=0x3f (all)  group=0  other=0
+    keyctl setperm "$kid" 0x3f3f0000 2>/dev/null \
+      || echo "gpg-unlock: warning: could not widen keyring perms" >&2
+    # Link into the session keyring too, so children inherit possession.
+    keyctl link @u @s 2>/dev/null || true
+    echo "Verified and stored in kernel keyring. Key is now cached."
+    exit 0
+    ;;
+  "" ) : ;;
+  * ) die "unknown option: $1" ;;
+esac
+
+[ -x "$PRESET" ] || die "$PRESET not found"
+
+# Resolve the passphrase.
+pw=""
+if [ -n "${GPG_PASSPHRASE:-}" ]; then
+  pw="$GPG_PASSPHRASE"
+elif kid=$(keyctl search @u user "$KEYRING_DESC" 2>/dev/null); then
+  pw=$(keyctl pipe "$kid" 2>/dev/null)
+fi
+
+if [ -z "$pw" ]; then
+  # Nothing stored: fall back to prompting, if we have a terminal.
+  [ -t 0 ] || die "no stored passphrase and no TTY. Run 'gpg-unlock --store' first."
+  read -r -s -p "GPG passphrase: " pw; echo
+  [ -n "$pw" ] || die "empty passphrase, aborted"
+fi
+
+if printf '%s' "$pw" | "$PRESET" --preset "$GRIP" 2>/dev/null; then
+  sleep 0.3
+  if [ "$(cached_state)" = "1" ]; then
+    echo "gpg-unlock: signing key cached."
+  else
+    die "preset reported success but key is still not cached (wrong passphrase?)"
+  fi
+else
+  die "gpg-preset-passphrase failed (wrong passphrase?)"
+fi
