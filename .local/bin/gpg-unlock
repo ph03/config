@@ -5,15 +5,21 @@
 # makes it safe to run from a non-interactive context (agent session, script).
 #
 # PASSPHRASE SOURCE, in order of preference:
-#   1. $GPG_PASSPHRASE environment variable
-#   2. the kernel keyring   (see: gpg-unlock --store)
-#   Nothing is ever written to disk.
+#   1. $GPG_PASSPHRASE environment variable, if set
+#   2. the stash (see --store); persists across reboots, needs no TTY
+#   3. an interactive prompt
 #
 # USAGE
-#   gpg-unlock            re-prime the cache now
-#   gpg-unlock --store    prompt once, cache in kernel keyring for this boot
+#   gpg-unlock --setup    one-time: create the stash key and check the agent config
+#   gpg-unlock --store    prompt once, verify, and stash for unattended reuse
+#   gpg-unlock            prime the cache (silent if a stash exists)
+#   gpg-unlock --forget   delete the stash
 #   gpg-unlock --status   show whether the key is currently cached
 #   gpg-unlock --which    show which keygrip was resolved, and how
+#
+# FIRST RUN
+#   gpg-unlock --setup && gpg-unlock --store
+
 #
 # WHICH KEY
 #   The signing keygrip is derived at runtime (no hardcoded key), so this script
@@ -31,9 +37,16 @@
 #     disable-scdaemon            # optional: skip smartcard probing if you have
 #                                 # no YubiKey and scdaemon is not installed
 #
-#   Verify they are live with:
+#   Verify the TTLs are live with:
 #     gpgconf --list-options gpg-agent \
-#       | awk -F: '$1 ~ /allow-preset-passphrase|cache-ttl/ {print $1" = "$10}'
+#       | awk -F: '$1 ~ /cache-ttl/ {print $1" = "$10}'
+#
+#   Do NOT expect allow-preset-passphrase to show up there -- gpgconf does not
+#   expose that option at all, so its absence proves nothing. To test it, preset
+#   a deliberately wrong passphrase and check the exit status:
+#     echo wrong | /usr/lib/gnupg/gpg-preset-passphrase --preset "$(gpg-unlock --which \
+#       | awk '/keygrip/{print $2}')" ; echo $?
+#   Exit 0 means presets are accepted (it says nothing about the passphrase).
 #
 # DO NOT RELOAD THE AGENT TO "FIX" A LOCKED KEY
 #   `gpgconf --reload gpg-agent` (and --kill) sends SIGHUP, which FLUSHES every
@@ -41,47 +54,292 @@
 #   It causes the lockout it appears to fix. Run this script instead.
 #
 # SECURITY NOTE
-#   The kernel keyring keeps the passphrase readable by processes running as you,
-#   which is weaker than typing it each time. It is however never persisted to
-#   disk and is destroyed on reboot, so re-run --store once per boot.
+#   $GPG_PASSPHRASE exposes the passphrase to the process environment. Prefer the
+#   interactive prompt. Never hardcode it into a script or shell profile.
 
 set -u
 
 PRESET=/usr/lib/gnupg/gpg-preset-passphrase
-KEYRING_DESC="gpg-signing-passphrase"
+# Passphrase stash, encrypted to a dedicated RSA key. Persists across reboots,
+# so 'gpg-unlock --store' only ever needs running once.
+STASH="${GPG_UNLOCK_STASH:-$HOME/.local/state/gpg-unlock.stash}"
+# Dedicated key, used ONLY to wrap this stash -- deliberately not ~/.ssh/id_rsa,
+# so your SSH login credential and your GPG passphrase are not the same secret.
+SSH_KEY="${GPG_UNLOCK_SSH_KEY:-$HOME/.ssh/gpg-unlock-stash}"
 
 die() { echo "gpg-unlock: $*" >&2; exit 1; }
 
-# Resolve the keygrip of the signing key. Precedence:
+# --- passphrase stash ---------------------------------------------------------
+#
+# Encrypted with the dedicated RSA *public* key (RSA-OAEP/SHA-256); decrypted
+# with the matching *private* key, which has no passphrase of its own. That is
+# what makes unattended recovery possible, and it is why the earlier attempts
+# failed on this host:
+#
+#   - Kernel keyring (keyctl): unusable. Keys added to @u could not be read back
+#     even by the creating process (pipe -> 0 bytes, setperm -> EPERM, session
+#     keyring revoked).
+#   - gnome-keyring Secret Service: present, but the "Login" collection is locked
+#     on headless SSH logins. pam_gnome_keyring is wired into gdm/lightdm only,
+#     not sshd, and key-based SSH auth gives PAM no password to unlock it with.
+#   - Encrypting to your own GPG key: circular. Decrypting needs the GPG key
+#     unlocked, which is the thing being restored.
+#
+# Key choice: ed25519 cannot do RSA-OAEP and openssl pkeyutl has no native
+# support for encrypting to it, so this uses RSA-4096 in PEM format. Generate as:
+#   ssh-keygen -t rsa -b 4096 -m PEM -N "" -f ~/.ssh/gpg-unlock-stash
+#
+# TRADE-OFF: anything able to read $SSH_KEY can decrypt the stash and unlock the
+# signing key. The key is mode 0600 and used for nothing else -- in particular it
+# is NOT an authorized_keys credential anywhere, so leaking it grants no host
+# access. Run 'gpg-unlock --forget' to drop the stash at any time.
+_pubkey() {
+  openssl rsa -in "$SSH_KEY" -pubout 2>/dev/null
+}
+
+store_passphrase() {
+  local pw="$1" pub
+  [ -r "$SSH_KEY" ] || return 1
+  pub=$(_pubkey) || return 1
+  [ -n "$pub" ] || return 1
+  mkdir -p -m 700 "$(dirname "$STASH")" 2>/dev/null || return 1
+  ( umask 077
+    printf '%s' "$pw" | openssl pkeyutl -encrypt \
+      -pubin -inkey <(printf '%s\n' "$pub") \
+      -pkeyopt rsa_padding_mode:oaep -pkeyopt rsa_oaep_md:sha256 \
+      -out "$STASH" 2>/dev/null ) || return 1
+  [ -s "$STASH" ] || { rm -f "$STASH"; return 1; }
+  chmod 600 "$STASH" 2>/dev/null
+  return 0
+}
+
+load_passphrase() {
+  [ -s "$STASH" ] && [ -r "$SSH_KEY" ] || return 1
+  openssl pkeyutl -decrypt -inkey "$SSH_KEY" \
+    -pkeyopt rsa_padding_mode:oaep -pkeyopt rsa_oaep_md:sha256 \
+    -in "$STASH" 2>/dev/null
+}
+
+# Resolve the signing key. TWO different identifiers are needed and they are not
+# interchangeable:
+#   GRIP -- the keygrip, which is what gpg-agent keys its passphrase cache on
+#           (used by gpg-preset-passphrase and keyinfo).
+#   FPR  -- the fingerprint, which is what gpg itself accepts for --local-user.
+#           Passing a keygrip there fails with "No secret key".
+# Precedence for choosing the key:
 #   1. $GPG_SIGNING_KEYGRIP  -- explicit override
 #   2. git's user.signingkey -- whatever actually signs your commits
 #   3. first sign-capable secret key in the keyring
-# The keygrip (not the fingerprint) is what gpg-agent uses to key its cache.
-# NOTE: a keygrip is derived from the PUBLIC key, so it is not secret.
-derive_keygrip() {
+# NOTE: both values derive from the PUBLIC key, so neither is secret.
+_list_signing() {
   local keyid="$1"
-  # In --with-colons output, sec/ssb field 12 lists that key's capabilities;
-  # the following "grp" record holds its keygrip. Require 's' (sign) so we
-  # never pick the encryption subkey.
+  # sec/ssb field 12 lists that key's capabilities; the following fpr/grp records
+  # belong to it. Require 's' (sign) so the encryption subkey is never chosen.
   gpg --list-secret-keys --with-colons --with-keygrip ${keyid:+"$keyid"} 2>/dev/null \
-    | awk -F: '
+    | awk -F: -v want="$2" '
         $1=="sec" || $1=="ssb" { sign = ($12 ~ /s/) ? 1 : 0; next }
-        $1=="grp" && sign      { print $10; exit }
+        $1==want && sign       { print $10; exit }
       '
 }
+derive_keygrip() { _list_signing "$1" grp; }
+derive_fpr()     { _list_signing "$1" fpr; }
 
+_signingkey=$(git config --get user.signingkey 2>/dev/null || true)
 GRIP="${GPG_SIGNING_KEYGRIP:-}"
 if [ -z "$GRIP" ]; then
-  GRIP=$(derive_keygrip "$(git config --get user.signingkey 2>/dev/null || true)")
+  GRIP=$(derive_keygrip "$_signingkey")
 fi
 [ -n "$GRIP" ] || die "could not determine signing keygrip. Set GPG_SIGNING_KEYGRIP, or check 'gpg --list-secret-keys --with-keygrip'."
+
+# Fingerprint for gpg --local-user. If the keygrip came from an env override we
+# still look the fingerprint up by keygrip so the two always refer to one key.
+FPR=$(derive_fpr "$_signingkey")
+if [ -z "$FPR" ] || { [ -n "${GPG_SIGNING_KEYGRIP:-}" ] && [ "$(derive_keygrip "$_signingkey")" != "$GRIP" ]; }; then
+  FPR=$(gpg --list-secret-keys --with-colons --with-keygrip 2>/dev/null | awk -F: -v g="$GRIP" '
+    $1=="fpr" { fpr=$10 }
+    $1=="grp" && $10==g { print fpr; exit }')
+fi
+[ -n "$FPR" ] || die "could not determine signing key fingerprint for keygrip $GRIP."
 
 cached_state() {
   gpg-connect-agent 'keyinfo --list' /bye 2>/dev/null \
     | awk -v g="$GRIP" '$3==g{print $7}'
 }
 
+# Is the passphrase in $1 actually correct?
+#
+# Two traps this avoids:
+#   1. gpg-preset-passphrase --preset returns 0 and makes keyinfo report
+#      cached=1 for ANY value, including garbage. It never validates.
+#   2. `gpg -s` can exit 0 even on "Bad passphrase" in some pipelines, and if the
+#      agent already holds a good passphrase it will happily sign while ignoring
+#      the wrong one we supplied.
+# So: clear the cache slot first, then require that real signature BYTES appear.
+verify_passphrase() {
+  local pw="$1" tmp sig sz
+  tmp=$(mktemp) || return 1
+  sig="$tmp.sig"
+  printf 'verify' > "$tmp"
+  # Drop any cached passphrase for this key so the supplied one must be used.
+  "$PRESET" --forget "$GRIP" >/dev/null 2>&1 || true
+  printf '%s' "$pw" | gpg --batch --yes \
+    --pinentry-mode loopback --passphrase-fd 0 \
+    --local-user "$FPR" -s -o "$sig" "$tmp" >/dev/null 2>&1
+  sz=$(stat -c %s "$sig" 2>/dev/null || echo 0)
+  rm -f "$tmp" "$sig"
+  [ "$sz" -gt 0 ] 2>/dev/null
+}
+
+# Can the agent sign with no passphrase supplied and no TTY? That is what
+# "unlocked" actually means. Again judged on signature bytes, not exit status.
+can_sign_from_cache() {
+  local tmp sig sz
+  tmp=$(mktemp) || return 1
+  sig="$tmp.sig"
+  printf 'verify' > "$tmp"
+  gpg --batch --yes --local-user "$FPR" \
+    -s -o "$sig" "$tmp" </dev/null >/dev/null 2>&1
+  sz=$(stat -c %s "$sig" 2>/dev/null || echo 0)
+  rm -f "$tmp" "$sig"
+  [ "$sz" -gt 0 ] 2>/dev/null
+}
+
 case "${1:-}" in
+  -h|--help)
+    cat <<'HELP'
+gpg-unlock -- keep the GPG signing key usable without retyping the passphrase.
+
+USAGE
+  gpg-unlock [MODE]
+
+MODES
+  (no args)     Prime the agent cache. Silent if a stash exists; otherwise
+                prompts for the passphrase (needs a terminal).
+  --setup       One-time bootstrap. Creates the dedicated stash key and checks
+                everything --store depends on. Idempotent, safe to re-run.
+  --store       Prompt for the passphrase, verify it with a real test signature,
+                prime the cache, and stash it for unattended reuse.
+  --forget      Delete the stash. The next run will prompt again.
+  --status      Report whether the key can actually sign. Exit 0 if yes.
+  --which       Show the resolved signing keygrip and how it was determined.
+  -h, --help    This text.
+
+FIRST RUN
+  gpg-unlock --setup && gpg-unlock --store
+
+TYPICAL USE
+  After that, plain `gpg-unlock` restores signing with no prompt, including from
+  a non-interactive session. The stash survives reboots.
+
+HOW IT WORKS
+  The passphrase is encrypted (RSA-OAEP/SHA-256) to a dedicated RSA key used for
+  nothing else, and written to the stash path below. `gpg-unlock` decrypts it and
+  loads it into gpg-agent via gpg-preset-passphrase.
+
+  Correctness note: gpg-preset-passphrase accepts ANY value and gpg-agent will
+  then report the key as "cached", even if the value is wrong. This script never
+  trusts that; it verifies by making a real test signature.
+
+ENVIRONMENT
+  GPG_PASSPHRASE       If set, used instead of the stash. Avoid: it exposes the
+                       passphrase in the process environment.
+  GPG_SIGNING_KEYGRIP  Override keygrip detection.
+  GPG_UNLOCK_SSH_KEY   Path to the stash key   (default ~/.ssh/gpg-unlock-stash)
+  GPG_UNLOCK_STASH     Path to the stash file  (default ~/.local/state/gpg-unlock.stash)
+
+SECURITY
+  Whoever can read the stash key can decrypt the stash and unlock your signing
+  key. The key is mode 0600 and grants no SSH access anywhere. Use --forget to
+  remove the stash at any time.
+
+REQUIRED
+  'allow-preset-passphrase' in ~/.gnupg/gpg-agent.conf. Run --setup to check.
+
+DO NOT
+  Never run `gpgconf --reload gpg-agent` or `--kill` to "fix" a locked key: they
+  send SIGHUP, which flushes every cached passphrase and causes the lockout.
+HELP
+    exit 0
+    ;;
+  --setup)
+    # One-time, idempotent bootstrap. Creates the stash key if missing and
+    # reports on everything else that has to be true for --store to work.
+    rc=0
+
+    if [ -f "$SSH_KEY" ]; then
+      echo "[ok]   stash key exists: $SSH_KEY"
+    else
+      echo "[..]   creating stash key: $SSH_KEY"
+      mkdir -p -m 700 "$(dirname "$SSH_KEY")"
+      # RSA-4096 in PEM format: openssl pkeyutl cannot encrypt to ed25519, and
+      # needs PEM rather than the modern OpenSSH private-key format.
+      # -N '' = no passphrase, which is what allows unattended decryption.
+      if ssh-keygen -q -t rsa -b 4096 -m PEM -N "" -f "$SSH_KEY" \
+           -C "gpg-unlock passphrase stash only -- not for SSH auth" 2>/dev/null; then
+        echo "[ok]   created $SSH_KEY (RSA-4096, PEM, no passphrase)"
+      else
+        echo "[FAIL] could not create $SSH_KEY" >&2
+        rc=1
+      fi
+    fi
+    if [ -f "$SSH_KEY" ]; then
+      chmod 600 "$SSH_KEY" 2>/dev/null
+      [ -f "$SSH_KEY.pub" ] && chmod 644 "$SSH_KEY.pub" 2>/dev/null
+      # Must be PEM and passphrase-free, else load_passphrase can never work.
+      if head -1 "$SSH_KEY" | grep -q "BEGIN RSA PRIVATE KEY"; then
+        echo "[ok]   key is PEM format"
+      else
+        echo "[FAIL] $SSH_KEY is not PEM. Recreate with: ssh-keygen -t rsa -b 4096 -m PEM -N '' -f $SSH_KEY" >&2
+        rc=1
+      fi
+      if openssl rsa -in "$SSH_KEY" -passin pass: -noout -check >/dev/null 2>&1; then
+        echo "[ok]   key has no passphrase (unattended decryption possible)"
+      else
+        echo "[FAIL] $SSH_KEY seems passphrase-protected or unreadable" >&2
+        rc=1
+      fi
+      # This key must never be an auth credential.
+      if [ -f "$HOME/.ssh/authorized_keys" ] && [ -f "$SSH_KEY.pub" ] \
+         && grep -qF "$(awk '{print $2}' "$SSH_KEY.pub")" "$HOME/.ssh/authorized_keys" 2>/dev/null; then
+        echo "[WARN] stash key is listed in authorized_keys -- it should NOT grant login" >&2
+      fi
+    fi
+
+    # gpg-agent must accept presets. gpgconf does not expose
+    # allow-preset-passphrase, so grep the config file instead.
+    if grep -qs "^[[:space:]]*allow-preset-passphrase" "${GNUPGHOME:-$HOME/.gnupg}/gpg-agent.conf"; then
+      echo "[ok]   allow-preset-passphrase present in gpg-agent.conf"
+    else
+      echo "[FAIL] add 'allow-preset-passphrase' to ${GNUPGHOME:-$HOME/.gnupg}/gpg-agent.conf," >&2
+      echo "       then restart the agent ONCE to load it." >&2
+      rc=1
+    fi
+
+    [ -x "$PRESET" ] && echo "[ok]   $PRESET found" \
+      || { echo "[FAIL] $PRESET missing (install gnupg-utils?)" >&2; rc=1; }
+
+    ttl=$(gpgconf --list-options gpg-agent 2>/dev/null \
+            | awk -F: '$1=="max-cache-ttl"{print $10}')
+    if [ -n "$ttl" ] && [ "$ttl" -ge 3600 ] 2>/dev/null; then
+      echo "[ok]   max-cache-ttl = ${ttl}s ($((ttl/3600))h)"
+    elif [ -n "$ttl" ]; then
+      echo "[warn] max-cache-ttl = ${ttl}s -- consider 43200 for a 12h cache"
+    else
+      echo "[warn] max-cache-ttl unset -- consider 43200 for a 12h cache"
+    fi
+
+    echo "[ok]   keygrip resolves: $GRIP"
+    echo "[info] stash path: $STASH (persists across reboots)"
+
+    if [ "$rc" -eq 0 ]; then
+      echo
+      echo "Setup complete. Now run:  gpg-unlock --store"
+    else
+      echo
+      echo "Setup incomplete -- fix the [FAIL] items above." >&2
+    fi
+    exit "$rc"
+    ;;
   --which)
     if [ -n "${GPG_SIGNING_KEYGRIP:-}" ]; then
       src="GPG_SIGNING_KEYGRIP env override"
@@ -90,50 +348,57 @@ case "${1:-}" in
     else
       src="first sign-capable secret key"
     fi
-    echo "keygrip: $GRIP"
+    echo "keygrip: $GRIP   (gpg-agent cache key)"
+    echo "fpr:     $FPR   (gpg --local-user)"
     echo "source:  $src"
     exit 0
     ;;
   --status)
-    s=$(cached_state)
-    case "$s" in
-      1) echo "cached   (signing key is unlocked)" ;;
-      -) echo "NOT cached (signing key is locked)" ;;
-      *) echo "unknown  (agent not reachable?)" ;;
+    # Report what actually matters: can we sign? keyinfo's cached flag is not
+    # sufficient, since a bogus presetted value also shows cached=1.
+    if can_sign_from_cache; then
+      echo "cached   (signing key is unlocked and can sign)"
+      exit 0
+    fi
+    case "$(cached_state)" in
+      1) echo "BROKEN   (agent reports cached, but a test signature failed --"
+         echo "          the cached value is wrong; run 'gpg-unlock')" ; exit 1 ;;
+      -) echo "NOT cached (signing key is locked)"; exit 1 ;;
+      *) echo "unknown  (agent not reachable?)"; exit 1 ;;
     esac
-    exit 0
     ;;
   --store)
-    read -r -s -p "GPG passphrase (kernel keyring, until reboot): " pw; echo
+    read -r -s -p "GPG passphrase (primes the agent cache now): " pw; echo
     [ -n "$pw" ] || die "empty passphrase, aborted"
     [ -x "$PRESET" ] || die "$PRESET not found"
-    # Fail loudly with an actionable message if the agent was never configured
-    # to accept preset passphrases -- otherwise --preset fails opaquely.
-    if [ -z "$(gpgconf --list-options gpg-agent 2>/dev/null \
-                 | awk -F: '$1=="allow-preset-passphrase"{print $10}')" ]; then
-      die "'allow-preset-passphrase' is not active in gpg-agent.
-  Add it to ~/.gnupg/gpg-agent.conf, then restart the agent once to load it.
-  See the REQUIRED SETUP section at the top of this script."
-    fi
-    # Verify the passphrase actually unlocks the key BEFORE storing it, so we
-    # never cache a wrong secret that fails later when it is needed.
+    # NOTE: do NOT try to verify 'allow-preset-passphrase' via gpgconf --list-options.
+    # gpgconf does not expose that option at all, so its absence there is meaningless
+    # and an earlier version of this script wrongly aborted because of it. The preset
+    # call below is the real test: it fails if presets are disallowed.
+    # Verify the passphrase for real BEFORE presetting or stashing it. Do not
+    # trust the preset exit status or keyinfo's cached flag: both report success
+    # for a wrong value (see verify_passphrase).
+    verify_passphrase "$pw" \
+      || die "wrong passphrase (a real test signature failed) -- nothing stored"
     printf '%s' "$pw" | "$PRESET" --preset "$GRIP" 2>/dev/null \
-      || die "passphrase rejected by gpg-preset-passphrase -- nothing stored"
-    sleep 0.3
-    [ "$(cached_state)" = "1" ] \
-      || die "passphrase did not unlock the key -- nothing stored"
-    kid=$(printf '%s' "$pw" | keyctl padd user "$KEYRING_DESC" @u) \
-      || die "failed to add to kernel keyring"
-    # By default a key in @u is only readable by a process that *possesses* it,
-    # which a freshly-spawned shell does not. Grant read/search to the owning
-    # uid so later non-interactive runs can retrieve it. We can only do this
-    # here, while this process still possesses the key it just created.
-    #   possessor=0x3f (all)  user=0x3f (all)  group=0  other=0
-    keyctl setperm "$kid" 0x3f3f0000 2>/dev/null \
-      || echo "gpg-unlock: warning: could not widen keyring perms" >&2
-    # Link into the session keyring too, so children inherit possession.
-    keyctl link @u @s 2>/dev/null || true
-    echo "Verified and stored in kernel keyring. Key is now cached."
+      || die "gpg-preset-passphrase failed -- is allow-preset-passphrase set?"
+    if store_passphrase "$pw"; then
+      echo "Verified by test signature, and stashed at $STASH."
+      echo "This persists across reboots, so later runs of 'gpg-unlock' re-prime"
+      echo "the cache with no prompt. Run 'gpg-unlock --forget' to undo."
+    else
+      echo "Key is cached, but the passphrase could NOT be stashed for reuse." >&2
+      echo "Check that $SSH_KEY exists, is readable, is PEM format, and has no" >&2
+      echo "passphrase:  ssh-keygen -t rsa -b 4096 -m PEM -N '' -f $SSH_KEY" >&2
+    fi
+    exit 0
+    ;;
+  --forget)
+    if [ -e "$STASH" ]; then
+      rm -f "$STASH" && echo "Stash removed ($STASH)."
+    else
+      echo "No stash present."
+    fi
     exit 0
     ;;
   "" ) : ;;
@@ -146,24 +411,37 @@ esac
 pw=""
 if [ -n "${GPG_PASSPHRASE:-}" ]; then
   pw="$GPG_PASSPHRASE"
-elif kid=$(keyctl search @u user "$KEYRING_DESC" 2>/dev/null); then
-  pw=$(keyctl pipe "$kid" 2>/dev/null)
+else
+  pw=$(load_passphrase || true)
 fi
 
 if [ -z "$pw" ]; then
-  # Nothing stored: fall back to prompting, if we have a terminal.
-  [ -t 0 ] || die "no stored passphrase and no TTY. Run 'gpg-unlock --store' first."
+  # Nothing stashed: fall back to prompting, if we have a terminal.
+  [ -t 0 ] || die "no stash and no TTY.
+  Ask the user to run 'gpg-unlock --setup && gpg-unlock --store' from a terminal."
   read -r -s -p "GPG passphrase: " pw; echo
   [ -n "$pw" ] || die "empty passphrase, aborted"
+  from_prompt=1
+else
+  from_prompt=0
 fi
 
-if printf '%s' "$pw" | "$PRESET" --preset "$GRIP" 2>/dev/null; then
-  sleep 0.3
-  if [ "$(cached_state)" = "1" ]; then
-    echo "gpg-unlock: signing key cached."
-  else
-    die "preset reported success but key is still not cached (wrong passphrase?)"
+# Verify for real before presetting: a wrong value would otherwise be accepted
+# and reported as cached, leaving signing broken in a confusing way.
+if ! verify_passphrase "$pw"; then
+  if [ "$from_prompt" = 0 ]; then
+    die "the stashed passphrase is WRONG (test signature failed).
+  The stash is stale -- likely the key passphrase was changed since it was made.
+  Run 'gpg-unlock --forget', then 'gpg-unlock --store' to re-create it."
   fi
+  die "wrong passphrase (test signature failed)"
+fi
+
+printf '%s' "$pw" | "$PRESET" --preset "$GRIP" 2>/dev/null \
+  || die "gpg-preset-passphrase failed -- is allow-preset-passphrase set?"
+
+if can_sign_from_cache; then
+  echo "gpg-unlock: signing key cached and verified."
 else
-  die "gpg-preset-passphrase failed (wrong passphrase?)"
+  die "preset succeeded but the agent still cannot sign."
 fi
