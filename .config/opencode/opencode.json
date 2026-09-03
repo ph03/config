@@ -463,7 +463,21 @@
       }
     }
   },
-  "model": "nvidia-inference/opus-5-aws",
+  // Azure, NOT aws: the gateway's AWS/Bedrock route flakes on roughly 8% of streaming
+  // requests, returning HTTP 408 in ~0.6s with `litellm.Timeout: BedrockException:
+  // Connection timed out ... time taken=0.004 seconds`. The message is a red herring --
+  // 0.004s is not a 5s connect timeout, it is the gateway rejecting the request and
+  // mislabelling it. Measured back to back on the same key: aws 3/40 failed, azure 0/40.
+  // The log carried 2450 of these, every single one on opus-5-aws and none on any other
+  // model.
+  //
+  // It bites hardest when starting a session, which is why picking a non-AWS model first
+  // and switching afterwards appeared to "fix" it: `opencode run` retries and rides out a
+  // 1-failure burst (2425 of 2466 bursts are a single failure, longest is 3), but the
+  // first request of a new session has no retry to hide behind.
+  //
+  // Switch back once the gateway's AWS route is fixed -- the model itself is identical.
+  "model": "nvidia-inference/opus-5-azure",
   "small_model": "nvidia-inference/haiku-4-5-azure",
   // The hidden system agents (compaction, summary) send a toolless request over
   // history that contains tool-call/tool-result blocks. Anthropic-on-Bedrock and
