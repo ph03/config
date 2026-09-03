@@ -56,6 +56,13 @@ copy_mode = "prefix+y"
 # Detach from the session with prefix+d.
 detach = "prefix+d"
 
+# Workspace deletion.
+# close_workspace closes the workspace (default binding, made explicit here).
+# remove_worktree deletes the backing git worktree checkout; both confirm first.
+# NOTE: prefix+shift+x is already close_tab, so shift+k ("kill") is used instead.
+close_workspace = "prefix+shift+d"
+remove_worktree = "prefix+shift+k"
+
 # Examples: "ctrl+b", "f12", "esc", "-"
 # Action bindings use explicit syntax: "prefix+n" requires the prefix;
 # "ctrl+alt+n" is a direct terminal-mode shortcut.
@@ -166,7 +173,7 @@ detach = "prefix+d"
 # mouse_scroll_lines = 3
 
 # Ask for confirmation before closing a workspace
-# confirm_close = true
+confirm_close = true
 
 # Ask for a tab name before creating a new tab.
 # Set false to create tabs immediately with generated names.
