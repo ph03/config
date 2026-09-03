@@ -1,0 +1,73 @@
+#!/usr/bin/env bash
+# Watch GPU ECC error counters and row-remap state.
+#
+#   gpu-ecc-watch            one-shot summary
+#   gpu-ecc-watch -f         follow, one line per interval (default 60s)
+#   gpu-ecc-watch -f 300     follow every 5 minutes
+#   gpu-ecc-watch -l FILE    append CSV to FILE (works with -f)
+#
+# volatile  = since last driver reload / reboot
+# aggregate = lifetime of the board, persists across reboots
+#
+# Healthy board: aggregate near zero and FLAT over days.
+# Thousands per hour, or a steadily climbing delta, means the memory is failing.
+
+set -u
+FOLLOW=0; INTERVAL=60; LOGFILE=""
+while [ $# -gt 0 ]; do
+    case "$1" in
+        -f) FOLLOW=1; [[ "${2:-}" =~ ^[0-9]+$ ]] && { INTERVAL=$2; shift; } ;;
+        -l) LOGFILE="${2:-}"; shift ;;
+        -h|--help) sed -n '2,16p' "$0" | sed 's/^# \{0,1\}//'; exit 0 ;;
+        *) echo "unknown arg: $1" >&2; exit 2 ;;
+    esac
+    shift
+done
+
+Q=ecc.errors.corrected.aggregate.total,ecc.errors.corrected.volatile.total,ecc.errors.uncorrected.aggregate.total,ecc.errors.corrected.aggregate.dram,temperature.gpu,utilization.gpu
+
+if [ "$(nvidia-smi --query-gpu=ecc.mode.current --format=csv,noheader 2>/dev/null)" != "Enabled" ]; then
+    echo "WARNING: ECC is NOT enabled -- these counters are meaningless."
+    echo "  enable with: sudo nvidia-smi -e 1 && sudo reboot"
+    echo
+fi
+
+remap_state() {
+    nvidia-smi -q 2>/dev/null | awk '
+        /Remapped Rows/       {inblock=1}
+        inblock && /Correctable Error/ && !seen {corr=$NF; seen=1}
+        inblock && /^ *Pending/ {pend=$NF; exit}
+        END {printf "%s %s", (corr==""?"?":corr), (pend==""?"?":pend)}'
+}
+
+if [ $FOLLOW -eq 0 ]; then
+    IFS=, read -r agg vol unc dram temp util < <(nvidia-smi --query-gpu=$Q --format=csv,noheader,nounits)
+    read -r rrows rpend < <(remap_state)
+    echo "corrected  aggregate (lifetime) : ${agg// /}"
+    echo "corrected  volatile  (this boot): ${vol// /}"
+    echo "           of which DRAM        : ${dram// /}"
+    echo "UNcorrected aggregate           : ${unc// /}   <-- must stay 0"
+    echo "remapped rows (correctable)     : $rrows   pending: $rpend"
+    echo "temperature / util              : ${temp// /}C / ${util// /}%"
+    exit 0
+fi
+
+# follow mode: report the DELTA, which is what actually matters
+prev=""; prev_t=0
+[ -n "$LOGFILE" ] && [ ! -s "$LOGFILE" ] && echo "timestamp,aggregate,delta,per_hour,uncorrected,temp_c,util_pct" >> "$LOGFILE"
+printf "%-20s %10s %8s %10s %6s %6s %5s\n" "TIME" "AGGREGATE" "DELTA" "PER_HOUR" "UNCOR" "TEMP" "UTIL"
+while true; do
+    IFS=, read -r agg vol unc dram temp util < <(nvidia-smi --query-gpu=$Q --format=csv,noheader,nounits)
+    agg=${agg// /}; unc=${unc// /}; temp=${temp// /}; util=${util// /}
+    now=$(date +%s)
+    if [ -n "$prev" ]; then
+        d=$((agg - prev)); dt=$((now - prev_t)); [ $dt -le 0 ] && dt=1
+        rate=$(awk -v d="$d" -v t="$dt" 'BEGIN{printf "%.0f", d*3600/t}')
+    else
+        d=0; rate=0
+    fi
+    printf "%-20s %10s %8s %10s %6s %5sC %4s%%\n" "$(date '+%Y-%m-%d %H:%M:%S')" "$agg" "$d" "$rate" "$unc" "$temp" "$util"
+    [ -n "$LOGFILE" ] && echo "$(date -Is),$agg,$d,$rate,$unc,$temp,$util" >> "$LOGFILE"
+    prev=$agg; prev_t=$now
+    sleep "$INTERVAL"
+done
